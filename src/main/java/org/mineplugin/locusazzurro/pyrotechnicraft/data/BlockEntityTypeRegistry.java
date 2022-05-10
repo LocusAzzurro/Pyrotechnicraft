@@ -1,0 +1,19 @@
+package org.mineplugin.locusazzurro.pyrotechnicraft.data;
+
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
+import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.entity.FireworkLauncherStandBlockEntity;
+
+public class BlockEntityTypeRegistry {
+
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Pyrotechnicraft.MOD_ID);
+
+    public static final RegistryObject<BlockEntityType<FireworkLauncherStandBlockEntity>> FIREWORK_LAUNCHER_STAND_BLOCK_ENTITY =
+        BLOCK_ENTITIES.register("firework_launcher_stand_block_entity", () -> BlockEntityType.Builder
+                .of(FireworkLauncherStandBlockEntity::new, BlockRegistry.FIREWORK_LAUNCHER_STAND.get()).build(null));
+
+}
