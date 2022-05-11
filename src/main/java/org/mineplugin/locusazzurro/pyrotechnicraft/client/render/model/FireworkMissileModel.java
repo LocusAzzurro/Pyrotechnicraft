@@ -34,13 +34,8 @@ public class FireworkMissileModel<T extends FireworkMissileEntity> extends Entit
     }
 
     public void renderFireworkMissile(T entity, PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay){
-        if (entity.isSimple()) //todo add custom pattern info check on entity
-        {
-            this.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, 1f,1f,1f, 1f);
-        }
-        else {
+//todo add custom pattern info check on entity
             this.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, 1f, 1f, 1f, 1f);
-        }
     }
 
     @Override
