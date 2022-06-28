@@ -1,7 +1,7 @@
 
 modLoader="javafml"
 loaderVersion="${loader_version_range}"
-license="GPL-3.0"
+license="ExGPL"
 #issueTrackerURL="https://github.com/Example/Example/issues"
 [[mods]] #mandatory
 modId="pyrotechnicraft"
