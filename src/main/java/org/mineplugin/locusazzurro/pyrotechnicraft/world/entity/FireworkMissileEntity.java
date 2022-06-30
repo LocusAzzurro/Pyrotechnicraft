@@ -17,19 +17,22 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FlightProperties;
 public class FireworkMissileEntity extends AbstractHurtingProjectile {
 
     private static final EntityDataAccessor<CompoundTag> PAYLOAD = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.COMPOUND_TAG);
-    private static final EntityDataAccessor<CompoundTag> PROPERTIES = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.COMPOUND_TAG);
+    private static final EntityDataAccessor<Integer> FLIGHT_TIME = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Float> SPEED = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> POWER = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Boolean> HOMING = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.BOOLEAN);
 
-    private FlightProperties properties;
     public FireworkMissileEntity(EntityType<FireworkMissileEntity> type, Level level) {
         super(type, level);
     }
 
-    //todo add properties
-    public FireworkMissileEntity(Level level, Vec3 pos, CompoundTag properties, CompoundTag payload){
+    public FireworkMissileEntity(Level level, Vec3 pos, FlightProperties properties, CompoundTag payload){
         super(EntityTypeRegistry.SIMPLE_FIREWORK_MISSILE.get(), level);
         this.entityData.set(PAYLOAD, payload);
-        this.entityData.set(PROPERTIES, properties);
-        this.properties = FlightProperties.deserialize(getEntityData().get(PROPERTIES));
+        this.entityData.set(FLIGHT_TIME, properties.flightTime());
+        this.entityData.set(SPEED, (float)properties.speed());
+        this.entityData.set(POWER, (float)properties.power());
+        this.entityData.set(HOMING, properties.homing());
         this.setPos(pos);
         this.reapplyPosition();
     }
@@ -37,8 +40,7 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
     @Override
     public void tick() {
         super.tick();
-        this.properties = FlightProperties.deserialize(getEntityData().get(PROPERTIES));
-        this.setDeltaMovement(this.getDeltaMovement().normalize().scale(this.properties.speed()));
+        this.setDeltaMovement(this.getDeltaMovement().normalize().scale(this.entityData.get(SPEED)));
     }
 
     @Override
@@ -57,8 +59,12 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
 
     @Override
     protected void defineSynchedData() {
+        FlightProperties dProperties = FlightProperties.createDefault();
         this.entityData.define(PAYLOAD, new CompoundTag());
-        this.entityData.define(PROPERTIES, FlightProperties.createDefault().serialize());
+        this.entityData.define(FLIGHT_TIME, dProperties.flightTime());
+        this.entityData.define(SPEED, (float)dProperties.speed());
+        this.entityData.define(POWER, (float)dProperties.power());
+        this.entityData.define(HOMING, dProperties.homing());
     }
 
     @Override
@@ -68,14 +74,19 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
 
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        compoundTag.put("Payload", this.entityData.get(PAYLOAD));
-        compoundTag.put("Properties", this.entityData.get(PROPERTIES));
+        SynchedEntityData data = this.entityData;
+        compoundTag.put("Payload", data.get(PAYLOAD));
+        compoundTag.put("Properties", new FlightProperties(data.get(FLIGHT_TIME), data.get(SPEED), data.get(POWER), data.get(HOMING)).serialize());
 
     }
 
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
         this.entityData.set(PAYLOAD, compoundTag.getCompound("Payload"));
-        this.entityData.set(PROPERTIES, compoundTag.getCompound("Properties"));
+        FlightProperties properties = FlightProperties.deserialize(compoundTag.getCompound("Properties"));
+        this.entityData.set(FLIGHT_TIME, properties.flightTime());
+        this.entityData.set(SPEED, (float)properties.speed());
+        this.entityData.set(POWER, (float)properties.power());
+        this.entityData.set(HOMING, properties.homing());
     }
 }

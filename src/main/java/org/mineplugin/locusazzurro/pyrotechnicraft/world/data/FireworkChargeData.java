@@ -1,4 +1,4 @@
-package org.mineplugin.locusazzurro.pyrotechnicraft.world.item;
+package org.mineplugin.locusazzurro.pyrotechnicraft.world.data;
 
 public class FireworkChargeData {
 
@@ -9,6 +9,10 @@ public class FireworkChargeData {
     burst: size(force) + point number + rotation angles (starting at aligned to mov vector) (abs rotation starting at towards positive y)
     2d matrix: size + coords array + y rotation (starting at perpendicular to mov xz) (abs rotation starting at parallel to Oxy)
     3d matrix: size + coords array + rotations
-    visitor: take shape and transform into points
+    visitor: take shape and transform into points offsets
+    need initial angle data for some shapes + random
+    Tag: Shape, ShapeData(compound), Force, Trail, Flicker, Colors(array)
+    output: point array, trail flicker colors array
+    detect shape tag then invoke related constructor
      */
 }

@@ -24,7 +24,7 @@ public class FireworkLighter extends Item {
         ItemStack firework = playerIn.getOffhandItem();
         if (firework.getItem() instanceof FireworkRocketItem){
 
-                FireworkMissileEntity fireworkEntity = new FireworkMissileEntity(pLevel, playerIn.position(), FlightProperties.createFromVanilla(firework).serialize(), VanillaFireworkWrapper.wrapPayload(firework));
+                FireworkMissileEntity fireworkEntity = new FireworkMissileEntity(pLevel, playerIn.position(), FlightProperties.createFromVanilla(firework), VanillaFireworkWrapper.wrapPayload(firework));
                 fireworkEntity.shootFromRotation(playerIn, playerIn.getXRot(), playerIn.getYRot(), 0.0f, 0.1f, 1.0f);
                 pLevel.addFreshEntity(fireworkEntity);
 
