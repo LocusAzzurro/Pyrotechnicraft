@@ -7,6 +7,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.FireworkLauncherStand;
+import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.FireworkOrbCraftingTable;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.item.FireworkLighter;
 
 public class BlockRegistry {
@@ -14,5 +15,6 @@ public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Pyrotechnicraft.MOD_ID);
 
     public static final RegistryObject<Block> FIREWORK_LAUNCHER_STAND = BLOCKS.register("firework_launcher_stand", FireworkLauncherStand::new);
+    public static final RegistryObject<Block> FIREWORK_ORB_CRAFTING_TABLE = BLOCKS.register("firework_orb_crafting_table", FireworkOrbCraftingTable::new);
 
 }

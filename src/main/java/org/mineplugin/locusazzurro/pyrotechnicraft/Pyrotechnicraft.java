@@ -19,7 +19,9 @@ public class Pyrotechnicraft {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         ItemRegistry.ITEMS.register(bus);
         BlockRegistry.BLOCKS.register(bus);
+        BlockEntityTypeRegistry.BLOCK_ENTITIES.register(bus);
         EntityTypeRegistry.ENTITIES.register(bus);
+        ContainerTypeRegistry.CONTAINERS.register(bus);
         ParticleTypeRegistry.PARTICLES.register(bus);
 
     }
