@@ -16,10 +16,10 @@ public class SparkPointsVisitor implements ExplosionShapeVisitor{
     @Override
     public List<Vec3> visit(SphereExplosion exp) {
         List<Vec3> points = new ArrayList<>();
-        boolean uniform = exp.isUniform();
-        float jitter = exp.getJitter();
-        float size = exp.getSize();
-        for (int i = 0; i < exp.getPoints(); i++){
+        boolean uniform = exp.uniform();
+        float jitter = exp.jitter();
+        float size = exp.size();
+        for (int i = 0; i < exp.points(); i++){
             Vec3 point = Vec3.ZERO;
             if (!uniform) {
                 point = new Vec3(random.nextGaussian(), random.nextGaussian(), random.nextGaussian())
@@ -30,6 +30,6 @@ public class SparkPointsVisitor implements ExplosionShapeVisitor{
             }
             points.add(point);
         }
-        return null; //todo
+        return points;
     }
 }

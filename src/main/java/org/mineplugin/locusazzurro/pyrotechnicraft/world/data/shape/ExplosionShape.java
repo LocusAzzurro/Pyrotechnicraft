@@ -4,8 +4,8 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-public abstract class ExplosionShape {
+public interface ExplosionShape {
 
-    abstract List<Vec3> accept(ExplosionShapeVisitor visitor);
+    List<Vec3> accept(ExplosionShapeVisitor visitor);
 
 }
