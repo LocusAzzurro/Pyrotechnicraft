@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "pyrotechnicraft",
+  "ingredients": [
+    {
+      "tag": "forge:dusts/sulfur"
+    },
+    {
+      "tag": "forge:dusts/saltpeter"
+    },
+    {
+      "tag": "forge:dusts/coal"
+    },
+    {
+      "item": "minecraft:clay_ball"
+    }
+  ],
+  "result": {
+    "item": "pyrotechnicraft:firework_orb_core",
+    "count": 2
+  }
+}
