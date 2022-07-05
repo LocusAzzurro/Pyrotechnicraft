@@ -82,6 +82,10 @@ public class FireworkOrbCraftingTableContainer extends AbstractContainerMenu {
         return itemstack;
     }
 
+    public boolean hasValidItems(){
+        return this.getSlot(0).hasItem();
+    }
+
     private int addSlotRow(IItemHandler handler, int startIndex, int xo, int yo, int slotCount, int dx) {
         int x = xo;
         int y = yo;
