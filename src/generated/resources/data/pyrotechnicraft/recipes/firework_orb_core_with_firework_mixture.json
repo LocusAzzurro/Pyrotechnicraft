@@ -3,13 +3,16 @@
   "group": "firework_orb_core",
   "ingredients": [
     {
-      "tag": "forge:dusts/sulfur"
+      "item": "pyrotechnicraft:firework_mixture"
     },
     {
-      "tag": "forge:dusts/saltpeter"
+      "item": "pyrotechnicraft:firework_mixture"
     },
     {
-      "tag": "forge:dusts/coal"
+      "item": "pyrotechnicraft:firework_mixture"
+    },
+    {
+      "item": "pyrotechnicraft:firework_mixture"
     },
     {
       "item": "minecraft:clay_ball"

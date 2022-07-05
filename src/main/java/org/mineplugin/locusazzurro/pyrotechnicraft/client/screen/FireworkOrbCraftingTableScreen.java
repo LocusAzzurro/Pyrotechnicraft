@@ -16,18 +16,19 @@ public class FireworkOrbCraftingTableScreen extends AbstractContainerScreen<Fire
 
     private final ResourceLocation GUI = new ResourceLocation(Pyrotechnicraft.MOD_ID, "textures/gui/firework_orb_crafting_table.png");
     private Button craftButton;
-    private int cornerX, cornerY;
+    private static final int BG_X = 176;
+    private static final int BG_Y = 222;
 
     public FireworkOrbCraftingTableScreen(FireworkOrbCraftingTableContainer pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
+        this.imageWidth = BG_X;
+        this.imageHeight = BG_Y;
     }
 
     @Override
     protected void init() {
         super.init();
-        this.cornerX = (this.width - this.imageWidth) / 2;
-        this.cornerY = (this.height - this.imageHeight) / 2;
-        this.craftButton = new CraftButton(cornerX + 10, cornerY + 20);
+        this.craftButton = new CraftButton(getGuiTop() + 10, getGuiLeft() + 20);
         this.addRenderableWidget(craftButton);
     }
 
@@ -52,7 +53,7 @@ public class FireworkOrbCraftingTableScreen extends AbstractContainerScreen<Fire
     @Override
     public void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShaderTexture(0, GUI);
-        this.blit(pPoseStack, this.cornerX, this.cornerY, 0, 0, this.imageWidth, this.imageHeight);
+        this.blit(pPoseStack, this.getGuiTop(), this.getGuiLeft(), 0, 0, this.imageWidth, this.imageHeight);
     }
 
     private void testItem(){

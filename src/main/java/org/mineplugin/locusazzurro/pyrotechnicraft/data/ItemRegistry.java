@@ -18,6 +18,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SULFUR = ITEMS.register("sulfur", BasicMaterialItem::new);
     public static final RegistryObject<Item> SALTPETER = ITEMS.register("saltpeter", BasicMaterialItem::new);
     public static final RegistryObject<Item> COAL_DUST = ITEMS.register("coal_dust", BasicMaterialItem::new);
+    public static final RegistryObject<Item> FIREWORK_MIXTURE = ITEMS.register("firework_mixture", BasicMaterialItem::new);
     public static final RegistryObject<Item> FIREWORK_ORB_CORE = ITEMS.register("firework_orb_core", BasicMaterialItem::new);
     public static final RegistryObject<Item> FIREWORK_LIGHTER = ITEMS.register("firework_lighter", FireworkLighter::new);
     public static final RegistryObject<Item> FLICKER_STICK = ITEMS.register("flicker_stick", FlickerStick::new);

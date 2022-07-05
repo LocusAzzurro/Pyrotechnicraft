@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "group": "firework_orb_core",
+  "group": "firework_mixture",
   "ingredients": [
     {
       "tag": "forge:dusts/sulfur"
@@ -10,13 +10,10 @@
     },
     {
       "tag": "forge:dusts/coal"
-    },
-    {
-      "item": "minecraft:clay_ball"
     }
   ],
   "result": {
-    "item": "pyrotechnicraft:firework_orb_core",
-    "count": 2
+    "item": "pyrotechnicraft:firework_mixture",
+    "count": 4
   }
 }

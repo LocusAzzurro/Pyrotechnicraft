@@ -3,13 +3,7 @@
   "group": "firework_orb_core",
   "ingredients": [
     {
-      "tag": "forge:dusts/sulfur"
-    },
-    {
-      "tag": "forge:dusts/saltpeter"
-    },
-    {
-      "tag": "forge:dusts/coal"
+      "item": "minecraft:gunpowder"
     },
     {
       "item": "minecraft:clay_ball"
