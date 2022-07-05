@@ -28,7 +28,7 @@ public class FireworkOrbCraftingTableScreen extends AbstractContainerScreen<Fire
     @Override
     protected void init() {
         super.init();
-        this.craftButton = new CraftButton(getGuiTop() + 10, getGuiLeft() + 20);
+        this.craftButton = new CraftButton(getGuiLeft() + 10, getGuiTop() + 20);
         this.addRenderableWidget(craftButton);
     }
 
@@ -53,7 +53,7 @@ public class FireworkOrbCraftingTableScreen extends AbstractContainerScreen<Fire
     @Override
     public void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShaderTexture(0, GUI);
-        this.blit(pPoseStack, this.getGuiTop(), this.getGuiLeft(), 0, 0, this.imageWidth, this.imageHeight);
+        this.blit(pPoseStack, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.imageWidth, this.imageHeight);
     }
 
     private void testItem(){

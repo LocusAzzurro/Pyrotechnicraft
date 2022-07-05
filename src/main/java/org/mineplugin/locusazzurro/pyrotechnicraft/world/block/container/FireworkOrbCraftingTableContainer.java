@@ -32,7 +32,7 @@ public class FireworkOrbCraftingTableContainer extends AbstractContainerMenu {
         if (blockEntity != null) {
             blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> addSlot(new SlotItemHandler(handler, 0, 64, 24)));
         }
-        layoutPlayerInventorySlots(10, 70);
+        layoutPlayerInventorySlots(8, 140);
 
     }
 
