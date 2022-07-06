@@ -19,7 +19,7 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.data.ContainerTypeRegistry;
 
 public class FireworkOrbCraftingTableContainer extends AbstractContainerMenu {
 
-    private BlockEntity blockEntity;
+    private final BlockEntity blockEntity;
     private Player playerEntity;
     private IItemHandler playerInventory;
 
@@ -39,6 +39,10 @@ public class FireworkOrbCraftingTableContainer extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player pPlayer) {
         return stillValid(ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos()), playerEntity, BlockRegistry.FIREWORK_ORB_CRAFTING_TABLE.get());
+    }
+
+    public BlockEntity getBlockEntity(){
+        return blockEntity;
     }
 
     @Override

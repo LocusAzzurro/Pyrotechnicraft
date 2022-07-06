@@ -3,6 +3,7 @@ package org.mineplugin.locusazzurro.pyrotechnicraft.world.block.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -55,6 +56,13 @@ public class FireworkOrbCraftingTableBlockEntity extends BlockEntity {
             return handler.cast();
         }
         return super.getCapability(cap, side);
+    }
+
+    public void craftFireworkOrb() {
+        handler.ifPresent(handler -> {
+            handler.extractItem(0, 1, false);
+            this.setChanged();
+        });
     }
 
     @Override

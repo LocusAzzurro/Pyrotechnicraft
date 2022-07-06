@@ -5,11 +5,14 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
+import org.mineplugin.locusazzurro.pyrotechnicraft.network.PacketHandler;
+import org.mineplugin.locusazzurro.pyrotechnicraft.network.ServerboundFireworkOrbCraftingTablePacket;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.container.FireworkOrbCraftingTableContainer;
 
 public class FireworkOrbCraftingTableScreen extends AbstractContainerScreen<FireworkOrbCraftingTableContainer> {
@@ -58,10 +61,15 @@ public class FireworkOrbCraftingTableScreen extends AbstractContainerScreen<Fire
 
     private void testItem(){
         System.out.println(this.menu.getSlot(0).getItem());
+        this.menu.getSlot(0).remove(1);
     }
     class CraftButton extends Button {
         public CraftButton(int x, int y) {
-            super(x, y, 20, 20, TextComponent.EMPTY, (button) -> FireworkOrbCraftingTableScreen.this.testItem());
+            super(x, y, 20, 20, TextComponent.EMPTY, (button) -> {
+                //FireworkOrbCraftingTableScreen.this.testItem();
+                BlockPos pos = FireworkOrbCraftingTableScreen.this.menu.getBlockEntity().getBlockPos();
+                PacketHandler.INSTANCE.sendToServer(new ServerboundFireworkOrbCraftingTablePacket(pos));
+            });
         }
     }
 }

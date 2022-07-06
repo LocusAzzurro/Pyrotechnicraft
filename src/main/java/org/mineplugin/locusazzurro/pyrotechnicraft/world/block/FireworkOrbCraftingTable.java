@@ -4,9 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -20,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -27,10 +26,10 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.container.FireworkOrbCraftingTableContainer;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.entity.FireworkOrbCraftingTableBlockEntity;
 
-public class FireworkOrbCraftingTable extends Block implements EntityBlock {
+public class FireworkOrbCraftingTable extends AbstractFireworkCraftingTable{
 
     public FireworkOrbCraftingTable() {
-        super(Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(1.5f));
+        super();
     }
 
     @Nullable
@@ -63,6 +62,8 @@ public class FireworkOrbCraftingTable extends Block implements EntityBlock {
         }
         return InteractionResult.SUCCESS;
     }
+
+
 
 
 }

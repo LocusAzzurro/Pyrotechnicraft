@@ -1,0 +1,5 @@
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
+package org.mineplugin.locusazzurro.pyrotechnicraft.world.block;
+import net.minecraft.MethodsReturnNonnullByDefault;
+import javax.annotation.ParametersAreNonnullByDefault;

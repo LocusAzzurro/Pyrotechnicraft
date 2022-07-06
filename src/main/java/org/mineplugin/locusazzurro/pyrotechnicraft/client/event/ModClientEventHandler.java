@@ -9,7 +9,7 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.client.screen.FireworkOrbCraf
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ContainerTypeRegistry;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-public class ClientEventHandler {
+public class ModClientEventHandler {
 
     @SubscribeEvent
     public static void clientInit(FMLClientSetupEvent event) {
