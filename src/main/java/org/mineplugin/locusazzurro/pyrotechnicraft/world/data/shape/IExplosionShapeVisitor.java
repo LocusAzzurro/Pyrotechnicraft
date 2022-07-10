@@ -4,7 +4,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-public interface ExplosionShapeVisitor {
+public interface IExplosionShapeVisitor {
     List<Vec3> visit(SphereExplosion exp);
 
 }
