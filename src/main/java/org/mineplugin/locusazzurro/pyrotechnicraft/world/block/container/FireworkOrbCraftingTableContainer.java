@@ -78,10 +78,11 @@ public class FireworkOrbCraftingTableContainer extends AbstractContainerMenu {
                 && this.patternSlot.hasItem()
                 && this.amplifierSlotList.stream().allMatch(Slot::hasItem)
                 && this.colorSlotList.stream().anyMatch(Slot::hasItem)
-                && this.sparkSlot.getItem().getCount() >= getPatternCost(patternSlot.getItem());
+                && this.sparkSlot.getItem().getCount() >= getPatternCost(patternSlot.getItem())
+                && !this.outputSlot.hasItem();
     }
 
-    private static int getPatternCost(ItemStack itemStack) {
+    public static int getPatternCost(ItemStack itemStack) {
         CompoundTag tag = itemStack.getOrCreateTag();
         Item item = itemStack.getItem();
         if (item instanceof ExplosionShapePattern pattern
@@ -91,6 +92,7 @@ public class FireworkOrbCraftingTableContainer extends AbstractContainerMenu {
         }
         else return 0;
     }
+
     class OutputSlot extends SlotItemHandler{
         public OutputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
             super(itemHandler, index, xPosition, yPosition);
