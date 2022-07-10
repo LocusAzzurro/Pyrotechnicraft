@@ -7,9 +7,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
-import org.mineplugin.locusazzurro.pyrotechnicraft.world.item.BasicMaterialItem;
-import org.mineplugin.locusazzurro.pyrotechnicraft.world.item.FireworkLighter;
-import org.mineplugin.locusazzurro.pyrotechnicraft.world.item.FlickerStick;
+import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.shape.ExplosionShape;
+import org.mineplugin.locusazzurro.pyrotechnicraft.world.item.*;
 
 public class ItemRegistry {
 
@@ -20,6 +19,9 @@ public class ItemRegistry {
     public static final RegistryObject<Item> COAL_DUST = ITEMS.register("coal_dust", BasicMaterialItem::new);
     public static final RegistryObject<Item> FIREWORK_MIXTURE = ITEMS.register("firework_mixture", BasicMaterialItem::new);
     public static final RegistryObject<Item> FIREWORK_ORB_CORE = ITEMS.register("firework_orb_core", BasicMaterialItem::new);
+    public static final RegistryObject<Item> SPHERE_EXPLOSION_PATTERN = ITEMS.register("sphere_explosion_pattern",
+            () -> new ExplosionShapePattern(ExplosionShape.SPHERE));
+    public static final RegistryObject<Item> FIREWORK_ORB = ITEMS.register("firework_orb", FireworkOrb::new);
     public static final RegistryObject<Item> FIREWORK_LIGHTER = ITEMS.register("firework_lighter", FireworkLighter::new);
     public static final RegistryObject<Item> FLICKER_STICK = ITEMS.register("flicker_stick", FlickerStick::new);
     public static final RegistryObject<Item> FIREWORK_LAUNCHER_STAND = fromBlock(BlockRegistry.FIREWORK_LAUNCHER_STAND);
