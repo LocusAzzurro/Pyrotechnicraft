@@ -3,7 +3,10 @@ package org.mineplugin.locusazzurro.pyrotechnicraft.world.block.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Container;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -15,22 +18,52 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.RangedWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.BlockEntityTypeRegistry;
+import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
+import org.mineplugin.locusazzurro.pyrotechnicraft.data.ModItemTags;
+import org.mineplugin.locusazzurro.pyrotechnicraft.world.item.ExplosionShapePattern;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.function.Predicate;
 
 public class FireworkOrbCraftingTableBlockEntity extends BlockEntity {
 
     private final ItemStackHandler itemHandler = createHandler();
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
+
+    public static final int SLOT_COUNT = 24;
+    public static final int CORE_SLOT_ID = 0;
+    public static final int PATTERN_SLOT_ID = 1;
+    public static final int FORCE_SLOT_ID = 2;
+    public static final int SPARK_SLOT_ID = 3;
+    public static final int DAMAGE_SLOT_ID = 4;
+    public static final int TRAIL_SLOT_ID = 5;
+    public static final int SPARKLE_SLOT_ID = 6;
+    public static final int COLOR_SLOT_ID_START = 7;
+    public static final int COLOR_SLOT_ID_END = 14;
+    public static final int COLOR_SLOT_COUNT = 8;
+    public static final int FADE_COLOR_SLOT_ID_START = 15;
+    public static final int FADE_COLOR_SLOT_ID_END = 22;
+    public static final int FADE_COLOR_SLOT_COUNT = 8;
+    public static final int OUTPUT_SLOT_ID = 23;
+    private final RangedWrapper COLOR_ITEMS = new RangedWrapper(itemHandler, COLOR_SLOT_ID_START, COLOR_SLOT_ID_END + 1);
+    private final RangedWrapper FADE_COLOR_ITEMS = new RangedWrapper(itemHandler, FADE_COLOR_SLOT_ID_START, FADE_COLOR_SLOT_ID_END + 1);
+    public static Predicate<ItemStack> isFireworkOrbCore = i -> i.is(ItemRegistry.FIREWORK_ORB_CORE.get());
+    public static Predicate<ItemStack> isExplosionShapePattern = i -> i.getItem() instanceof ExplosionShapePattern;
+    public static Predicate<ItemStack> isFireworkMixture = i -> i.is(ItemRegistry.FIREWORK_MIXTURE.get());
+    public static Predicate<ItemStack> isTrailEffectItem = i -> i.is(ModItemTags.TRAIL_EFFECT_ITEMS);
+    public static Predicate<ItemStack> isSparkleEffectItem = i -> i.is(ModItemTags.SPARKLE_EFFECT_ITEMS);
+    public static Predicate<ItemStack> isColorItem = i -> i.getItem() instanceof DyeItem;
+    public static Predicate<ItemStack> isFireworkOrb = i -> i.is(ItemRegistry.FIREWORK_ORB.get());
     public FireworkOrbCraftingTableBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityTypeRegistry.FIREWORK_ORB_CRAFTING_TABLE_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
     }
 
     private ItemStackHandler createHandler() {
-        return new ItemStackHandler(1) {
+        return new ItemStackHandler(SLOT_COUNT) {
             @Override
             protected void onContentsChanged(int slot) {
                 setChanged();
@@ -38,12 +71,21 @@ public class FireworkOrbCraftingTableBlockEntity extends BlockEntity {
 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                return true;
+                if (slot == CORE_SLOT_ID) return isFireworkOrbCore.test(stack);
+                if (slot == PATTERN_SLOT_ID) return isExplosionShapePattern.test(stack);
+                if (slot == FORCE_SLOT_ID || slot == SPARK_SLOT_ID || slot == DAMAGE_SLOT_ID)
+                    return isFireworkMixture.test(stack);
+                if (slot == TRAIL_SLOT_ID) return isTrailEffectItem.test(stack);
+                if (slot == SPARKLE_SLOT_ID) return isSparkleEffectItem.test(stack);
+                if (COLOR_SLOT_ID_START <= slot && slot <= FADE_COLOR_SLOT_ID_END) return isColorItem.test(stack);
+                if (slot == OUTPUT_SLOT_ID) return isFireworkOrb.test(stack);
+                return false;
             }
 
-            @Nonnull
+            @NotNull
             @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+            public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+                if (slot == OUTPUT_SLOT_ID) return stack;
                 return super.insertItem(slot, stack, simulate);
             }
         };

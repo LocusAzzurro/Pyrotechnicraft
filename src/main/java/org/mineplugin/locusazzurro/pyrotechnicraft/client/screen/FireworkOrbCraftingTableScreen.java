@@ -31,14 +31,14 @@ public class FireworkOrbCraftingTableScreen extends AbstractContainerScreen<Fire
     @Override
     protected void init() {
         super.init();
-        this.craftButton = new CraftButton(getGuiLeft() + 10, getGuiTop() + 20);
+        this.craftButton = new CraftButton(getGuiLeft() + 36, getGuiTop() + 77);
         this.addRenderableWidget(craftButton);
     }
 
     @Override
     protected void containerTick() {
         super.containerTick();
-        this.craftButton.active = menu.hasValidItems();
+        this.craftButton.active = menu.hasValidItemsForCrafting();
     }
 
     @Override
@@ -50,7 +50,8 @@ public class FireworkOrbCraftingTableScreen extends AbstractContainerScreen<Fire
 
     @Override
     protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY) {
-        drawString(matrixStack, Minecraft.getInstance().font, "Crafting", 10, 10, 0xffffff);
+        drawString(matrixStack, Minecraft.getInstance().font, "Colors", 98, 22, 0xffffff);
+        drawString(matrixStack, Minecraft.getInstance().font, "Fade Colors", 98, 76, 0xffffff);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class FireworkOrbCraftingTableScreen extends AbstractContainerScreen<Fire
     }
     class CraftButton extends Button {
         public CraftButton(int x, int y) {
-            super(x, y, 20, 20, TextComponent.EMPTY, (button) -> {
+            super(x, y, 32, 20, new TextComponent("Craft"), (button) -> {
                 //FireworkOrbCraftingTableScreen.this.testItem();
                 BlockPos pos = FireworkOrbCraftingTableScreen.this.menu.getBlockEntity().getBlockPos();
                 PacketHandler.INSTANCE.sendToServer(new ServerboundFireworkOrbCraftingTablePacket(pos));
