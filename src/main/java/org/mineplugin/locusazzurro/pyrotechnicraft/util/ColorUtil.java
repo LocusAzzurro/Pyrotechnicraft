@@ -8,11 +8,11 @@ public class ColorUtil {
         return (color >> 16 & 0xff) / 255f;
     }
 
-    public static float blueF(int color){
+    public static float greenF(int color){
         return (color >> 8 & 0xff) / 255f;
     }
 
-    public static float greenF(int color){
+    public static float blueF(int color){
         return (color & 0xff) / 255f;
     }
 
