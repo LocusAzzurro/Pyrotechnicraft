@@ -1,6 +1,5 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.world.item;
 
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -11,10 +10,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 import org.mineplugin.locusazzurro.pyrotechnicraft.client.particle.FireworkSparkParticleOption;
-import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.shape.SparkPointsVisitor;
-import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.shape.SphereExplosion;
-
-import java.util.List;
 
 public class FlickerStick extends Item{
 
