@@ -7,13 +7,14 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 import org.mineplugin.locusazzurro.pyrotechnicraft.client.particle.FireworkSparkParticleOption;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
-import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.shape.SparkPointsVisitor;
-import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.shape.SphereExplosion;
+import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FireworkEngine;
+import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.shape.*;
 
 import java.util.List;
 
@@ -32,12 +33,21 @@ public class FlickerStick extends Item{
         int type = item.getOrCreateTag().getInt("Type");
 
 
+        if (pLevel.isClientSide() && itemOffhand.is(Items.FIREWORK_STAR)){
+            CompoundTag exp = itemOffhand.getOrCreateTag().getCompound("Explosion");
+            CompoundTag tag = new CompoundTag();
+            tag.putBoolean("IsCustom", false);
+            tag.put("Payload", exp);
+            FireworkEngine.createFirework(pLevel, pPlayer.position(), pPlayer.getDeltaMovement(), tag);
+        }
+
+
+        /*
         if (pLevel.isClientSide()){
 
             if (itemOffhand.is(ItemRegistry.FIREWORK_ORB.get())){
                 CompoundTag tag = itemOffhand.getOrCreateTag();
-                float size = tag.contains("Force") ? tag.getFloat("Force") : 0.5f;
-                int sparks = tag.contains("Sparks") ? tag.getInt("Sparks") : 50;
+                IExplosionShape exp = FireworkShapeProcessor.processShapeTag(tag, pPlayer.getDeltaMovement());
                 boolean trail = tag.contains("Trail") && tag.getBoolean("Trail");
                 boolean sparkle = tag.contains("Sparkle") && tag.getBoolean("Sparkle");
                 int[] colors = tag.contains("Colors") ? tag.getIntArray("Colors") : new int[]{0xffffff};
@@ -45,7 +55,6 @@ public class FlickerStick extends Item{
                 int[] fadeColors = colors;
                 if (hasFade) fadeColors = tag.getIntArray("FadeColors");
 
-                SphereExplosion exp = new SphereExplosion(size, sparks);
                 SparkPointsVisitor visitor = new SparkPointsVisitor(pLevel.random);
                 List<Vec3> points = exp.accept(visitor);
                 int[] finalFadeColors = fadeColors;
@@ -57,32 +66,9 @@ public class FlickerStick extends Item{
                             p.x(), p.y(), p.z());
                 });
             }
-
-            /*
-            for (int i = -49; i < 50; i++){
-                for (int j = -49; j < 50; j++){
-                    Vec3 point = new Vec3(0.01f * i, 0.01f * j, 0).xRot(Mth.PI / 4);
-                    pLevel.addParticle(new FireworkSparkParticleOption(0xffeeee, 0xffffff, false, false),
-                            pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(),
-                            point.x(), point.y(), point.z());
-                }
-            }
-            */
-
-            /*
-            SphereExplosion exp = new SphereExplosion(0.1f, 100);
-            SparkPointsVisitor visitor = new SparkPointsVisitor(pLevel.random);
-            List<Vec3> points = exp.accept(visitor);
-            points.forEach((p) ->{
-                pLevel.addParticle(new FireworkSparkParticleOption(0xffeeee, 0xffffff, false, false),
-                        pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(),
-                        p.x(), p.y(), p.z());
-            });
-
-             */
-
         }
 
+        */
         return super.use(pLevel, pPlayer, pUsedHand);
     }
 }

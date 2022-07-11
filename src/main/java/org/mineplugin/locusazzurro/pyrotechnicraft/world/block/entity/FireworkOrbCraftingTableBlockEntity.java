@@ -152,6 +152,7 @@ public class FireworkOrbCraftingTableBlockEntity extends BlockEntity {
             }
 
             List<ItemStack> colorItems = new ArrayList<>();
+            List<ItemStack> fadeColorItems = new ArrayList<>();
 
             for (int i = 0; i < COLOR_SLOT_COUNT; i++){
                 ItemStack colorItem = handler.getStackInSlot(COLOR_SLOT_ID_START + i);
@@ -171,8 +172,7 @@ public class FireworkOrbCraftingTableBlockEntity extends BlockEntity {
             }).toArray();
 
             itemTag.putIntArray("Colors", colors);
-
-            List<ItemStack> fadeColorItems = new ArrayList<>();
+            itemTag.putInt("DisplayColor", colors[0]);
 
             for (int j = 0; j < FADE_COLOR_SLOT_COUNT; j++){
                 ItemStack fadeColorItem = handler.getStackInSlot(FADE_COLOR_SLOT_ID_START + j);

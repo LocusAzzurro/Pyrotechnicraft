@@ -14,7 +14,7 @@ public enum ExplosionShape implements Serializable {
 
     private String name;
     private int fireworkMixVal;
-    private static final Map<String,ExplosionShape> MAP;
+    static final Map<String,ExplosionShape> MAP;
     ExplosionShape(String name, int mixVal){
         this.name = name;
         this.fireworkMixVal = mixVal;
