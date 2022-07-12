@@ -1,6 +1,7 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.datagen;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -25,6 +26,16 @@ public class ModItemModelProvider extends ItemModelProvider {
                 mcLoc("item/generated"), "layer0", modLoc("item/firework_mixture"));
         singleTexture(ItemRegistry.FIREWORK_ORB_CORE.get().getRegistryName().getPath(),
                 mcLoc("item/generated"), "layer0", modLoc("item/firework_orb_core"));
+        singleTexture(ItemRegistry.SPHERE_EXPLOSION_PATTERN.get().getRegistryName().getPath(),
+                mcLoc("item/generated"), "layer0", modLoc("item/sphere_explosion_pattern"));
+        singleTexture(ItemRegistry.RING_EXPLOSION_PATTERN.get().getRegistryName().getPath(),
+                mcLoc("item/generated"), "layer0", modLoc("item/ring_explosion_pattern"));
+        singleTexture(ItemRegistry.BURST_EXPLOSION_PATTERN.get().getRegistryName().getPath(),
+                mcLoc("item/generated"), "layer0", modLoc("item/burst_explosion_pattern"));
+        singleTexture(ItemRegistry.PLANE_EXPLOSION_PATTERN.get().getRegistryName().getPath(),
+                mcLoc("item/generated"), "layer0", modLoc("item/2d_explosion_pattern"));
+        singleTexture(ItemRegistry.MATRIX_EXPLOSION_PATTERN.get().getRegistryName().getPath(),
+                mcLoc("item/generated"), "layer0", modLoc("item/3d_explosion_pattern"));
     }
 
     @NotNull

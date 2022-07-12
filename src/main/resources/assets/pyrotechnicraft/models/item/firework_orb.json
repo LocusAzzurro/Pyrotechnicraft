@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "pyrotechnicraft:item/firework_orb",
+    "layer1": "pyrotechnicraft:item/firework_orb_overlay"
+  }
+}
