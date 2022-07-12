@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FlightProperties;
-import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.VanillaFireworkWrapper;
+import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FireworkWrapper;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.entity.FireworkMissileEntity;
 
 public class FireworkLighter extends Item {
@@ -24,7 +24,7 @@ public class FireworkLighter extends Item {
         ItemStack firework = playerIn.getOffhandItem();
         if (firework.getItem() instanceof FireworkRocketItem){
 
-                FireworkMissileEntity fireworkEntity = new FireworkMissileEntity(pLevel, playerIn.position(), FlightProperties.createFromVanilla(firework), VanillaFireworkWrapper.wrapPayload(firework));
+                FireworkMissileEntity fireworkEntity = new FireworkMissileEntity(pLevel, playerIn.position(), FlightProperties.createFromVanilla(firework), FireworkWrapper.wrapPayload(firework));
                 fireworkEntity.shootFromRotation(playerIn, playerIn.getXRot(), playerIn.getYRot(), 0.0f, 0.1f, 1.0f);
                 pLevel.addFreshEntity(fireworkEntity);
 

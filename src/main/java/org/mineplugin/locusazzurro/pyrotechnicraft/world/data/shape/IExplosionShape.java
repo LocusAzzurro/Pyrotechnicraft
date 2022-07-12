@@ -4,7 +4,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-public interface IExplosionShape {
+public sealed interface IExplosionShape permits SphereExplosion {
 
     List<Vec3> accept(IExplosionShapeVisitor visitor);
 

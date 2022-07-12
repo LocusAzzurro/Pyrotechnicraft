@@ -4,8 +4,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
 
-public abstract class VanillaFireworkWrapper {
+public abstract class FireworkWrapper {
     @Deprecated
     public static CompoundTag wrapPayload(ItemStack firework){
         CompoundTag payload = new CompoundTag();
@@ -15,6 +17,21 @@ public abstract class VanillaFireworkWrapper {
         CompoundTag wrap = new CompoundTag();
         wrap.put("Payload", payload);
         wrap.putBoolean("IsCustom", false);
+        return wrap;
+    }
+
+    public static CompoundTag wrapSingleFireworkExplosion(ItemStack itemStack){
+        CompoundTag wrap = new CompoundTag();
+        if (itemStack.is(Items.FIREWORK_STAR)){
+            CompoundTag exp = itemStack.getOrCreateTag().getCompound("Explosion");
+            wrap.putBoolean("IsCustom", false);
+            wrap.put("Payload", exp);
+        }
+        else if (itemStack.is(ItemRegistry.FIREWORK_ORB.get())){
+            CompoundTag exp = itemStack.getOrCreateTag();
+            wrap.putBoolean("IsCustom", true);
+            wrap.put("Payload", exp);
+        }
         return wrap;
     }
 

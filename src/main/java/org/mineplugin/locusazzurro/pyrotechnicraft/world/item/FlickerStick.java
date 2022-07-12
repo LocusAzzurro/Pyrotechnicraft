@@ -14,6 +14,7 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 import org.mineplugin.locusazzurro.pyrotechnicraft.client.particle.FireworkSparkParticleOption;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FireworkEngine;
+import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FireworkWrapper;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.shape.*;
 
 import java.util.List;
@@ -33,12 +34,9 @@ public class FlickerStick extends Item{
         int type = item.getOrCreateTag().getInt("Type");
 
 
-        if (pLevel.isClientSide() && itemOffhand.is(Items.FIREWORK_STAR)){
-            CompoundTag exp = itemOffhand.getOrCreateTag().getCompound("Explosion");
-            CompoundTag tag = new CompoundTag();
-            tag.putBoolean("IsCustom", false);
-            tag.put("Payload", exp);
-            FireworkEngine.createFirework(pLevel, pPlayer.position(), pPlayer.getDeltaMovement(), tag);
+        if (pLevel.isClientSide() && (itemOffhand.is(Items.FIREWORK_STAR)||itemOffhand.is(ItemRegistry.FIREWORK_ORB.get()))){
+            CompoundTag exp = FireworkWrapper.wrapSingleFireworkExplosion(itemOffhand);
+            FireworkEngine.createFirework(pLevel, pPlayer.position(), pPlayer.getDeltaMovement(), exp);
         }
 
 
