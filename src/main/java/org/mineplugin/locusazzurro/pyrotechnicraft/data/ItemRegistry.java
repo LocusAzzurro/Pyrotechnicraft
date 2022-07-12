@@ -21,6 +21,14 @@ public class ItemRegistry {
     public static final RegistryObject<Item> FIREWORK_ORB_CORE = ITEMS.register("firework_orb_core", BasicMaterialItem::new);
     public static final RegistryObject<Item> SPHERE_EXPLOSION_PATTERN = ITEMS.register("sphere_explosion_pattern",
             () -> new ExplosionShapePattern(ExplosionShape.SPHERE));
+    public static final RegistryObject<Item> RING_EXPLOSION_PATTERN = ITEMS.register("ring_explosion_pattern",
+            () -> new ExplosionShapePattern(ExplosionShape.RING));
+    public static final RegistryObject<Item> BURST_EXPLOSION_PATTERN = ITEMS.register("burst_explosion_pattern",
+            () -> new ExplosionShapePattern(ExplosionShape.BURST));
+    public static final RegistryObject<Item> PLANE_EXPLOSION_PATTERN = ITEMS.register("2d_explosion_pattern",
+            () -> new ExplosionShapePattern(ExplosionShape.PLANE));
+    public static final RegistryObject<Item> MATRIX_EXPLOSION_PATTERN = ITEMS.register("3d_explosion_pattern",
+            () -> new ExplosionShapePattern(ExplosionShape.MATRIX));
     public static final RegistryObject<Item> FIREWORK_ORB = ITEMS.register("firework_orb", FireworkOrb::new);
     public static final RegistryObject<Item> FIREWORK_LIGHTER = ITEMS.register("firework_lighter", FireworkLighter::new);
     public static final RegistryObject<Item> FLICKER_STICK = ITEMS.register("flicker_stick", FlickerStick::new);
