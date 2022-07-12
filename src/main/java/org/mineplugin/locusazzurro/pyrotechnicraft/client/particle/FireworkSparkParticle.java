@@ -73,13 +73,26 @@ public class FireworkSparkParticle extends TextureSheetParticle {
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;
-        if (this.age++ >= this.lifetime) this.remove();
+        int timeLeft = this.lifetime - this.age++;
+        if (timeLeft <= 0) this.remove();
         else {
             this.yd -= (1 - this.volatility) * 0.1;
             this.move(xd, yd, zd);
             this.xd *= this.inertia;
             this.yd *= this.inertia;
             this.zd *= this.inertia;
+        }
+
+        if (timeLeft <= 20) {
+            this.setColor(
+                    (float) Mth.lerp(0.1, this.rCol, ColorUtil.redF(this.fadeColor)),
+                    (float) Mth.lerp(0.1, this.gCol, ColorUtil.greenF(this.fadeColor)),
+                    (float) Mth.lerp(0.1, this.bCol, ColorUtil.blueF(this.fadeColor))
+            );
+        }
+
+        if (timeLeft < 10){
+            this.setAlpha(0.1f * (timeLeft));
         }
 
         if(trail){
@@ -92,6 +105,10 @@ public class FireworkSparkParticle extends TextureSheetParticle {
             trailParticle.lifetime = 12;
             this.engine.add(trailParticle);
         }
+    }
+
+    public int getLightColor(float pPartialTick) {
+        return 15728880;
     }
 
     @OnlyIn(Dist.CLIENT)
