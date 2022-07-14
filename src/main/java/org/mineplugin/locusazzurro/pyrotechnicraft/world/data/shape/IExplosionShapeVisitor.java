@@ -9,4 +9,5 @@ public interface IExplosionShapeVisitor {
     List<Vec3> visit(RingExplosion exp);
     List<Vec3> visit(BurstExplosion exp);
 
+    List<Vec3> visit(PlaneExplosion exp);
 }

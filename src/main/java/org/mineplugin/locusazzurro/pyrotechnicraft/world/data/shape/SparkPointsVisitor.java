@@ -1,6 +1,7 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.world.data.shape;
 
 import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class SparkPointsVisitor implements IExplosionShapeVisitor {
 
     private static final float PHI = Mth.PI * (3.0f - Mth.sqrt(5.0f));
     private static final float INFINITESIMAL = 1.175494e-38f;
+    private static final float SQRT_TWO = Mth.sqrt(2f);
     private final Random random;
 
     public SparkPointsVisitor(Random random){
@@ -127,6 +129,28 @@ public class SparkPointsVisitor implements IExplosionShapeVisitor {
         return points;
     }
 
+    @Override
+    public List<Vec3> visit(PlaneExplosion exp) {
+        List<Vec3> points = new ArrayList<>();
+        List<Vec2> coords = exp.coords();
+        boolean absolute = exp.absoluteRotation();
+        float rotation = exp.rotation();
+        float rotationJitter = clampRotationJitterValue(exp.rotationJitter());
+        float randRot = random.nextFloat(rotationJitter * 2) - rotationJitter;
+        coords.forEach(coord -> {
+            Vec2 vec2 = clampVec2(coord);
+            Vec3 vec3 = new Vec3(0, vec2.y, vec2.x);
+            if (!absolute){
+                vec3 = vec3.yRot((float) -Mth.atan2(exp.mov().z(), exp.mov().x()));
+            }
+            points.add(vec3.yRot(rotation + randRot).scale(exp.size()));
+        });
+        return points;
+    }
+
+    private static Vec2 clampVec2(Vec2 vec2){
+        return vec2.normalized().scale(Math.min(vec2.length(), SQRT_TWO));
+    }
     private static float clampJitterValue(float jitterValue){
         return Mth.clamp(jitterValue, INFINITESIMAL, 1.0f);
     }
