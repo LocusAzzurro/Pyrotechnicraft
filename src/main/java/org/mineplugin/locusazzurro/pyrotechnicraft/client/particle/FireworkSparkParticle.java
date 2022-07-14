@@ -105,6 +105,7 @@ public class FireworkSparkParticle extends TextureSheetParticle {
             trailParticle.lifetime = 12;
             this.engine.add(trailParticle);
         }
+        //todo sparkle
     }
 
     public int getLightColor(float pPartialTick) {
