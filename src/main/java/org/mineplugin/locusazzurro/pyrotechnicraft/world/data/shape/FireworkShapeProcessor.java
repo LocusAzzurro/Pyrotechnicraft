@@ -16,6 +16,7 @@ public class FireworkShapeProcessor {
 
     private static final float FORCE_DEFAULT = 0.2f;
     private static final float JITTER_DEFAULT = 0.1f;
+    public static final String SHAPE = "Shape";
     public static final String SHAPE_DATA = "ShapeData";
     public static final String FORCE = "Force";
     public static final String SPARKS = "Sparks";
@@ -31,7 +32,7 @@ public class FireworkShapeProcessor {
     static Map<ExplosionShape, BiFunction<CompoundTag, Vec3, ? extends IExplosionShape>> MAP = new HashMap<>();
 
     public static IExplosionShape processShapeTag(CompoundTag tag, Vec3 vec){
-        ExplosionShape shape = ExplosionShape.MAP.getOrDefault(tag.getString("Shape"), ExplosionShape.SPHERE);
+        ExplosionShape shape = ExplosionShape.MAP.getOrDefault(tag.getString(SHAPE), ExplosionShape.SPHERE);
         return MAP.getOrDefault(shape, parseSphereExplosion).apply(tag, vec);
     }
     static BiFunction<CompoundTag, Vec3, SphereExplosion> parseSphereExplosion = (tag, vec) -> {

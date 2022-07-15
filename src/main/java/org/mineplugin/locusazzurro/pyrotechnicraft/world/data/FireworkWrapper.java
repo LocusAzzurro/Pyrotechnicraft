@@ -8,29 +8,41 @@ import net.minecraft.world.item.Items;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
 
 public abstract class FireworkWrapper {
+
+    public static final String FIREWORKS = "Fireworks";
+    public static final String PAYLOAD = "Payload";
+    public static final String IS_CUSTOM = "IsCustom";
+    public static final String EXPLOSION_SINGLE = "Explosion";
+    public static final String EXPLOSIONS_LIST = "Explosions";
+
     @Deprecated
     public static CompoundTag wrapPayload(ItemStack firework){
         CompoundTag payload = new CompoundTag();
         if (firework.getItem() instanceof FireworkRocketItem){
-            payload = firework.getOrCreateTagElement("Fireworks");
+            payload = firework.getOrCreateTagElement(FIREWORKS);
         }
         CompoundTag wrap = new CompoundTag();
-        wrap.put("Payload", payload);
-        wrap.putBoolean("IsCustom", false);
+        wrap.put(PAYLOAD, payload);
+        wrap.putBoolean(IS_CUSTOM, false);
         return wrap;
     }
 
+    /**
+     * Wraps the tag from a Firework Star or Firework Orb ItemStack into format used in Firework Missile explosions list
+     * @param itemStack a Firework Star or Firework Orb with explosion info tag
+     * @return wrapped Tag ready to be written into Firework Missile
+     */
     public static CompoundTag wrapSingleFireworkExplosion(ItemStack itemStack){
         CompoundTag wrap = new CompoundTag();
         if (itemStack.is(Items.FIREWORK_STAR)){
-            CompoundTag exp = itemStack.getOrCreateTag().getCompound("Explosion");
-            wrap.putBoolean("IsCustom", false);
-            wrap.put("Payload", exp);
+            CompoundTag exp = itemStack.getOrCreateTag().getCompound(EXPLOSION_SINGLE);
+            wrap.putBoolean(IS_CUSTOM, false);
+            wrap.put(PAYLOAD, exp);
         }
         else if (itemStack.is(ItemRegistry.FIREWORK_ORB.get())){
             CompoundTag exp = itemStack.getOrCreateTag();
-            wrap.putBoolean("IsCustom", true);
-            wrap.put("Payload", exp);
+            wrap.putBoolean(IS_CUSTOM, true);
+            wrap.put(PAYLOAD, exp);
         }
         return wrap;
     }
@@ -44,7 +56,7 @@ public abstract class FireworkWrapper {
         CompoundTag wrap = new CompoundTag();
         ListTag list = new ListTag();
         list.add(tag);
-        wrap.put("Explosions", list);
+        wrap.put(EXPLOSIONS_LIST, list);
         return wrap;
     }
 

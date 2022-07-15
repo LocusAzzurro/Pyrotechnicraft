@@ -6,7 +6,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 public record PlaneExplosion
-        (Vec3 mov, float size, List<Vec2> coords, float rotationJitter ,boolean absoluteRotation, float rotation)
+        (Vec3 mov, float size, List<Vec2> coords, float rotationJitter, boolean absoluteRotation, float rotation)
         implements IExplosionShape{
 
     @Override
