@@ -15,7 +15,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.mineplugin.locusazzurro.pyrotechnicraft.client.particle.FireworkSparkParticle;
 import org.mineplugin.locusazzurro.pyrotechnicraft.client.render.model.FireworkMissileModel;
-import org.mineplugin.locusazzurro.pyrotechnicraft.client.render.renderer.PatternedFireworkMissileRenderer;
 import org.mineplugin.locusazzurro.pyrotechnicraft.client.render.renderer.SimpleFireworkMissileRenderer;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.EntityTypeRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ParticleTypeRegistry;
@@ -26,7 +25,7 @@ public class ModClientSetupEventHandler {
 
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent e){
-        registerEntityRenderer(EntityTypeRegistry.SIMPLE_FIREWORK_MISSILE.get(), SimpleFireworkMissileRenderer::new);
+        registerEntityRenderer(EntityTypeRegistry.FIREWORK_MISSILE.get(), SimpleFireworkMissileRenderer::new);
     }
 
     @SubscribeEvent

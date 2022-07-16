@@ -12,10 +12,10 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FlightProperties;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FireworkWrapper;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.entity.FireworkMissileEntity;
 
-public class FireworkLighter extends Item {
+public class FireworkLauncher extends Item {
 
-    public FireworkLighter() {
-        super(new Properties().tab(Pyrotechnicraft.CREATIVE_TAB));
+    public FireworkLauncher() {
+        super(new Properties().tab(Pyrotechnicraft.CREATIVE_TAB).durability(160));
     }
 
     @Override

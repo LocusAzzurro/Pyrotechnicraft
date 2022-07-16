@@ -27,7 +27,7 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
     }
 
     public FireworkMissileEntity(Level level, Vec3 pos, FlightProperties properties, CompoundTag payload){
-        super(EntityTypeRegistry.SIMPLE_FIREWORK_MISSILE.get(), level);
+        super(EntityTypeRegistry.FIREWORK_MISSILE.get(), level);
         this.entityData.set(PAYLOAD, payload);
         this.entityData.set(FLIGHT_TIME, properties.flightTime());
         this.entityData.set(SPEED, (float)properties.speed());

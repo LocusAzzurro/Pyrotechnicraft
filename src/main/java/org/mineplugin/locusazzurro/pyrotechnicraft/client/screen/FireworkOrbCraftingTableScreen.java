@@ -60,10 +60,6 @@ public class FireworkOrbCraftingTableScreen extends AbstractContainerScreen<Fire
         this.blit(pPoseStack, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.imageWidth, this.imageHeight);
     }
 
-    private void testItem(){
-        System.out.println(this.menu.getSlot(0).getItem());
-        this.menu.getSlot(0).remove(1);
-    }
     class CraftButton extends Button {
         public CraftButton(int x, int y) {
             super(x, y, 32, 20, new TextComponent("Craft"), (button) -> {
