@@ -23,6 +23,7 @@ public class FireworkShapeProcessor {
     public static final String JITTER = "Jitter";
     public static final String UNIFORM = "Uniform";
     public static final String ROTATION_JITTER = "RotationJitter";
+    public static final String ROTATION_JITTER_LIST = "RotationJitters";
     public static final String WIDENESS = "Wideness";
     public static final String ABSOLUTE_ROTATION = "AbsoluteRotation";
     public static final String ROTATIONS_LIST = "Rotations";
@@ -103,6 +104,43 @@ public class FireworkShapeProcessor {
         return new PlaneExplosion(vec, size, coordVecList, rotationJitter, absolute, rotation);
     };
 
+    static BiFunction<CompoundTag, Vec3, MatrixExplosion> parseMatrixExplosion = (tag, vec) -> {
+        CompoundTag data = tag.getCompound(SHAPE_DATA);
+        float size = tag.contains(FORCE) ? tag.getFloat(FORCE) : FORCE_DEFAULT;
+        ListTag rotationsList = data.contains(ROTATIONS_LIST) ? data.getList(ROTATIONS_LIST, ListTag.TAG_FLOAT) : null;
+        ListTag rotationJittersList = data.contains(ROTATION_JITTER_LIST) ? data.getList(ROTATION_JITTER_LIST, ListTag.TAG_FLOAT) : null;
+        float[] rotations, rotationJitters;
+
+        if (rotationsList == null) rotations = new float[]{0, 0, 0};
+        else {
+            rotations = new float[rotationsList.size()];
+            for (int i = 0; i < rotationsList.size(); i++){
+                rotations[i] = rotationsList.getFloat(i);
+            }
+        }
+
+        if (rotationJittersList == null) rotationJitters = new float[]{0, Mth.TWO_PI, 0};
+        else {
+            rotationJitters = new float[rotationJittersList.size()];
+            for (int i = 0; i < rotationJittersList.size(); i++){
+                rotationJitters[i] = rotationJittersList.getFloat(i);
+            }
+        }
+
+        ListTag coordList = defaultMatrixCoords();
+        if (data.contains(COORDINATES)){
+            ListTag coords = data.getList(COORDINATES, ListTag.TAG_LIST);
+            if (!coords.isEmpty()) coordList = coords;
+        }
+        List<Vec3> coordVecList = coordList.stream().filter(coord -> (coord instanceof ListTag coordPair && coordPair.getElementType() == ListTag.TAG_FLOAT))
+                .map(coord -> new Vec3(((ListTag) coord).getFloat(0), ((ListTag) coord).getFloat(1), ((ListTag) coord).getFloat(2))).toList();
+        if (coordVecList.isEmpty()) {
+            coordVecList = defaultMatrixCoords().stream()
+                    .map(coord -> new Vec3(((ListTag) coord).getFloat(0), ((ListTag) coord).getFloat(1), ((ListTag) coord).getFloat(2))).toList();
+        }
+        return new MatrixExplosion(vec, size, coordVecList, rotationJitters, rotations);
+    };
+
     private static ListTag defaultPlaneCoords(){
         ListTag tag = new ListTag();
         ListTag p1 = new ListTag();
@@ -117,10 +155,29 @@ public class FireworkShapeProcessor {
         return tag;
     }
 
+    private static ListTag defaultMatrixCoords(){
+        ListTag tag = new ListTag();
+        ListTag p1 = new ListTag();
+        ListTag p2 = new ListTag();
+        ListTag p3 = new ListTag();
+        ListTag p4 = new ListTag();
+        ListTag p5 = new ListTag();
+        ListTag p6 = new ListTag();
+        p1.addAll(List.of(FloatTag.valueOf(1f), FloatTag.valueOf(0f), FloatTag.valueOf(0f)));
+        p2.addAll(List.of(FloatTag.valueOf(-1f), FloatTag.valueOf(0f), FloatTag.valueOf(0f)));
+        p3.addAll(List.of(FloatTag.valueOf(0f), FloatTag.valueOf(1f), FloatTag.valueOf(0f)));
+        p4.addAll(List.of(FloatTag.valueOf(0f), FloatTag.valueOf(-1f), FloatTag.valueOf(0f)));
+        p5.addAll(List.of(FloatTag.valueOf(0f), FloatTag.valueOf(0f), FloatTag.valueOf(1f)));
+        p6.addAll(List.of(FloatTag.valueOf(0f), FloatTag.valueOf(0f), FloatTag.valueOf(-1f)));
+        tag.addAll(List.of(p1,p2,p3,p4,p5,p6));
+        return tag;
+    }
+
     static {
         MAP.put(ExplosionShape.SPHERE, parseSphereExplosion);
         MAP.put(ExplosionShape.RING, parseCircleExplosion);
         MAP.put(ExplosionShape.BURST, parseBurstExplosion);
         MAP.put(ExplosionShape.PLANE, parsePlaneExplosion);
+        MAP.put(ExplosionShape.MATRIX, parseMatrixExplosion);
     }
 }

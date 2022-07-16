@@ -12,7 +12,6 @@ public class SparkPointsVisitor implements IExplosionShapeVisitor {
 
     private static final float PHI = Mth.PI * (3.0f - Mth.sqrt(5.0f));
     private static final float INFINITESIMAL = 1.175494e-38f;
-    private static final float SQRT_TWO = Mth.sqrt(2f);
     private final Random random;
 
     public SparkPointsVisitor(Random random){
@@ -148,9 +147,49 @@ public class SparkPointsVisitor implements IExplosionShapeVisitor {
         return points;
     }
 
-    private static Vec2 clampVec2(Vec2 vec2){
-        return vec2.normalized().scale(Math.min(vec2.length(), SQRT_TWO));
+    @Override
+    public List<Vec3> visit(MatrixExplosion exp) {
+        List<Vec3> points = new ArrayList<>();
+        List<Vec3> coords = exp.coords();
+        float[] rotations = exp.rotations();
+        float[] rotationJitters = exp.rotationJitters();
+
+        float rotX = 0, rotY = 0 ,rotZ = 0;
+        if (rotations != null){
+            rotX = rotations.length >= 1 ? rotations[0] : 0;
+            rotY = rotations.length >= 2 ? rotations[1] : 0;
+            rotZ = rotations.length >= 3 ? rotations[2] : 0;
+        }
+
+        float randRotX = 0, randRotY = 0, randRotZ = 0;
+        if (rotationJitters != null) {
+            for (int i = 0; i < rotationJitters.length; i++) {
+                rotationJitters[i] = clampRotationJitterValue(rotationJitters[i]);
+            }
+            randRotX = rotationJitters.length >= 1 ? random.nextFloat(rotationJitters[0] * 2) - rotationJitters[0] : 0f;
+            randRotY = rotationJitters.length >= 2 ? random.nextFloat(rotationJitters[1] * 2) - rotationJitters[1] : 0f;
+            randRotZ = rotationJitters.length >= 3 ? random.nextFloat(rotationJitters[2] * 2) - rotationJitters[2] : 0f;
+        }
+
+        float finalRotX = rotX; float finalRotY = rotY; float finalRotZ = rotZ;
+        float finalRandRotX = randRotX; float finalRandRotY = randRotY; float finalRandRotZ = randRotZ;
+        coords.forEach(coord -> {
+            Vec3 coordVec3 = clampVec3(coord);
+            coordVec3 = coordVec3.xRot(finalRotX + finalRandRotX).yRot(finalRotY + finalRandRotY).zRot(finalRotZ + finalRandRotZ)
+                    .scale(exp.size());
+            points.add(coordVec3);
+        });
+        return points;
     }
+
+    private static Vec2 clampVec2(Vec2 vec2){
+        return new Vec2(Mth.clamp(vec2.x, -1, 1), Mth.clamp(vec2.y, -1, 1));
+    }
+
+    private static Vec3 clampVec3(Vec3 vec3){
+        return new Vec3(Mth.clamp(vec3.x, -1, 1), Mth.clamp(vec3.y, -1, 1), Mth.clamp(vec3.z, -1, 1));
+    }
+
     private static float clampJitterValue(float jitterValue){
         return Mth.clamp(jitterValue, INFINITESIMAL, 1.0f);
     }
