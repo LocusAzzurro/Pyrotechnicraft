@@ -5,6 +5,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import org.mineplugin.locusazzurro.pyrotechnicraft.client.screen.FireworkMissileCraftingTableScreen;
 import org.mineplugin.locusazzurro.pyrotechnicraft.client.screen.FireworkOrbCraftingTableScreen;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ContainerTypeRegistry;
 
@@ -15,6 +16,7 @@ public class ModClientEventHandler {
     public static void clientInit(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             MenuScreens.register(ContainerTypeRegistry.FIREWORK_ORB_CRAFTING_TABLE.get(), FireworkOrbCraftingTableScreen::new);
+            MenuScreens.register(ContainerTypeRegistry.FIREWORK_MISSILE_CRAFTING_TABLE.get(), FireworkMissileCraftingTableScreen::new);
         });
     }
 }

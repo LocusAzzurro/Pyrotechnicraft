@@ -6,6 +6,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
+import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.container.FireworkMissileCraftingTableContainer;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.container.FireworkOrbCraftingTableContainer;
 
 public class ContainerTypeRegistry {
@@ -14,5 +15,7 @@ public class ContainerTypeRegistry {
 
     public static final RegistryObject<MenuType<FireworkOrbCraftingTableContainer>> FIREWORK_ORB_CRAFTING_TABLE = CONTAINERS.register("firework_orb_crafting_table",
             () -> IForgeMenuType.create((windowId, inv, data) -> new FireworkOrbCraftingTableContainer(windowId, data.readBlockPos(), inv, inv.player)));
+    public static final RegistryObject<MenuType<FireworkMissileCraftingTableContainer>> FIREWORK_MISSILE_CRAFTING_TABLE = CONTAINERS.register("firework_missile_crafting_table",
+            () -> IForgeMenuType.create((windowId, inv, data) -> new FireworkMissileCraftingTableContainer(windowId, data.readBlockPos(), inv, inv.player)));
 
 }
