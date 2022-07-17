@@ -27,11 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class FireworkOrbCraftingTableContainer extends AbstractContainerMenu {
-
-    private final BlockEntity blockEntity;
-    private Player playerEntity;
-    private IItemHandler playerInventory;
+public class FireworkOrbCraftingTableContainer extends AbstractFireworkCraftingTableContainer {
     private CoreSlot coreSlot;
     private PatternSlot patternSlot;
     private List<AmplifierSlot> amplifierSlotList = new ArrayList<AmplifierSlot>();
@@ -45,10 +41,7 @@ public class FireworkOrbCraftingTableContainer extends AbstractContainerMenu {
     private OutputSlot outputSlot;
 
     public FireworkOrbCraftingTableContainer(int pContainerId, BlockPos pos, Inventory playerInventory, Player player) {
-        super(ContainerTypeRegistry.FIREWORK_ORB_CRAFTING_TABLE.get(), pContainerId);
-        blockEntity = player.getCommandSenderWorld().getBlockEntity(pos);
-        this.playerEntity = player;
-        this.playerInventory = new InvWrapper(playerInventory);
+        super(ContainerTypeRegistry.FIREWORK_ORB_CRAFTING_TABLE.get(), pContainerId, pos, playerInventory, player);
         if (blockEntity != null) blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(this::addCraftingSlots);
         layoutPlayerInventorySlots(8, 140);
     }
@@ -58,19 +51,6 @@ public class FireworkOrbCraftingTableContainer extends AbstractContainerMenu {
         return stillValid(ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos()), playerEntity, BlockRegistry.FIREWORK_ORB_CRAFTING_TABLE.get());
     }
 
-    public BlockEntity getBlockEntity(){
-        return blockEntity;
-    }
-
-    /*
-    Crafting Table Slot = 0 ~ 23
-    Player Inventory = 24 ~ 50
-    Player Hot-bar = 51 ~ 59
-     */
-    @Override
-    public ItemStack quickMoveStack(Player pPlayer, int index) {
-        return ItemStack.EMPTY;
-    }
 
     public boolean hasValidItemsForCrafting(){
         return this.slots.stream().allMatch(Objects::nonNull)
@@ -93,56 +73,7 @@ public class FireworkOrbCraftingTableContainer extends AbstractContainerMenu {
         else return 0;
     }
 
-    class OutputSlot extends SlotItemHandler{
-        public OutputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-            super(itemHandler, index, xPosition, yPosition);
-        }
-        @Override
-        public boolean mayPlace(@Nonnull ItemStack stack) {
-            return false;
-        }
-    }
-
-    class CoreSlot extends SlotItemHandler {
-        public CoreSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-            super(itemHandler, index, xPosition, yPosition);
-        }
-    }
-
-    class PatternSlot extends SlotItemHandler{
-        public PatternSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-            super(itemHandler, index, xPosition, yPosition);
-        }
-        @Override
-        public int getMaxStackSize() {
-            return 1;
-        }
-    }
-
-    class AmplifierSlot extends SlotItemHandler{
-        public AmplifierSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-            super(itemHandler, index, xPosition, yPosition);
-        }
-
-        @Override
-        public int getMaxStackSize() {
-            return 16;
-        }
-    }
-
-    class EffectorSlot extends SlotItemHandler{
-        public EffectorSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-            super(itemHandler, index, xPosition, yPosition);
-        }
-    }
-
-    class DyeSlot extends SlotItemHandler{
-        public DyeSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-            super(itemHandler, index, xPosition, yPosition);
-        }
-    }
-
-    private void addCraftingSlots (IItemHandler handler){
+    protected void addCraftingSlots(IItemHandler handler){
         this.coreSlot = new CoreSlot(handler, FireworkOrbCraftingTableBlockEntity.CORE_SLOT_ID, 44, 18);
         addSlot(coreSlot);
         this.patternSlot = new PatternSlot(handler, FireworkOrbCraftingTableBlockEntity.PATTERN_SLOT_ID, 8, 18);
@@ -185,35 +116,5 @@ public class FireworkOrbCraftingTableContainer extends AbstractContainerMenu {
         }
     }
 
-    private int addSlotRow(IItemHandler handler, int startIndex, int xo, int yo, int slotCount, int dx) {
-        int x = xo;
-        int y = yo;
-        int index = startIndex;
-        for (int i = 0 ; i < slotCount ; i++) {
-            addSlot(new SlotItemHandler(handler, index, x, y));
-            x += dx;
-            index++;
-        }
-        return index;
-    }
 
-    private int addSlotBox(IItemHandler handler, int startIndex, int xo, int yo, int horSlotCount, int dx, int verSlotCount, int dy) {
-        int x = xo;
-        int y = yo;
-        int index = startIndex;
-        for (int j = 0 ; j < verSlotCount ; j++) {
-            index = addSlotRow(handler, index, x, y, horSlotCount, dx);
-            y += dy;
-        }
-        return index;
-    }
-
-    private void layoutPlayerInventorySlots(int startX, int startY) {
-        // Player inventory
-        addSlotBox(playerInventory, 9, startX, startY, 9, 18, 3, 18);
-
-        // Hotbar
-        startY += 58;
-        addSlotRow(playerInventory, 0, startX, startY, 9, 18);
-    }
 }

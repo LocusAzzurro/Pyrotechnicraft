@@ -31,9 +31,14 @@ public class FireworkOrbCraftingTableScreen extends AbstractContainerScreen<Fire
     @Override
     protected void init() {
         super.init();
-        this.craftButton = new CraftButton(getGuiLeft() + 36, getGuiTop() + 77);
+        this.craftButton = new CraftButton(getGuiLeft() + 36, getGuiTop() + 77, pressAction);
         this.addRenderableWidget(craftButton);
     }
+
+    private Button.OnPress pressAction = button -> {
+        BlockPos pos = FireworkOrbCraftingTableScreen.this.menu.getBlockEntity().getBlockPos();
+        PacketHandler.INSTANCE.sendToServer(new ServerboundFireworkOrbCraftingTablePacket(pos));
+    };
 
     @Override
     protected void containerTick() {
@@ -50,6 +55,7 @@ public class FireworkOrbCraftingTableScreen extends AbstractContainerScreen<Fire
 
     @Override
     protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY) {
+        drawString(matrixStack, Minecraft.getInstance().font, this.title, titleLabelX, titleLabelY, 0xffffff);
         drawString(matrixStack, Minecraft.getInstance().font, "Colors", 98, 22, 0xffffff);
         drawString(matrixStack, Minecraft.getInstance().font, "Fade Colors", 98, 76, 0xffffff);
     }
@@ -60,13 +66,5 @@ public class FireworkOrbCraftingTableScreen extends AbstractContainerScreen<Fire
         this.blit(pPoseStack, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.imageWidth, this.imageHeight);
     }
 
-    class CraftButton extends Button {
-        public CraftButton(int x, int y) {
-            super(x, y, 32, 20, new TextComponent("Craft"), (button) -> {
-                //FireworkOrbCraftingTableScreen.this.testItem();
-                BlockPos pos = FireworkOrbCraftingTableScreen.this.menu.getBlockEntity().getBlockPos();
-                PacketHandler.INSTANCE.sendToServer(new ServerboundFireworkOrbCraftingTablePacket(pos));
-            });
-        }
-    }
+
 }
