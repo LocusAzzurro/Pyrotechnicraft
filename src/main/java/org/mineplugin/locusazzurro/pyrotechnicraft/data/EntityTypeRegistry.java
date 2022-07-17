@@ -15,7 +15,7 @@ public class EntityTypeRegistry {
 
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Pyrotechnicraft.MOD_ID);
 
-    public static final RegistryObject<EntityType<FireworkMissileEntity>> SIMPLE_FIREWORK_MISSILE =
+    public static final RegistryObject<EntityType<FireworkMissileEntity>> FIREWORK_MISSILE =
             register("firework_missile", () -> EntityType.Builder
                     .<FireworkMissileEntity>of(FireworkMissileEntity::new, MobCategory.MISC).sized(0.1f, 0.1f).build("firework_missile"));
 

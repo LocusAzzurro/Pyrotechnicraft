@@ -58,6 +58,11 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
     }
 
     @Override
+    public boolean isPickable() {
+        return false;
+    }
+
+    @Override
     protected void defineSynchedData() {
         FlightProperties dProperties = FlightProperties.createDefault();
         this.entityData.define(PAYLOAD, new CompoundTag());

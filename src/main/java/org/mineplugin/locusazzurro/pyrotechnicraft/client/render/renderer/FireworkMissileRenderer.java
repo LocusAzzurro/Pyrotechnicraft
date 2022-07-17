@@ -42,11 +42,11 @@ public abstract class FireworkMissileRenderer<T extends FireworkMissileEntity, M
     public void render(T entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn){
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.pushPose();
-        matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(Mth.lerp(partialTicks, entityIn.yRotO, entityIn.getYRot()) - 90.0F));
-        matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(Mth.lerp(partialTicks, entityIn.xRotO, entityIn.getXRot()) + 90.0F));
+        matrixStackIn.scale(0.5f,0.5f, 0.5f);
+        matrixStackIn.mulPose(Vector3f.YN.rotationDegrees(entityIn.getYRot()));
+        matrixStackIn.mulPose(Vector3f.XN.rotationDegrees(entityIn.getXRot() - 90f));
         VertexConsumer vertexBuilder = bufferIn.getBuffer(model.renderType(getTextureLocation(entityIn)));
         this.model.renderFireworkMissile(entityIn, matrixStackIn, vertexBuilder, packedLightIn, OverlayTexture.NO_OVERLAY);
-        //this.model.renderToBuffer(matrixStackIn, vertexBuilder, packedLightIn, OverlayTexture.NO_OVERLAY, entityIn.tickCount % 255 / 255f, 0.0F, 0.0F, 1.0F);
         for(RenderLayer<T, M> renderLayer : this.layers) {
             renderLayer.render(matrixStackIn, bufferIn, packedLightIn, entityIn, 0, 0, partialTicks, entityIn.tickCount, entityIn.getYRot(), entityIn.getXRot());
         }
