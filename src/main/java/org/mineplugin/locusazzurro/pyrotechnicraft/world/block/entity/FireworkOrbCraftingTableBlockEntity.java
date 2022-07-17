@@ -56,8 +56,6 @@ public class FireworkOrbCraftingTableBlockEntity extends BlockEntity {
     public static final int FADE_COLOR_SLOT_ID_END = 22;
     public static final int FADE_COLOR_SLOT_COUNT = 8;
     public static final int OUTPUT_SLOT_ID = 23;
-    private final RangedWrapper COLOR_ITEMS = new RangedWrapper(itemHandler, COLOR_SLOT_ID_START, COLOR_SLOT_ID_END + 1);
-    private final RangedWrapper FADE_COLOR_ITEMS = new RangedWrapper(itemHandler, FADE_COLOR_SLOT_ID_START, FADE_COLOR_SLOT_ID_END + 1);
     public static Predicate<ItemStack> isFireworkOrbCore = i -> i.is(ItemRegistry.FIREWORK_ORB_CORE.get());
     public static Predicate<ItemStack> isExplosionShapePattern = i -> i.getItem() instanceof ExplosionShapePattern;
     public static Predicate<ItemStack> isFireworkMixture = i -> i.is(ItemRegistry.FIREWORK_MIXTURE.get());
@@ -213,7 +211,7 @@ public class FireworkOrbCraftingTableBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
+    public void saveAdditional(CompoundTag pTag) {
         pTag.put("Inventory", itemHandler.serializeNBT());
         super.saveAdditional(pTag);
     }

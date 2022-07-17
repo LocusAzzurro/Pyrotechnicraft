@@ -25,7 +25,7 @@ public class FireworkLauncher extends Item {
         if (firework.getItem() instanceof FireworkRocketItem){
 
                 FireworkMissileEntity fireworkEntity = new FireworkMissileEntity(pLevel, playerIn.position(), FlightProperties.createFromVanilla(firework), FireworkWrapper.wrapPayload(firework));
-                fireworkEntity.shootFromRotation(playerIn, playerIn.getXRot(), playerIn.getYRot(), 0.0f, 0.1f, 1.0f);
+                fireworkEntity.shootFromRotation(playerIn, playerIn.getXRot(), playerIn.getYRot(), 0.0f, 0.0001f, 1.0f);
                 pLevel.addFreshEntity(fireworkEntity);
 
             /*
