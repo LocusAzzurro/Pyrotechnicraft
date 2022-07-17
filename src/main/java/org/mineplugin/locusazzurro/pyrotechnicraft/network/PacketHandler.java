@@ -19,5 +19,10 @@ public class PacketHandler {
                 .decoder(ServerboundFireworkOrbCraftingTablePacket::decode)
                 .consumer(ServerboundFireworkOrbCraftingTablePacket::handle)
                 .add();
+        INSTANCE.messageBuilder(ServerboundFireworkMissileCraftingTablePacket.class, ID++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(ServerboundFireworkMissileCraftingTablePacket::encode)
+                .decoder(ServerboundFireworkMissileCraftingTablePacket::decode)
+                .consumer(ServerboundFireworkMissileCraftingTablePacket::handle)
+                .add();
     }
 }

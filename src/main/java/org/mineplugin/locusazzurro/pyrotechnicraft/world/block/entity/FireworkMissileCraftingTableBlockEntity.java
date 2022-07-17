@@ -49,7 +49,7 @@ public class FireworkMissileCraftingTableBlockEntity extends BlockEntity {
     public static Predicate<ItemStack> isWrappingPaper = i -> i.is(ItemRegistry.FIREWORK_WRAPPING_PAPER.get());
     public static Predicate<ItemStack> isFireworkMissile = i -> i.is(ItemRegistry.FIREWORK_MISSILE.get());
     public FireworkMissileCraftingTableBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
-        super(BlockEntityTypeRegistry.FIREWORK_ORB_CRAFTING_TABLE_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
+        super(BlockEntityTypeRegistry.FIREWORK_MISSILE_CRAFTING_TABLE_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
     }
 
     private ItemStackHandler createHandler() {
@@ -68,6 +68,7 @@ public class FireworkMissileCraftingTableBlockEntity extends BlockEntity {
                 if (slot == SPARK_COLOR_SLOT_ID || slot == BASE_COLOR_SLOT || slot == PATTERN_COLOR_SLOT)
                     return isColorItem.test(stack);
                 if (slot == WRAPPING_PAPER_SLOT) return isWrappingPaper.test(stack);
+                if (slot == OUTPUT_SLOT) return isFireworkMissile.test(stack);
                 return false;
             }
 
@@ -89,6 +90,7 @@ public class FireworkMissileCraftingTableBlockEntity extends BlockEntity {
     }
 
     public void craftFireworkMissile() {
+        System.out.println("Crafting Mechanic");
         //todo
     }
 

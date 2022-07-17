@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.Slot;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.BlockRegistry;
@@ -12,6 +13,7 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.entity.FireworkMi
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class FireworkMissileCraftingTableContainer extends AbstractFireworkCraftingTableContainer {
 
@@ -72,6 +74,11 @@ public class FireworkMissileCraftingTableContainer extends AbstractFireworkCraft
 
     @Override
     public boolean hasValidItemsForCrafting() {
-        return false;
+        return this.slots.stream().allMatch(Objects::nonNull)
+                && this.fuseSlot.hasItem()
+                && this.starSlotList.stream().anyMatch(Slot::hasItem)
+                && this.speedSlot.hasItem()
+                && this.flightTimeSlot.hasItem()
+                && this.wrappingMaterialSlot.hasItem();
     }
 }

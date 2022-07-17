@@ -11,9 +11,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 import org.mineplugin.locusazzurro.pyrotechnicraft.network.PacketHandler;
-import org.mineplugin.locusazzurro.pyrotechnicraft.network.ServerboundFireworkOrbCraftingTablePacket;
+import org.mineplugin.locusazzurro.pyrotechnicraft.network.ServerboundFireworkMissileCraftingTablePacket;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.container.FireworkMissileCraftingTableContainer;
-import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.container.FireworkOrbCraftingTableContainer;
 
 public class FireworkMissileCraftingTableScreen extends AbstractContainerScreen<FireworkMissileCraftingTableContainer> {
 
@@ -37,7 +36,7 @@ public class FireworkMissileCraftingTableScreen extends AbstractContainerScreen<
 
     private Button.OnPress pressAction = button -> {
         BlockPos pos = FireworkMissileCraftingTableScreen.this.menu.getBlockEntity().getBlockPos();
-        //PacketHandler.INSTANCE.sendToServer(new ServerboundFireworkOrbCraftingTablePacket(pos)); //todo add packet
+        PacketHandler.INSTANCE.sendToServer(new ServerboundFireworkMissileCraftingTablePacket(pos));
     };
 
     @Override
@@ -56,7 +55,6 @@ public class FireworkMissileCraftingTableScreen extends AbstractContainerScreen<
     @Override
     protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY) {
         drawString(matrixStack, Minecraft.getInstance().font, this.title, titleLabelX, titleLabelY, 0xffffff);
-        //this.font.draw(pPoseStack, this.title, (float)this.titleLabelX, (float)this.titleLabelY, 4210752);
     }
 
     @Override
