@@ -1,5 +1,6 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.world.data.shape;
 
+import com.mojang.math.Vector3f;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
@@ -54,41 +55,37 @@ public class SparkPointsVisitor implements IExplosionShapeVisitor {
         for (int i = 0; i < exp.points(); i++){
             Vec3 point;
             if (!uniform){
-                point = new Vec3(random.nextGaussian(), 0, random.nextGaussian())
-                        .normalize().scale(size).scale(1 + (random.nextFloat(jitter * 2) - jitter));
+                point = new Vec3(random.nextGaussian(), 0, random.nextGaussian()).normalize();
             }
             else {
                 float x,z;
                 x = Mth.cos(Mth.TWO_PI / exp.points() * i);
                 z = Mth.sin(Mth.TWO_PI / exp.points() * i);
-                point = new Vec3(x, 0, z)
-                        .normalize().scale(size).scale(1 + (random.nextFloat(jitter * 2) - jitter));
+                point = new Vec3(x, 0, z).normalize();
             }
             points.add(point);
         }
 
-        float rotX = 0, rotZ = 0;
+        float rotX = 0, rotY = 0;
         if (rotations != null){
             rotX = rotations.length >= 1 ? rotations[0] : 0;
-            rotZ = rotations.length >= 2 ? rotations[1] : 0;
+            rotY = rotations.length >= 2 ? rotations[1] : 0;
         }
 
-        List<Vec3> rotatedPoints = new ArrayList<>();
-        float finalRotX = rotX;
-        float finalRotZ = rotZ;
+        float pitch = (float) Math.asin(-exp.mov().y());
+        float yaw = (float) Mth.atan2(exp.mov().x(), exp.mov().z());
         float randRotX = random.nextFloat(rotationJitter * 2) - rotationJitter;
-        float randRotZ = random.nextFloat(rotationJitter * 2) - rotationJitter;
-        points.forEach(point -> {
-            if (!absolute){
-                point = point
-                        .xRot((float) Mth.atan2(exp.mov().z(), exp.mov().y()))
-                        .zRot((float) Mth.atan2(exp.mov().x(), exp.mov().y()));
-            }
-            point = point.xRot(finalRotX).zRot(finalRotZ)
-                    .xRot(randRotX).zRot(randRotZ);
-            rotatedPoints.add(point);
-        });
-        return rotatedPoints;
+        float randRotY = random.nextFloat(rotationJitter * 2) - rotationJitter;
+        float finalRotX = rotX;
+        float finalRotY = rotY;
+
+        return points.stream().map(point -> {
+            if (!absolute) point = point.xRot(-pitch + Mth.HALF_PI).yRot(yaw);
+            point = point.xRot(finalRotX).yRot(finalRotY)
+                    .xRot(randRotX).yRot(randRotY)
+                    .scale(size).scale(1 + random.nextFloat(jitter * 2) - jitter);
+            return point;
+        }).toList();
     }
 
     @Override
