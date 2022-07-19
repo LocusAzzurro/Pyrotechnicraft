@@ -18,9 +18,5 @@ public class ModCommonEventHandler {
     public static void onCommonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(PacketHandler::init);
     }
-    @SubscribeEvent
-    public static void registerItemColors(ColorHandlerEvent.Item event){
-        ItemColors itemColors = event.getItemColors();
-        itemColors.register(new FireworkOrbColorer(), ItemRegistry.FIREWORK_ORB.get());
-    }
+
 }
