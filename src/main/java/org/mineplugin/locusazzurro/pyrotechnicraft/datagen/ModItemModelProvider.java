@@ -1,12 +1,15 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.datagen;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
+import org.mineplugin.locusazzurro.pyrotechnicraft.data.BlockRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
 
 public class ModItemModelProvider extends ItemModelProvider {
@@ -33,10 +36,16 @@ public class ModItemModelProvider extends ItemModelProvider {
         generatedItem(ItemRegistry.CUSTOM_FUSE.get());
         generatedItem(ItemRegistry.FIREWORK_HOMING_MODULE.get());
         generatedItem(ItemRegistry.FIREWORK_WRAPPING_PAPER.get());
+        blockItem(BlockRegistry.FIREWORK_ORB_CRAFTING_TABLE.get());
+        blockItem(BlockRegistry.FIREWORK_MISSILE_CRAFTING_TABLE.get());
     }
 
     private ItemModelBuilder generatedItem(Item item){
         return singleTexture(item.getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/" + item.getRegistryName().getPath()));
+    }
+
+    private ItemModelBuilder blockItem(Block block){
+        return withExistingParent(block.getRegistryName().getPath(), modLoc("block/" + block.getRegistryName().getPath()));
     }
 
     @NotNull

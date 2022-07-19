@@ -25,6 +25,7 @@ public class DataGenerators {
             generator.addProvider(new ModRecipeProvider(generator));
         }
         if (event.includeClient()){
+            generator.addProvider(new ModBlockModelProvider(generator, fh));
             generator.addProvider(new ModItemModelProvider(generator, fh));
         }
     }
