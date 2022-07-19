@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "pyrotechnicraft:block/firework_orb_crafting_table"
+    },
+    "facing=south": {
+      "model": "pyrotechnicraft:block/firework_orb_crafting_table",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "pyrotechnicraft:block/firework_orb_crafting_table",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "pyrotechnicraft:block/firework_orb_crafting_table",
+      "y": 90
+    }
+  }
+}
