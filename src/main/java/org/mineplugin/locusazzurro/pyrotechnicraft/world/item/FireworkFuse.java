@@ -9,6 +9,10 @@ public class FireworkFuse extends BasicMaterialItem{
         this.type = type;
     }
 
+    public FuseType getType() {
+        return type;
+    }
+
     public enum FuseType{
         INSTANT(0), REGULAR(2), EXTENDED(5), CUSTOM(0);
 

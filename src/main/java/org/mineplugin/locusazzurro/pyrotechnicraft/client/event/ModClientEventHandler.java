@@ -16,12 +16,11 @@ import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import org.mineplugin.locusazzurro.pyrotechnicraft.client.color.FireworkOrbColorer;
-import org.mineplugin.locusazzurro.pyrotechnicraft.client.particle.FireworkSparkParticle;
-import org.mineplugin.locusazzurro.pyrotechnicraft.client.render.model.FireworkMissileModel;
-import org.mineplugin.locusazzurro.pyrotechnicraft.client.render.renderer.SimpleFireworkMissileRenderer;
-import org.mineplugin.locusazzurro.pyrotechnicraft.client.screen.FireworkMissileCraftingTableScreen;
-import org.mineplugin.locusazzurro.pyrotechnicraft.client.screen.FireworkOrbCraftingTableScreen;
+import org.mineplugin.locusazzurro.pyrotechnicraft.client.color.*;
+import org.mineplugin.locusazzurro.pyrotechnicraft.client.particle.*;
+import org.mineplugin.locusazzurro.pyrotechnicraft.client.render.model.*;
+import org.mineplugin.locusazzurro.pyrotechnicraft.client.render.renderer.*;
+import org.mineplugin.locusazzurro.pyrotechnicraft.client.screen.*;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ContainerTypeRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.EntityTypeRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
@@ -57,6 +56,7 @@ public class ModClientEventHandler {
     public static void registerItemColors(ColorHandlerEvent.Item event){
         ItemColors itemColors = event.getItemColors();
         itemColors.register(new FireworkOrbColorer(), ItemRegistry.FIREWORK_ORB.get());
+        itemColors.register(new FireworkMissileColorer(), ItemRegistry.FIREWORK_MISSILE.get());
     }
     private static <T extends Entity> void registerEntityRenderer(EntityType<T> type, EntityRendererProvider<T> renderer){
         EntityRenderers.register(type, renderer);

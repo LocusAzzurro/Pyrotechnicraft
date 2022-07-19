@@ -53,13 +53,13 @@ public class FireworkMissileCraftingTableContainer extends AbstractFireworkCraft
         addSlot(flightTimeSlot);
         this.sparkColorSlot = new DyeSlot(handler, FireworkMissileCraftingTableBlockEntity.SPARK_COLOR_SLOT_ID,134, 54);
         addSlot(sparkColorSlot);
-        this.wrappingMaterialSlot = new WrappingMaterialSlot(handler, FireworkMissileCraftingTableBlockEntity.WRAPPING_PAPER_SLOT, 98, 90);
+        this.wrappingMaterialSlot = new WrappingMaterialSlot(handler, FireworkMissileCraftingTableBlockEntity.WRAPPING_PAPER_SLOT_ID, 98, 90);
         addSlot(wrappingMaterialSlot);
-        this.baseColorSlot = new DyeSlot(handler, FireworkMissileCraftingTableBlockEntity.BASE_COLOR_SLOT, 125, 90);
+        this.baseColorSlot = new DyeSlot(handler, FireworkMissileCraftingTableBlockEntity.BASE_COLOR_SLOT_ID, 125, 90);
         addSlot(baseColorSlot);
-        this.patternColorSlot = new DyeSlot(handler, FireworkMissileCraftingTableBlockEntity.PATTERN_COLOR_SLOT, 143, 90);
+        this.patternColorSlot = new DyeSlot(handler, FireworkMissileCraftingTableBlockEntity.PATTERN_COLOR_SLOT_ID, 143, 90);
         addSlot(patternColorSlot);
-        this.outputSlot = new OutputSlot(handler, FireworkMissileCraftingTableBlockEntity.OUTPUT_SLOT, 44, 104);
+        this.outputSlot = new OutputSlot(handler, FireworkMissileCraftingTableBlockEntity.OUTPUT_SLOT_ID, 44, 104);
         addSlot(outputSlot);
     }
 

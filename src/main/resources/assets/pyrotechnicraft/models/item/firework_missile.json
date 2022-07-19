@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "pyrotechnicraft:item/firework_missile_base",
+    "layer1": "pyrotechnicraft:item/firework_missile_pattern"
+  }
+}

@@ -3,6 +3,7 @@ package org.mineplugin.locusazzurro.pyrotechnicraft.world.block.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.DyeItem;
@@ -107,14 +108,21 @@ public class FireworkOrbCraftingTableBlockEntity extends BlockEntity {
     public void craftFireworkOrb() {
         handler.ifPresent(handler -> {
             CompoundTag itemTag = new CompoundTag();
+            CompoundTag shapeData = new CompoundTag();
             ItemStack result = new ItemStack(ItemRegistry.FIREWORK_ORB.get());
             ExplosionShape shape = ExplosionShape.SPHERE;
 
             handler.extractItem(CORE_SLOT_ID, 1, false);
 
             ItemStack patternItem = handler.getStackInSlot(PATTERN_SLOT_ID);
-            if (patternItem.getItem() instanceof ExplosionShapePattern pattern) shape = pattern.getShape();
-            itemTag.putString("Shape", shape.getName());
+            if (patternItem.getItem() instanceof ExplosionShapePattern pattern) {
+                shape = pattern.getShape();
+                itemTag.putString("Shape", shape.getName());
+                if (shape.hasCostByDefault() && patternItem.getOrCreateTag().contains("Coordinates")){
+                    shapeData.put("Coordinates", patternItem.getOrCreateTag().getList("Coordinates", ListTag.TAG_LIST));
+                }
+            }
+
 
             ItemStack forceItem = handler.getStackInSlot(FORCE_SLOT_ID);
             if (isFireworkMixture.test(forceItem)){
@@ -133,7 +141,7 @@ public class FireworkOrbCraftingTableBlockEntity extends BlockEntity {
 
             ItemStack damageItem = handler.getStackInSlot(DAMAGE_SLOT_ID);
             if (isFireworkMixture.test(damageItem)){
-                itemTag.putDouble("Damage", 1.0d * forceItem.getCount());
+                itemTag.putDouble("Damage", 1.0d * damageItem.getCount());
                 handler.extractItem(DAMAGE_SLOT_ID, damageItem.getCount(), false);
             }
 
@@ -188,6 +196,10 @@ public class FireworkOrbCraftingTableBlockEntity extends BlockEntity {
                     else return IntStream.of(0xffffff);
                 }).toArray();
                 itemTag.putIntArray("FadeColors", fadeColors);
+            }
+
+            if (!shapeData.isEmpty()){
+                itemTag.put("ShapeData", shapeData);
             }
 
             result.setTag(itemTag);
