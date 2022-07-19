@@ -1,5 +1,6 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.world.data;
 
+import net.minecraft.client.particle.FireworkParticles;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -36,6 +37,7 @@ public final class FireworkEngine {
             level.addParticle(new FireworkSparkParticleOption(color, fadeColor, trail, sparkle),
                     pos.x(), pos.y(), pos.z(), p.x(), p.y(), p.z());
         });
+
     }
 
     static void explodeFireworkStar(Level level, Vec3 pos, Vec3 mov, CompoundTag payload){

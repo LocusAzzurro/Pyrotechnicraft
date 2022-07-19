@@ -1,5 +1,8 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.world.entity;
 
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -8,6 +11,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
@@ -70,6 +74,11 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
         this.entityData.define(SPEED, (float)dProperties.speed());
         this.entityData.define(POWER, (float)dProperties.power());
         this.entityData.define(HOMING, dProperties.homing());
+    }
+
+    @Override
+    protected ParticleOptions getTrailParticle() {
+        return new BlockParticleOption(ParticleTypes.BLOCK, Blocks.AIR.defaultBlockState());
     }
 
     @Override
