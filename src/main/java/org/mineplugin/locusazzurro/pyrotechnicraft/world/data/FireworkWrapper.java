@@ -60,4 +60,34 @@ public abstract class FireworkWrapper {
         return wrap;
     }
 
+    /**
+     * Converts the "Explosions" list from a vanilla Firework Rocket into Firework Missile "PayloadList" format.
+     * @param expList A ListTag corresponding to the value of getList("Explosions", 10) from a Firework Rocket
+     * @return A CompoundTag corresponding to the value of getList("PayloadList", 10) from a Firework Rocket
+     */
+    public static ListTag convertVanillaFireworkExplosions(ListTag expList){
+        ListTag list = new ListTag();
+        if (!expList.isEmpty() && expList.getElementType() == ListTag.TAG_COMPOUND){
+            expList.forEach(exp -> {
+                CompoundTag wrap = new CompoundTag();
+                wrap.putBoolean(IS_CUSTOM, false);
+                wrap.put(PAYLOAD, exp);
+                list.add(wrap);
+            });
+        }
+        return list;
+    }
+
+    public static CompoundTag convertVanillaFireworkRocket(ItemStack stack){
+        CompoundTag wrap = new CompoundTag();
+        CompoundTag fireworkCompound = stack.getOrCreateTag().getCompound(FIREWORKS);
+        FlightProperties flight = FlightProperties.createFromVanilla(stack);
+        DisplayProperties display = DisplayProperties.createDefault();
+        ListTag exp = fireworkCompound.getList("Explosions",10);
+        wrap = wrap.merge(flight.serialize()).merge(display.serialize());
+        wrap.putInt("FuseDelay", 2);
+        wrap.put("PayloadList", convertVanillaFireworkExplosions(exp));
+        return wrap;
+    }
+
 }

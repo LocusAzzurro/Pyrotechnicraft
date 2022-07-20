@@ -4,6 +4,8 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -16,28 +18,43 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.EntityTypeRegistry;
+import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.DisplayProperties;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FlightProperties;
 
 public class FireworkMissileEntity extends AbstractHurtingProjectile {
 
-    private static final EntityDataAccessor<CompoundTag> PAYLOAD = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.COMPOUND_TAG);
+    private static final EntityDataAccessor<CompoundTag> PAYLOAD_LIST = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.COMPOUND_TAG);
     private static final EntityDataAccessor<Integer> FLIGHT_TIME = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> SPEED = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.FLOAT);
-    private static final EntityDataAccessor<Float> POWER = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Boolean> HOMING = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> FUSE_DELAY = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> BASE_COLOR = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> PATTERN_COLOR = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> SPARK_COLOR = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.INT);
+    private int life = 0;
 
     public FireworkMissileEntity(EntityType<FireworkMissileEntity> type, Level level) {
         super(type, level);
     }
 
-    public FireworkMissileEntity(Level level, Vec3 pos, FlightProperties properties, CompoundTag payload){
+    public FireworkMissileEntity(Level level, Vec3 pos, CompoundTag fireworkMissileData){
         super(EntityTypeRegistry.FIREWORK_MISSILE.get(), level);
-        this.entityData.set(PAYLOAD, payload);
-        this.entityData.set(FLIGHT_TIME, properties.flightTime());
-        this.entityData.set(SPEED, (float)properties.speed());
-        this.entityData.set(POWER, (float)properties.power());
-        this.entityData.set(HOMING, properties.homing());
-        this.setPos(pos);
+        ListTag expList = fireworkMissileData.getList("PayloadList", ListTag.TAG_COMPOUND);
+        CompoundTag expWrap = new CompoundTag();
+        expWrap.put("PayloadList", expList);
+        this.entityData.set(PAYLOAD_LIST, expWrap);
+        FlightProperties flight = FlightProperties.deserialize(fireworkMissileData);
+        this.entityData.set(FLIGHT_TIME, flight.flightTime());
+        this.entityData.set(SPEED, (float)flight.speed());
+        this.entityData.set(HOMING, flight.homing());
+        DisplayProperties display = DisplayProperties.deserialize(fireworkMissileData);
+        this.entityData.set(BASE_COLOR, display.baseColor());
+        this.entityData.set(PATTERN_COLOR, display.patternColor());
+        this.entityData.set(SPARK_COLOR, display.sparkColor());
+        int fuseDelay = fireworkMissileData.contains("FuseDelay") ? fireworkMissileData.getInt("FuseDelay") : 1;
+        this.entityData.set(FUSE_DELAY, fuseDelay);
+        this.life = 0;
+        this.moveTo(pos);
         this.reapplyPosition();
     }
 
@@ -45,12 +62,15 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
     public void tick() {
         super.tick();
         this.setDeltaMovement(this.getDeltaMovement().normalize().scale(this.entityData.get(SPEED)));
+
+        if (life > entityData.get(FLIGHT_TIME)) explode();
+        life++;
     }
 
     @Override
     protected void onHit(HitResult pResult) {
         if (this.level.isClientSide()){
-            CompoundTag payload = this.entityData.get(PAYLOAD);
+            CompoundTag payload = this.entityData.get(PAYLOAD_LIST);
             if (payload.contains("IsCustom") && !payload.getBoolean("IsCustom")) {
                 this.level.createFireworks(this.getX(), this.getY(), this.getZ(), 0, 0, 0, payload.getCompound("Payload"));
             }
@@ -61,6 +81,16 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
         super.onHit(pResult);
     }
 
+    public void explode(){
+        CompoundTag starterTag = new CompoundTag();
+        starterTag.putInt("FuseDelay", entityData.get(FUSE_DELAY));
+        ListTag expList = entityData.get(PAYLOAD_LIST).getList("PayloadList", ListTag.TAG_COMPOUND);
+        starterTag.put("PayloadList", expList);
+        FireworkStarter starter = new FireworkStarter(level, this.position(), starterTag, this.getDeltaMovement());
+        level.addFreshEntity(starter);
+        this.discard();
+    }
+
     @Override
     public boolean isPickable() {
         return false;
@@ -68,12 +98,16 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
 
     @Override
     protected void defineSynchedData() {
-        FlightProperties dProperties = FlightProperties.createDefault();
-        this.entityData.define(PAYLOAD, new CompoundTag());
-        this.entityData.define(FLIGHT_TIME, dProperties.flightTime());
-        this.entityData.define(SPEED, (float)dProperties.speed());
-        this.entityData.define(POWER, (float)dProperties.power());
-        this.entityData.define(HOMING, dProperties.homing());
+        this.entityData.define(PAYLOAD_LIST, new CompoundTag());
+        FlightProperties flight = FlightProperties.createDefault();
+        this.entityData.define(FLIGHT_TIME, flight.flightTime());
+        this.entityData.define(SPEED, (float)flight.speed());
+        this.entityData.define(HOMING, flight.homing());
+        DisplayProperties display = DisplayProperties.createDefault();
+        this.entityData.define(BASE_COLOR, display.baseColor());
+        this.entityData.define(PATTERN_COLOR, display.patternColor());
+        this.entityData.define(SPARK_COLOR, display.sparkColor());
+        this.entityData.define(FUSE_DELAY, 1);
     }
 
     @Override
@@ -89,18 +123,30 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         SynchedEntityData data = this.entityData;
-        compoundTag.put("Payload", data.get(PAYLOAD));
-        compoundTag.put("Properties", new FlightProperties(data.get(FLIGHT_TIME), data.get(SPEED), data.get(POWER), data.get(HOMING)).serialize());
-
+        ListTag expList = data.get(PAYLOAD_LIST).getList("PayloadList", ListTag.TAG_COMPOUND);
+        compoundTag.put("PayloadList", expList);
+        compoundTag.putInt("FlightTime", data.get(FLIGHT_TIME));
+        compoundTag.putFloat("Speed", data.get(SPEED));
+        compoundTag.putBoolean("Homing", data.get(HOMING));
+        compoundTag.putInt("BaseColor", data.get(BASE_COLOR));
+        compoundTag.putInt("PatternColor", data.get(PATTERN_COLOR));
+        compoundTag.putInt("SparkColor", data.get(SPARK_COLOR));
+        compoundTag.putInt("FuseDelay", data.get(FUSE_DELAY));
     }
 
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.entityData.set(PAYLOAD, compoundTag.getCompound("Payload"));
-        FlightProperties properties = FlightProperties.deserialize(compoundTag.getCompound("Properties"));
-        this.entityData.set(FLIGHT_TIME, properties.flightTime());
-        this.entityData.set(SPEED, (float)properties.speed());
-        this.entityData.set(POWER, (float)properties.power());
-        this.entityData.set(HOMING, properties.homing());
+        ListTag expList = compoundTag.getList("PayloadList", ListTag.TAG_COMPOUND);
+        CompoundTag expWrap = new CompoundTag();
+        expWrap.put("PayloadList", expList);
+        this.entityData.set(PAYLOAD_LIST, expWrap);
+        FlightProperties flight = FlightProperties.deserialize(compoundTag);
+        this.entityData.set(FLIGHT_TIME, flight.flightTime());
+        this.entityData.set(SPEED, (float)flight.speed());
+        this.entityData.set(HOMING, flight.homing());
+        DisplayProperties display = DisplayProperties.deserialize(compoundTag);
+        this.entityData.set(BASE_COLOR, display.baseColor());
+        this.entityData.set(PATTERN_COLOR, display.patternColor());
+        this.entityData.set(SPARK_COLOR, display.sparkColor());
     }
 }

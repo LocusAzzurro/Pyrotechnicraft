@@ -19,6 +19,10 @@ public class EntityTypeRegistry {
             register("firework_missile", () -> EntityType.Builder
                     .<FireworkMissileEntity>of(FireworkMissileEntity::new, MobCategory.MISC).sized(0.1f, 0.1f).build("firework_missile"));
 
+    public static final RegistryObject<EntityType<FireworkStarter>> FIREWORK_STARTER =
+            register("firework_starter", () -> EntityType.Builder
+                    .<FireworkStarter>of(FireworkStarter::new, MobCategory.MISC).sized(0.1f, 0.1f).build("firework_starter"));
+
     private static <T extends Entity> RegistryObject<EntityType<T>> register(String name, Supplier<EntityType<T>> type) {
         return ENTITIES.register(name, type);
     }
