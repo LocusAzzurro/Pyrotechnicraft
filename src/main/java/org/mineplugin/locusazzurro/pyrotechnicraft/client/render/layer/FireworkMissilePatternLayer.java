@@ -23,8 +23,8 @@ public class FireworkMissilePatternLayer<T extends FireworkMissileEntity, M exte
     }
 
     @Override
-    public void render(PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight, T pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
-        VertexConsumer vertexconsumer = pBuffer.getBuffer(RenderType.entityTranslucent(getPatternTexture(pLivingEntity)));
+    public void render(PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight, T pEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+        VertexConsumer vertexconsumer = pBuffer.getBuffer(RenderType.entityTranslucent(getPatternTexture(pEntity)));
         //todo get color from entity
         this.getParentModel().renderToBuffer(pMatrixStack, vertexconsumer, pPackedLight, OverlayTexture.NO_OVERLAY, 0.0F, 1.0F, 1.0F, 1.0F);
     }

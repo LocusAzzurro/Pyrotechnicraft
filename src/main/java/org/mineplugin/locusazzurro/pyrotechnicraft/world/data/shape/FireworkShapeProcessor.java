@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-public class FireworkShapeProcessor {
+public final class FireworkShapeProcessor {
 
     private static final float FORCE_DEFAULT = 0.2f;
     private static final float JITTER_DEFAULT = 0.1f;

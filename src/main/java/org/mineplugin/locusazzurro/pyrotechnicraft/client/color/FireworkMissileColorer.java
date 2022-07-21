@@ -7,8 +7,8 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
 
 public class FireworkMissileColorer implements ItemColor {
 
-    private static int DEFAULT_BASE_COLOR = 0xB92929;
-    private static int DEFAULT_PATTERN_COLOR = 0xF4F4F4;
+    public final static int DEFAULT_BASE_COLOR = 0xB92929;
+    public final static int DEFAULT_PATTERN_COLOR = 0xF4F4F4;
 
     @Override
     public int getColor(ItemStack pStack, int pTintIndex) {
