@@ -37,4 +37,5 @@ public interface IHomingSystemEnabled {
         pTooltipComponents.add(HomingSystem.TEXT_RANGE_TITLE.copy().append(range).withStyle(ChatFormatting.GRAY));
         pTooltipComponents.add(HomingSystem.TEXT_APERTURE_TITLE.copy().append(aperture).withStyle(ChatFormatting.GRAY));
     }
+
 }

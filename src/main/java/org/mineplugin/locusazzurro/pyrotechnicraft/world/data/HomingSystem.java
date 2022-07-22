@@ -1,17 +1,17 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.world.data;
 
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
 
 public final class HomingSystem {
@@ -143,4 +143,11 @@ public final class HomingSystem {
         EXTENT_TEXT.put((byte) 3, TEXT_EXTENT_XLARGE);
     }
 
+    public static Optional<Entity> getTargetById(Level level, UUID targetUUID, int targetNetworkId) {
+        if (targetUUID != null && level instanceof ServerLevel serverLevel) {
+            return Optional.ofNullable(serverLevel.getEntity(targetUUID));
+        } else {
+            return Optional.ofNullable(level.getEntity(targetNetworkId));
+        }
+    }
 }
