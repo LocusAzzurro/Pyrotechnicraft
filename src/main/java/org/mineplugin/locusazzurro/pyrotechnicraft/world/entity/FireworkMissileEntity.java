@@ -5,14 +5,14 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -22,10 +22,10 @@ import net.minecraftforge.network.NetworkHooks;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.EntityTypeRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.DisplayProperties;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FlightProperties;
+import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.HomingSystem;
 
-import javax.annotation.Nullable;
-import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class FireworkMissileEntity extends AbstractHurtingProjectile {
 
@@ -38,6 +38,7 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
     private static final EntityDataAccessor<Integer> PATTERN_COLOR = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SPARK_COLOR = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.INT);
     private int life = 0;
+    private static final int HOMING_DELAY = 5;
     private UUID targetUUID;
     private int targetNetworkId;
 
@@ -69,7 +70,30 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
     @Override
     public void tick() {
         super.tick();
-        this.setDeltaMovement(this.getDeltaMovement().normalize().scale(this.entityData.get(SPEED)));
+
+        Vec3 mov = this.getDeltaMovement().normalize();
+        Vec3 targetedMov = mov;
+
+        if (entityData.get(HOMING) && tickCount % 4 == 0 && life > HOMING_DELAY) {
+            double[] movVec = new double[]{mov.x, mov.y, mov.z};
+            HomingSystem.getTargetById(level, targetUUID, targetNetworkId).ifPresentOrElse(target -> {
+                if (target instanceof LivingEntity targetLiving && this.distanceTo(targetLiving) < 256) {
+                    movVec[0] = target.getX() - this.getX();
+                    movVec[1] = target.getY() - this.getY();
+                    movVec[2] = target.getZ() - this.getZ();
+                }
+            }, () -> HomingSystem.rangeFinding(this, 5, HomingSystem.isHostile.or(HomingSystem.isPlayer)).ifPresent(targetCandidate -> {
+                if (!targetCandidate.equals(this.getOwner())) {
+                    this.setTarget(targetCandidate);
+                }
+            }));
+            targetedMov = new Vec3(movVec[0], movVec[1], movVec[2]).normalize();
+        }
+
+        double speed = entityData.get(SPEED);
+        double delta = Mth.clamp(0.5 * (-Math.log10(speed) + 1), 0.05, 0.95);
+        Vec3 resultMov = targetedMov.equals(mov) ? mov : mov.lerp(targetedMov, delta);
+        this.setDeltaMovement(resultMov.scale(entityData.get(SPEED)));
 
         if (life > entityData.get(FLIGHT_TIME)) explode();
         life++;
@@ -86,23 +110,15 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
         ListTag expList = entityData.get(PAYLOAD_LIST).getList("PayloadList", ListTag.TAG_COMPOUND);
         starterTag.put("PayloadList", expList);
         FireworkStarter starter = new FireworkStarter(level, this.position(), starterTag, this.getDeltaMovement());
+        starter.setOwner(this.getOwner());
         level.addFreshEntity(starter);
         this.discard();
     }
 
-    public void setTarget(Optional<Entity> target) {
-        target.ifPresent(targetEntity -> {
-            this.targetUUID = targetEntity.getUUID();
-            this.targetNetworkId = targetEntity.getId();
-        });
-    }
-
-    @Nullable
-    public Entity getTarget() {
-        if (this.targetUUID != null && this.level instanceof ServerLevel) {
-            return ((ServerLevel)this.level).getEntity(this.targetUUID);
-        } else {
-            return this.targetNetworkId != 0 ? this.level.getEntity(this.targetNetworkId) : null;
+    public void setTarget(Entity target) {
+        if (target != null){
+            this.targetUUID = target.getUUID();
+            this.targetNetworkId = target.getId();
         }
     }
 
@@ -152,6 +168,9 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
         compoundTag.putInt("PatternColor", data.get(PATTERN_COLOR));
         compoundTag.putInt("SparkColor", data.get(SPARK_COLOR));
         compoundTag.putInt("FuseDelay", data.get(FUSE_DELAY));
+        if (this.targetUUID != null) {
+            compoundTag.putUUID("TargetUUID", this.targetUUID);
+        }
     }
 
     public void readAdditionalSaveData(CompoundTag compoundTag) {
@@ -168,5 +187,8 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
         this.entityData.set(BASE_COLOR, display.baseColor());
         this.entityData.set(PATTERN_COLOR, display.patternColor());
         this.entityData.set(SPARK_COLOR, display.sparkColor());
+        if (compoundTag.hasUUID("TargetUUID")) {
+            this.targetUUID = compoundTag.getUUID("TargetUUID");
+        }
     }
 }

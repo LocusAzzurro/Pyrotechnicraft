@@ -6,19 +6,19 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.EntityTypeRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FireworkEngine;
+import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.damage.DamageSources;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class FireworkStarter extends Projectile {
 
@@ -27,7 +27,6 @@ public class FireworkStarter extends Projectile {
     private static final EntityDataAccessor<CompoundTag> VEC = SynchedEntityData.defineId(FireworkStarter.class, EntityDataSerializers.COMPOUND_TAG);
     private int life;
     private Vec3 explosionVec;
-    private static AABB explosionRange = new AABB(-1, -1, -1, 1, 1, 1);
 
     public FireworkStarter(EntityType<? extends FireworkStarter> type, Level level) {
         super(type, level);
@@ -54,22 +53,37 @@ public class FireworkStarter extends Projectile {
         ListTag payloadList = payloadListWrap.getList("PayloadList", ListTag.TAG_COMPOUND);
         int fuseDelay = entityData.get(FUSE_DELAY);
         if (!payloadList.isEmpty()){
+            this.explosionVec = deserializeVec(entityData.get(VEC));
             if (fuseDelay > 0){
                 if (this.life % fuseDelay == 0 && this.life < fuseDelay * payloadList.size()) {
                     CompoundTag explosion = payloadList.getCompound(this.life / fuseDelay);
-                    this.explosionVec = deserializeVec(entityData.get(VEC));
                     if (level.isClientSide()){
                         FireworkEngine.createFirework(level, position(), explosionVec, explosion);
                     }
                     double damage = calculateDamage(explosion);
-                    List<LivingEntity> targets = this.level.getEntitiesOfClass(LivingEntity.class, explosionRange.move(position()));
-                    targets.forEach(target -> target.hurt(DamageSource.explosion((Explosion) null), (float) damage));
+                    List<LivingEntity> targets = this.level.getEntitiesOfClass(LivingEntity.class,
+                            new AABB(position().add(-2, -2, -2), position().add(2, 2, 2)));
+                    targets.forEach(target -> target.hurt(DamageSources.fireworkMissile(this.getOwner()), (float) damage));
                 }
+                if (this.life > fuseDelay * payloadList.size() + 10) this.discard();
             }
             else {
-                //todo all explosions
+                double totalDamage = 0;
+                for (int i = 0; i < payloadList.size(); i++){
+                    CompoundTag explosion = payloadList.getCompound(i);
+                    if (level.isClientSide()){
+                        FireworkEngine.createFirework(level, position(), explosionVec, explosion);
+                    }
+                    totalDamage += calculateDamage(explosion);
+                }
+                List<LivingEntity> targets = this.level.getEntitiesOfClass(LivingEntity.class,
+                        new AABB(position().add(-2, -2, -2), position().add(2, 2, 2)));
+                double finalTotalDamage = totalDamage;
+                targets.forEach(target -> target.hurt(DamageSources.fireworkMissile(this.getOwner()), (float) finalTotalDamage));
+                this.discard();
             }
         }
+        else this.discard();
 
         if (this.life > 100) this.discard();
         this.life++;

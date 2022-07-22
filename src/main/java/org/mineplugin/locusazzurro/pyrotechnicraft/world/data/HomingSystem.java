@@ -88,7 +88,7 @@ public final class HomingSystem {
         return target;
     }
 
-    public static Optional<LivingEntity> rangeFinding(LivingEntity origin, double radius, Predicate<LivingEntity> predicate){
+    public static Optional<LivingEntity> rangeFinding(Entity origin, double radius, Predicate<LivingEntity> predicate){
         Optional<LivingEntity> target = Optional.empty();
         Vec3 pos = origin.position();
         double step = 1.0d;
@@ -96,7 +96,7 @@ public final class HomingSystem {
         AABB aabb = new AABB(step, step, step, -step, -step, -step).move(pos);
         for (int i = 0; i < steps; i++){
             target = origin.level.getEntitiesOfClass(LivingEntity.class, aabb).stream()
-                    .filter(targetCandidate -> targetCandidate != origin && origin.hasLineOfSight(targetCandidate)
+                    .filter(targetCandidate -> targetCandidate != origin
                             && predicate.test(targetCandidate)).findFirst();
             if (target.isPresent()) return target;
             aabb = aabb.inflate(step);
