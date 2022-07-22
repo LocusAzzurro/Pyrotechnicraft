@@ -10,6 +10,8 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
@@ -20,6 +22,10 @@ import net.minecraftforge.network.NetworkHooks;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.EntityTypeRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.DisplayProperties;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FlightProperties;
+
+import javax.annotation.Nullable;
+import java.util.Optional;
+import java.util.UUID;
 
 public class FireworkMissileEntity extends AbstractHurtingProjectile {
 
@@ -32,6 +38,8 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
     private static final EntityDataAccessor<Integer> PATTERN_COLOR = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SPARK_COLOR = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.INT);
     private int life = 0;
+    private UUID targetUUID;
+    private int targetNetworkId;
 
     public FireworkMissileEntity(EntityType<FireworkMissileEntity> type, Level level) {
         super(type, level);
@@ -69,16 +77,7 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
 
     @Override
     protected void onHit(HitResult pResult) {
-        if (this.level.isClientSide()){
-            CompoundTag payload = this.entityData.get(PAYLOAD_LIST);
-            if (payload.contains("IsCustom") && !payload.getBoolean("IsCustom")) {
-                this.level.createFireworks(this.getX(), this.getY(), this.getZ(), 0, 0, 0, payload.getCompound("Payload"));
-            }
-            else {
-                System.out.println("Custom Firework Check");
-            }
-        }
-        super.onHit(pResult);
+        explode();
     }
 
     public void explode(){
@@ -91,8 +90,29 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
         this.discard();
     }
 
+    public void setTarget(Optional<Entity> target) {
+        target.ifPresent(targetEntity -> {
+            this.targetUUID = targetEntity.getUUID();
+            this.targetNetworkId = targetEntity.getId();
+        });
+    }
+
+    @Nullable
+    public Entity getTarget() {
+        if (this.targetUUID != null && this.level instanceof ServerLevel) {
+            return ((ServerLevel)this.level).getEntity(this.targetUUID);
+        } else {
+            return this.targetNetworkId != 0 ? this.level.getEntity(this.targetNetworkId) : null;
+        }
+    }
+
     @Override
     public boolean isPickable() {
+        return false;
+    }
+
+    @Override
+    public boolean isOnFire() {
         return false;
     }
 

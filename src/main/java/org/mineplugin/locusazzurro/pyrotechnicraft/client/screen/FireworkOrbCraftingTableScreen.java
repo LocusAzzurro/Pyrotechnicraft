@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
@@ -21,6 +22,8 @@ public class FireworkOrbCraftingTableScreen extends AbstractContainerScreen<Fire
     private Button craftButton;
     private static final int BG_X = 176;
     private static final int BG_Y = 222;
+    private static final TranslatableComponent TEXT_COLORS = new TranslatableComponent("screen.pyrotechnicraft.firework_orb_crafting_table.label.colors");
+    private static final TranslatableComponent TEXT_FADE_COLORS = new TranslatableComponent("screen.pyrotechnicraft.firework_orb_crafting_table.label.fade_colors");
 
     public FireworkOrbCraftingTableScreen(FireworkOrbCraftingTableContainer pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
@@ -56,8 +59,8 @@ public class FireworkOrbCraftingTableScreen extends AbstractContainerScreen<Fire
     @Override
     protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY) {
         drawString(matrixStack, Minecraft.getInstance().font, this.title, titleLabelX, titleLabelY, 0xffffff);
-        drawString(matrixStack, Minecraft.getInstance().font, "Colors", 98, 22, 0xffffff);
-        drawString(matrixStack, Minecraft.getInstance().font, "Fade Colors", 98, 76, 0xffffff);
+        drawString(matrixStack, Minecraft.getInstance().font, TEXT_COLORS, 98, 22, 0xffffff);
+        drawString(matrixStack, Minecraft.getInstance().font, TEXT_FADE_COLORS, 98, 76, 0xffffff);
     }
 
     @Override
