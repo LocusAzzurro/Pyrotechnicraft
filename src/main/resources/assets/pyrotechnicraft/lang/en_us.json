@@ -36,12 +36,18 @@
 
   "screen.pyrotechnicraft.firework_orb_crafting_table": "Firework Orb Crafting",
   "screen.pyrotechnicraft.firework_missile_crafting_table": "Firework Missile Crafting",
+  "screen.pyrotechnicraft.firework_orb_crafting_table.label.colors": "Colors",
+  "screen.pyrotechnicraft.firework_orb_crafting_table.label.fade_colors": "Fade Colors",
+  "screen.pyrotechnicraft.firework_crafting_table.button.craft": "Craft",
 
   "item.pyrotechnicraft.homing_array_script.state_change_message.selected_option": "Switched to Property: ",
   "item.pyrotechnicraft.homing_array_script.state_change_message.target_type": "Target Type changed to: ",
   "item.pyrotechnicraft.homing_array_script.state_change_message.mode": "Homing Mode changed to: ",
   "item.pyrotechnicraft.homing_array_script.state_change_message.range": "Range changed to: ",
   "item.pyrotechnicraft.homing_array_script.state_change_message.aperture": "Aperture changed to: ",
+  "item.pyrotechnicraft.homing_array.homing_script_loaded": "Loaded Configuration from Script",
+  "item.pyrotechnicraft.homing_array.target_locked": "Target Locked: ",
+  "item.pyrotechnicraft.homing_array.current_target": "Current Target: ",
   "data.pyrotechnicraft.homing_system.selected_option.title": "Selected Property: ",
   "data.pyrotechnicraft.homing_system.selected_option.target_type": "Target Type",
   "data.pyrotechnicraft.homing_system.selected_option.mode": "Homing Mode",
