@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HomingArrayScript extends Item{
+public class HomingArrayScript extends Item implements IHomingSystemEnabled{
 
     public static final String MESSAGE_PREFIX = "item." + Pyrotechnicraft.MOD_ID + ".homing_array_script.state_change_message.";
     public static final TranslatableComponent TEXT_SELECTED_OPTION_CHANGED = new TranslatableComponent(MESSAGE_PREFIX + "selected_option");
@@ -58,27 +58,7 @@ public class HomingArrayScript extends Item{
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        CompoundTag tag = pStack.getOrCreateTag();
-        TranslatableComponent selectedOption = tag.contains(HomingSystem.CURRENT_OPTION) ?
-                HomingSystem.SELECTED_OPTION_TEXT.getOrDefault(tag.getByte(HomingSystem.CURRENT_OPTION), HomingSystem.TEXT_NO_INFO) :
-                HomingSystem.TEXT_NO_INFO;
-        TranslatableComponent targetType = tag.contains(HomingSystem.TARGET_TYPE) ?
-                HomingSystem.TARGET_TYPE_TEXT.getOrDefault(tag.getByte(HomingSystem.TARGET_TYPE), HomingSystem.TEXT_NO_INFO) :
-                HomingSystem.TEXT_NO_INFO;
-        TranslatableComponent mode = tag.contains(HomingSystem.MODE) ?
-                HomingSystem.MODE_TEXT.getOrDefault(tag.getByte(HomingSystem.MODE), HomingSystem.TEXT_NO_INFO) :
-                HomingSystem.TEXT_NO_INFO;
-        TranslatableComponent range = tag.contains(HomingSystem.RANGE) ?
-                HomingSystem.EXTENT_TEXT.getOrDefault(tag.getByte(HomingSystem.RANGE), HomingSystem.TEXT_NO_INFO) :
-                HomingSystem.TEXT_NO_INFO;
-        TranslatableComponent aperture = tag.contains(HomingSystem.APERTURE) ?
-                HomingSystem.EXTENT_TEXT.getOrDefault(tag.getByte(HomingSystem.APERTURE), HomingSystem.TEXT_NO_INFO) :
-                HomingSystem.TEXT_NO_INFO;
-        pTooltipComponents.add(HomingSystem.TEXT_SELECTED_OPTION_TITLE.copy().append(selectedOption).withStyle(ChatFormatting.GRAY));
-        pTooltipComponents.add(HomingSystem.TEXT_TARGET_TYPE_TITLE.copy().append(targetType).withStyle(ChatFormatting.GRAY));
-        pTooltipComponents.add(HomingSystem.TEXT_MODE_TITLE.copy().append(mode).withStyle(ChatFormatting.GRAY));
-        pTooltipComponents.add(HomingSystem.TEXT_RANGE_TITLE.copy().append(range).withStyle(ChatFormatting.GRAY));
-        pTooltipComponents.add(HomingSystem.TEXT_APERTURE_TITLE.copy().append(aperture).withStyle(ChatFormatting.GRAY));
+        IHomingSystemEnabled.super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced, true);
     }
     public TranslatableComponent getOptionValueComponent(byte option, byte value){
         return switch (option) {

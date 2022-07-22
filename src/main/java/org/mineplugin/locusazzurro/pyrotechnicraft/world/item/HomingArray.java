@@ -12,16 +12,19 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.HomingSystem;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.mineplugin.locusazzurro.pyrotechnicraft.world.data.HomingSystem.CURRENT_OPTION;
 
-public class HomingArray extends Item{
+public class HomingArray extends Item implements IHomingSystemEnabled{
 
     public HomingArray(){
         super(new Item.Properties().tab(Pyrotechnicraft.CREATIVE_TAB).durability(100));
@@ -61,6 +64,11 @@ public class HomingArray extends Item{
         }
 
         return super.use(pLevel, pPlayer, pUsedHand);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+        IHomingSystemEnabled.super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced, false);
     }
 
     @Override
