@@ -27,5 +27,12 @@ public class ModBlockModelProvider extends BlockStateProvider {
                 modLoc("block/firework_crafting_table_bottom"),
                 modLoc("block/firework_missile_crafting_table_top")
         ));
+        horizontalBlock(BlockRegistry.FIREWORK_LAUNCHER_STAND.get(), models().orientableWithBottom(
+                BlockRegistry.FIREWORK_LAUNCHER_STAND.get().getRegistryName().getPath(),
+                modLoc("block/firework_launcher_stand_side"),
+                modLoc("block/firework_launcher_stand_side"),
+                modLoc("block/firework_launcher_stand_bottom"),
+                modLoc("block/firework_launcher_stand_top")
+        ));
     }
 }

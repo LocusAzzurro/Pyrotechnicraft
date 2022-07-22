@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "side": "pyrotechnicraft:block/firework_launcher_stand_side",
+    "front": "pyrotechnicraft:block/firework_launcher_stand_side",
+    "bottom": "pyrotechnicraft:block/firework_launcher_stand_bottom",
+    "top": "pyrotechnicraft:block/firework_launcher_stand_top"
+  }
+}
