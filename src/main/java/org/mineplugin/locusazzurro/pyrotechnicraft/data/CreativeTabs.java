@@ -9,14 +9,12 @@ public class CreativeTabs {
 
     public static class CreativeTab extends CreativeModeTab {
 
-        private static final ItemStack ICON_ITEM = new ItemStack(Items.FIREWORK_ROCKET);
-
         public CreativeTab() {
             super("pyrotechnicraft");
         }
         @Override
         public ItemStack makeIcon() {
-            return ICON_ITEM;
+            return new ItemStack(ItemRegistry.FIREWORK_MISSILE.get());
         }
     }
 }
