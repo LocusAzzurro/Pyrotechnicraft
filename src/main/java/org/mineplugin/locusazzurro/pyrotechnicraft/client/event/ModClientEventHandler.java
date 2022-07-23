@@ -39,7 +39,7 @@ public class ModClientEventHandler {
 
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent e){
-        registerEntityRenderer(EntityTypeRegistry.FIREWORK_MISSILE.get(), SimpleFireworkMissileRenderer::new);
+        registerEntityRenderer(EntityTypeRegistry.FIREWORK_MISSILE.get(), PatternedFireworkMissileRenderer::new);
         registerEntityRenderer(EntityTypeRegistry.FIREWORK_STARTER.get(), FireworkStarterRenderer::new);
     }
 

@@ -9,6 +9,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
+import org.mineplugin.locusazzurro.pyrotechnicraft.util.ColorUtil;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.entity.FireworkMissileEntity;
 
 public class FireworkMissileModel<T extends FireworkMissileEntity> extends EntityModel<T> {
@@ -36,9 +37,10 @@ public class FireworkMissileModel<T extends FireworkMissileEntity> extends Entit
 
     }
 
-    public void renderFireworkMissile(T entity, PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay){
-//todo add custom pattern info check on entity
-            this.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, 1f, 1f, 1f, 1f);
+    public void renderFireworkMissile(T entity, PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay) {
+        int baseColor = entity.getBaseColor();
+        this.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay,
+                ColorUtil.redF(baseColor), ColorUtil.greenF(baseColor), ColorUtil.blueF(baseColor), 1f);
     }
 
     @Override

@@ -122,6 +122,14 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
         }
     }
 
+    public int getBaseColor(){
+        return entityData.get(BASE_COLOR);
+    }
+
+    public int getPatternColor(){
+        return entityData.get(PATTERN_COLOR);
+    }
+
     @Override
     public boolean isPickable() {
         return false;

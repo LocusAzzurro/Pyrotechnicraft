@@ -12,20 +12,19 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.mineplugin.locusazzurro.pyrotechnicraft.client.render.model.FireworkMissileModel;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.entity.FireworkMissileEntity;
 
 import java.util.List;
 
-public abstract class FireworkMissileRenderer<T extends FireworkMissileEntity, M extends FireworkMissileModel<T>>
+public abstract class AbstractFireworkMissileRenderer<T extends FireworkMissileEntity, M extends FireworkMissileModel<T>>
         extends EntityRenderer<T> implements RenderLayerParent<T, M> {
 
     protected final List<RenderLayer<T, M>> layers = Lists.newArrayList();
     private final M model;
 
-    public FireworkMissileRenderer(EntityRendererProvider.Context context, M model) {
+    public AbstractFireworkMissileRenderer(EntityRendererProvider.Context context, M model) {
         super(context);
         this.model = model;
     }
