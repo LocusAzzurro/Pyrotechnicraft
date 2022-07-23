@@ -18,7 +18,7 @@ public final class ModelLayerLocations {
 
     private static ModelLayerLocation register(String pPath){
         return new ModelLayerLocation(new ResourceLocation(Pyrotechnicraft.MOD_ID, pPath), "main");
-    };
+    }
 
     public static Map<ModelLayerLocation, LayerDefinition> createLayerDefinitions() {
         ImmutableMap.Builder<ModelLayerLocation, LayerDefinition> builder = ImmutableMap.builder();

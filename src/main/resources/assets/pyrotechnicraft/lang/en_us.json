@@ -40,6 +40,9 @@
   "screen.pyrotechnicraft.firework_orb_crafting_table.label.fade_colors": "Fade Colors",
   "screen.pyrotechnicraft.firework_crafting_table.button.craft": "Craft",
 
+  "item.pyrotechnicraft.explosion_pattern.points": "Points: ",
+  "item.pyrotechnicraft.explosion_pattern.cost": "Cost: ",
+  "item.pyrotechnicraft.firework_fuse.delay": "Fuse Delay: ",
   "item.pyrotechnicraft.homing_array_script.state_change_message.selected_option": "Switched to Property: ",
   "item.pyrotechnicraft.homing_array_script.state_change_message.target_type": "Target Type changed to: ",
   "item.pyrotechnicraft.homing_array_script.state_change_message.mode": "Homing Mode changed to: ",

@@ -1,12 +1,40 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.world.item;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
+import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
+
+import java.util.List;
+
 public class FireworkFuse extends BasicMaterialItem{
+
+    public static final TranslatableComponent TEXT_FUSE_TITLE = new TranslatableComponent("item." + Pyrotechnicraft.MOD_ID + ".firework_fuse.delay");
 
     private final FuseType type;
 
     public FireworkFuse(FuseType type){
         super();
         this.type = type;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+        if (pStack.getItem() instanceof FireworkFuse fuseItem){
+            FuseType fuseType = fuseItem.getType();
+            if (fuseType == FuseType.CUSTOM){
+                if (pStack.getOrCreateTag().contains("FuseDelay"))
+                    pTooltipComponents.add(TEXT_FUSE_TITLE.copy()
+                            .append(String.valueOf(pStack.getOrCreateTag().getInt("FuseDelay"))).withStyle(ChatFormatting.GRAY));
+            }
+            else {
+                pTooltipComponents.add(TEXT_FUSE_TITLE.copy().append(String.valueOf(fuseType.delay)).withStyle(ChatFormatting.GRAY));
+            }
+        }
     }
 
     public FuseType getType() {
