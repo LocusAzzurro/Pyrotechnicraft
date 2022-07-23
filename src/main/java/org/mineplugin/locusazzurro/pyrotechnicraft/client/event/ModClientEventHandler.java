@@ -3,6 +3,8 @@ package org.mineplugin.locusazzurro.pyrotechnicraft.client.event;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -18,6 +20,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.mineplugin.locusazzurro.pyrotechnicraft.client.color.*;
 import org.mineplugin.locusazzurro.pyrotechnicraft.client.particle.*;
+import org.mineplugin.locusazzurro.pyrotechnicraft.client.render.ModelLayerLocations;
 import org.mineplugin.locusazzurro.pyrotechnicraft.client.render.model.*;
 import org.mineplugin.locusazzurro.pyrotechnicraft.client.render.renderer.*;
 import org.mineplugin.locusazzurro.pyrotechnicraft.client.screen.*;
@@ -25,6 +28,8 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.data.ContainerTypeRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.EntityTypeRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ParticleTypeRegistry;
+
+import java.util.Map;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ModClientEventHandler {
@@ -45,7 +50,8 @@ public class ModClientEventHandler {
 
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterRenderers event) {
-        ForgeHooksClient.registerLayerDefinition(FireworkMissileModel.LAYER_LOCATION, FireworkMissileModel::createBodyLayer);
+        Map<ModelLayerLocation, LayerDefinition> layers = ModelLayerLocations.createLayerDefinitions();
+        layers.forEach((location, definition) -> ForgeHooksClient.registerLayerDefinition(location, () -> definition));
     }
 
     @SubscribeEvent

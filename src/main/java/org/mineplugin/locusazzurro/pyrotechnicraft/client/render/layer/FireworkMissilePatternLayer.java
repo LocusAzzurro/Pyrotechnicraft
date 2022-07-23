@@ -8,14 +8,12 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
+import org.mineplugin.locusazzurro.pyrotechnicraft.client.render.ModelLayerLocations;
 import org.mineplugin.locusazzurro.pyrotechnicraft.client.render.model.FireworkMissileModel;
 import org.mineplugin.locusazzurro.pyrotechnicraft.util.ColorUtil;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.entity.FireworkMissileEntity;
 
 public class FireworkMissilePatternLayer<T extends FireworkMissileEntity, M extends FireworkMissileModel<T>> extends RenderLayer<T, M> {
-
-    public static final ResourceLocation PATTERN_LAYER = new ResourceLocation(Pyrotechnicraft.MOD_ID, "textures/entity/firework_missile_pattern_layer.png");
 
     public FireworkMissilePatternLayer(RenderLayerParent<T, M> pRenderer) {
         super(pRenderer);
@@ -31,6 +29,6 @@ public class FireworkMissilePatternLayer<T extends FireworkMissileEntity, M exte
 
     @Override
     protected ResourceLocation getTextureLocation(T pEntity) {
-        return PATTERN_LAYER;
+        return ModelLayerLocations.FIREWORK_MISSILE_PATTERN_LAYER;
     }
 }
