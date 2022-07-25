@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
+import org.mineplugin.locusazzurro.pyrotechnicraft.client.particle.TrailSparkParticleOption;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.EntityTypeRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.DisplayProperties;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FlightProperties;
@@ -70,6 +71,10 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
     @Override
     public void tick() {
         super.tick();
+
+        if (level.isClientSide()) {
+            level.addParticle(new TrailSparkParticleOption(entityData.get(SPARK_COLOR)), getX(), getY(), getZ(), 0, 0, 0);
+        }
 
         Vec3 mov = this.getDeltaMovement().normalize();
         Vec3 targetedMov = mov;

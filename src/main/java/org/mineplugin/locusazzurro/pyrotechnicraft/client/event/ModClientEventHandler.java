@@ -67,6 +67,7 @@ public class ModClientEventHandler {
         ItemColors itemColors = event.getItemColors();
         itemColors.register(new FireworkOrbColorer(), ItemRegistry.FIREWORK_ORB.get());
         itemColors.register(new FireworkMissileColorer(), ItemRegistry.FIREWORK_MISSILE.get());
+        itemColors.register(new FlickerStickColorer(), ItemRegistry.FLICKER_STICK.get());
     }
     private static <T extends Entity> void registerEntityRenderer(EntityType<T> type, EntityRendererProvider<T> renderer){
         EntityRenderers.register(type, renderer);

@@ -15,12 +15,12 @@ public class TrailSparkParticle extends TextureSheetParticle {
 
     public TrailSparkParticle(ClientLevel level, Vec3 pos, int color) {
         super(level, pos.x, pos.y, pos.z, 0, 0, 0);
-        this.xd = (level.random.nextDouble() - 0.5) * 0.5;
-        this.yd = (level.random.nextDouble() - 0.5) * 0.5;
-        this.zd = (level.random.nextDouble() - 0.5) * 0.5;
-        this.scale(level.random.nextFloat()/0.5f);
+        this.xd = (level.random.nextDouble() - 0.5) * 0.3;
+        this.yd = (level.random.nextDouble() - 0.5) * 0.3;
+        this.zd = (level.random.nextDouble() - 0.5) * 0.3;
+        this.scale(level.random.nextFloat() * 0.8f);
         this.setColor(ColorUtil.redF(color), ColorUtil.greenF(color), ColorUtil.blueF(color));
-        this.lifetime = 20 + level.random.nextInt(5);
+        this.lifetime = 10 + level.random.nextInt(5);
     }
 
     @Override
@@ -31,9 +31,9 @@ public class TrailSparkParticle extends TextureSheetParticle {
         if (this.age++ >= this.lifetime) this.remove();
         else {
             this.move(xd, yd, zd);
-            this.xd *= 0.9d;
-            this.yd *= 0.9d;
-            this.zd *= 0.9d;
+            this.xd *= 0.8d;
+            this.yd *= 0.8d;
+            this.zd *= 0.8d;
         }
     }
 
