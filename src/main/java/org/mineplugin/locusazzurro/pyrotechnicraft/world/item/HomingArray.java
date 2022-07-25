@@ -4,6 +4,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -64,12 +65,16 @@ public class HomingArray extends Item implements IHomingSystemEnabled{
             pPlayer.displayClientMessage(TEXT_TARGET_LOCKED.copy().append(entity.getName()), true);
         });
 
+        //todo sound effects
         if (!pLevel.isClientSide()) {
-            item.hurtAndBreak(1, pPlayer, (player) -> {
-                player.broadcastBreakEvent(pPlayer.getUsedItemHand());
-            });
+            item.hurtAndBreak(1, pPlayer, (player) -> player.broadcastBreakEvent(pPlayer.getUsedItemHand()));
         }
 
+        if (!pPlayer.isCreative()) {
+            pPlayer.getCooldowns().addCooldown(this, 40);
+        }
+
+        pPlayer.awardStat(Stats.ITEM_USED.get(this));
         return super.use(pLevel, pPlayer, pUsedHand);
     }
 
@@ -77,9 +82,8 @@ public class HomingArray extends Item implements IHomingSystemEnabled{
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         CompoundTag tag = pStack.getOrCreateTag();
         if (tag.getBoolean("TargetValid")) {
-            HomingSystem.getTargetById(pLevel, tag.getUUID("TargetUUID"), tag.getInt("TargetNetworkID")).ifPresent(target -> {
-                pTooltipComponents.add(TEXT_CURRENT_TARGET.copy().append(target.getName()).withStyle(ChatFormatting.AQUA));
-            });
+            HomingSystem.getTargetById(pLevel, tag.getUUID("TargetUUID"), tag.getInt("TargetNetworkID")).ifPresent(target ->
+                    pTooltipComponents.add(TEXT_CURRENT_TARGET.copy().append(target.getName()).withStyle(ChatFormatting.AQUA)));
         }
         IHomingSystemEnabled.super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced, false);
     }

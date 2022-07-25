@@ -8,6 +8,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -46,6 +47,7 @@ public class ModClientEventHandler {
     public static void clientSetup(FMLClientSetupEvent e){
         registerEntityRenderer(EntityTypeRegistry.FIREWORK_MISSILE.get(), PatternedFireworkMissileRenderer::new);
         registerEntityRenderer(EntityTypeRegistry.FIREWORK_STARTER.get(), FireworkStarterRenderer::new);
+        registerEntityRenderer(EntityTypeRegistry.FIRECRACKER.get(), ThrownItemRenderer::new);
     }
 
     @SubscribeEvent

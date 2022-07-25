@@ -39,6 +39,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         generatedItem(ItemRegistry.HOMING_ARRAY_SCRIPT.get());
         generatedItem(ItemRegistry.TACTICAL_SCRIPT.get());
+        generatedItem(ItemRegistry.FIRECRACKER.get());
         generatedItem(ItemRegistry.FIREWORK_REPLICATION_KIT.get());
         generatedItem(ItemRegistry.CREATIVE_FIREWORK_TEST_KIT.get());
         blockItem(BlockRegistry.FIREWORK_ORB_CRAFTING_TABLE.get());
