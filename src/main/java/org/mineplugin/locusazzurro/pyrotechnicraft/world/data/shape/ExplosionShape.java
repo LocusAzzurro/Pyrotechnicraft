@@ -20,6 +20,9 @@ public enum ExplosionShape implements Serializable {
         this.fireworkMixVal = mixVal;
     }
 
+    public static ExplosionShape byName(String name){
+        return MAP.getOrDefault(name, ExplosionShape.SPHERE);
+    }
     public String getName(){return name;}
 
     public int getFireworkMixtureValue(){
