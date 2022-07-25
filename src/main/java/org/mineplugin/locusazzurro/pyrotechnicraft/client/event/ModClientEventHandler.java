@@ -60,6 +60,7 @@ public class ModClientEventHandler {
     public static void registerParticleFactory(ParticleFactoryRegisterEvent event){
         ParticleEngine particleEngine = Minecraft.getInstance().particleEngine;
         particleEngine.register(ParticleTypeRegistry.FIREWORK_SPARK.get(), FireworkSparkParticle.FireworkSparkProvider::new);
+        particleEngine.register(ParticleTypeRegistry.TRAIL_SPARK.get(), TrailSparkParticle.TrailSparkProvider::new);
     }
     @SubscribeEvent
     public static void registerItemColors(ColorHandlerEvent.Item event){

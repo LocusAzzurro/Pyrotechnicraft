@@ -16,15 +16,16 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.util.ColorUtil;
 public class FireworkSparkParticle extends TextureSheetParticle {
 
     private final SpriteSet sprites;
-    private ParticleEngine engine;
-    //private static final int LOOP_SPEED = 10;
+    private final ParticleEngine engine;
+    private static final int LOOP_SPEED = 10;
+    private static final int SPRITE_COUNT = 5;
     private int color;
     private int fadeColor;
     private float inertia = 0.9f;
     private float volatility = 0.95f;
     private boolean trail = false;
     private boolean sparkle = false;
-    private float alpha = 0f;
+
     public FireworkSparkParticle(ClientLevel level, Vec3 pos, Vec3 mov, int color, int fadeColor, SpriteSet sprites, ParticleEngine engine) {
         super(level, pos.x, pos.y, pos.z, mov.x, mov.y, mov.z);
         this.setColor(ColorUtil.redF(color), ColorUtil.greenF(color), ColorUtil.blueF(color));
@@ -66,9 +67,9 @@ public class FireworkSparkParticle extends TextureSheetParticle {
 
     @Override
     public void tick(){
-        //todo change according to sprite amount
+
         //first number must not exceed second by 1 + 1/sprite amount
-        this.setSprite(this.sprites.get(this.age % 12, 10));
+        this.setSprite(this.sprites.get(this.age % (LOOP_SPEED + LOOP_SPEED / SPRITE_COUNT), LOOP_SPEED));
 
         this.xo = this.x;
         this.yo = this.y;
@@ -83,6 +84,8 @@ public class FireworkSparkParticle extends TextureSheetParticle {
             this.zd *= this.inertia;
         }
 
+        float alpha = 1.0f;
+
         if (timeLeft <= 20) {
             this.setColor(
                     (float) Mth.lerp(0.1, this.rCol, ColorUtil.redF(this.fadeColor)),
@@ -92,10 +95,17 @@ public class FireworkSparkParticle extends TextureSheetParticle {
         }
 
         if (timeLeft < 10){
-            this.setAlpha(0.1f * (timeLeft));
+            alpha = 0.1f * timeLeft;
         }
 
-        if(trail){
+        if(sparkle && this.age % 3 == 0 && timeLeft <= 15){
+            alpha = 0.0f;
+        }
+
+        this.setAlpha(alpha);
+
+        float speed = Mth.sqrt((float) (xd * xd + yd * yd + zd * zd));
+        if(trail && (speed >= 0.5 || (speed < 0.5 && this.age % 2 == 0))){
             FireworkSparkParticle trailParticle =
                     new FireworkSparkParticle(this.level, new Vec3(this.x, this.y, this.z), new Vec3(0,0,0),
                             this.color, this.fadeColor, this.sprites, this.engine);
@@ -105,9 +115,9 @@ public class FireworkSparkParticle extends TextureSheetParticle {
             trailParticle.lifetime = 12;
             this.engine.add(trailParticle);
         }
-        //todo sparkle
     }
 
+    @Override
     public int getLightColor(float pPartialTick) {
         return 15728880;
     }
