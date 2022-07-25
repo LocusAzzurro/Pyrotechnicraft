@@ -3,6 +3,6 @@
   "textures": {
     "side": "pyrotechnicraft:block/firework_launcher_stand_side",
     "bottom": "pyrotechnicraft:block/firework_launcher_stand_bottom",
-    "top": "pyrotechnicraft:block/firework_launcher_stand_top"
+    "top": "pyrotechnicraft:block/composite_firework_orb_launcher_stand_top"
   }
 }

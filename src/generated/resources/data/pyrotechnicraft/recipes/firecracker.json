@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PFP",
+    "PFP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "F": {
+      "item": "pyrotechnicraft:firework_mixture"
+    }
+  },
+  "result": {
+    "item": "pyrotechnicraft:firecracker"
+  }
+}

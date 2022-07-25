@@ -7,9 +7,11 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.ItemLike;
+import org.jetbrains.annotations.NotNull;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ModItemTags;
 
@@ -144,6 +146,38 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("HI ")
                 .unlockedBy("has_homing_module", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.FIREWORK_HOMING_MODULE.get()))
                 .save(pFinishedRecipeConsumer);
+        ShapedRecipeBuilder.shaped(ItemRegistry.FIREWORK_ORB_SHOOTER.get())
+                .define('B', Items.BAMBOO)
+                .define('S', Items.FLINT_AND_STEEL)
+                .pattern("  B")
+                .pattern(" B ")
+                .pattern("S  ")
+                .unlockedBy("has_orb", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.FIREWORK_ORB.get()))
+                .save(pFinishedRecipeConsumer);
+        ShapedRecipeBuilder.shaped(ItemRegistry.FIREWORK_LAUNCHER.get())
+                .define('I', Items.IRON_INGOT)
+                .define('S', Items.FLINT_AND_STEEL)
+                .define('B', ItemTags.BUTTONS)
+                .define('W', ItemRegistry.FIREWORK_WRAPPING_PAPER.get())
+                .pattern("WI ")
+                .pattern("I I")
+                .pattern("SIB")
+                .unlockedBy("has_missile", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.FIREWORK_MISSILE.get()))
+                .save(pFinishedRecipeConsumer);
+        ShapedRecipeBuilder.shaped(ItemRegistry.FIRECRACKER.get())
+                .define('P', Items.PAPER)
+                .define('F', ItemRegistry.FIREWORK_MIXTURE.get())
+                .pattern("PFP")
+                .pattern("PFP")
+                .unlockedBy("has_firework_mixture", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.FIREWORK_MIXTURE.get()))
+                .save(pFinishedRecipeConsumer);
+        ShapedRecipeBuilder.shaped(ItemRegistry.FLICKER_STICK.get())
+                .define('S', Items.STICK)
+                .define('F', ItemRegistry.FIREWORK_MIXTURE.get())
+                .pattern(" F")
+                .pattern("S ")
+                .unlockedBy("has_firework_mixture", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.FIREWORK_MIXTURE.get()))
+                .save(pFinishedRecipeConsumer);
 
         ShapedRecipeBuilder.shaped(ItemRegistry.FIREWORK_ORB_CRAFTING_TABLE.get(), 1)
                 .define('O', ItemRegistry.FIREWORK_ORB_CORE.get())
@@ -170,6 +204,7 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     @Override
+    @NotNull
     public String getName() {
         return DataGenerators.MOD_ID + " Recipes";
     }

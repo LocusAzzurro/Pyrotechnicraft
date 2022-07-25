@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WI ",
+    "I I",
+    "SIB"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "S": {
+      "item": "minecraft:flint_and_steel"
+    },
+    "B": {
+      "tag": "minecraft:buttons"
+    },
+    "W": {
+      "item": "pyrotechnicraft:firework_wrapping_paper"
+    }
+  },
+  "result": {
+    "item": "pyrotechnicraft:firework_launcher"
+  }
+}

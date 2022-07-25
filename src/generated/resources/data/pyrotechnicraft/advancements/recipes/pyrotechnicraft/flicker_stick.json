@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "pyrotechnicraft:flicker_stick"
+    ]
+  },
+  "criteria": {
+    "has_firework_mixture": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pyrotechnicraft:firework_mixture"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "pyrotechnicraft:flicker_stick"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_firework_mixture",
+      "has_the_recipe"
+    ]
+  ]
+}

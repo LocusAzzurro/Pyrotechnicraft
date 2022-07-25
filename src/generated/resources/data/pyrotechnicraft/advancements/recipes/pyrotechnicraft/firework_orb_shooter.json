@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "pyrotechnicraft:firework_orb_shooter"
+    ]
+  },
+  "criteria": {
+    "has_orb": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pyrotechnicraft:firework_orb"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "pyrotechnicraft:firework_orb_shooter"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_orb",
+      "has_the_recipe"
+    ]
+  ]
+}

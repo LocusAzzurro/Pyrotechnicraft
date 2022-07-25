@@ -37,6 +37,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         generatedItem(ItemRegistry.FIREWORK_HOMING_MODULE.get());
         generatedItem(ItemRegistry.FIREWORK_WRAPPING_PAPER.get());
 
+        generatedItem(ItemRegistry.HOMING_ARRAY.get());
         generatedItem(ItemRegistry.HOMING_ARRAY_SCRIPT.get());
         generatedItem(ItemRegistry.TACTICAL_SCRIPT.get());
         generatedItem(ItemRegistry.FIRECRACKER.get());
@@ -45,6 +46,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         blockItem(BlockRegistry.FIREWORK_ORB_CRAFTING_TABLE.get());
         blockItem(BlockRegistry.FIREWORK_MISSILE_CRAFTING_TABLE.get());
         blockItem(BlockRegistry.FIREWORK_LAUNCHER_STAND.get());
+        blockItem(BlockRegistry.COMPOSITE_FIREWORK_ORB_LAUNCHER_STAND.get());
     }
 
     private ItemModelBuilder generatedItem(Item item){

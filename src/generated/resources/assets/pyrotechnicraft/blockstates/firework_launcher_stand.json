@@ -1,19 +1,7 @@
 {
   "variants": {
-    "facing=north": {
+    "": {
       "model": "pyrotechnicraft:block/firework_launcher_stand"
-    },
-    "facing=south": {
-      "model": "pyrotechnicraft:block/firework_launcher_stand",
-      "y": 180
-    },
-    "facing=west": {
-      "model": "pyrotechnicraft:block/firework_launcher_stand",
-      "y": 270
-    },
-    "facing=east": {
-      "model": "pyrotechnicraft:block/firework_launcher_stand",
-      "y": 90
     }
   }
 }

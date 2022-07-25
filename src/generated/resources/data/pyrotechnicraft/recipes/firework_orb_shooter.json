@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  B",
+    " B ",
+    "S  "
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:bamboo"
+    },
+    "S": {
+      "item": "minecraft:flint_and_steel"
+    }
+  },
+  "result": {
+    "item": "pyrotechnicraft:firework_orb_shooter"
+  }
+}

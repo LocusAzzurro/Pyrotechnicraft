@@ -1,8 +1,7 @@
 {
-  "parent": "minecraft:block/orientable_with_bottom",
+  "parent": "minecraft:block/cube_bottom_top",
   "textures": {
     "side": "pyrotechnicraft:block/firework_crafting_table_side",
-    "front": "pyrotechnicraft:block/firework_crafting_table_side",
     "bottom": "pyrotechnicraft:block/firework_crafting_table_bottom",
     "top": "pyrotechnicraft:block/firework_orb_crafting_table_top"
   }
