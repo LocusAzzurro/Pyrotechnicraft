@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "pyrotechnicraft:firework_homing_module"
+    ]
+  },
+  "criteria": {
+    "has_firework_mixture": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pyrotechnicraft:firework_mixture"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "pyrotechnicraft:firework_homing_module"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_firework_mixture",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "pyrotechnicraft:homing_array_script"
+    ]
+  },
+  "criteria": {
+    "has_homing_module": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pyrotechnicraft:firework_homing_module"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "pyrotechnicraft:homing_array_script"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_homing_module",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "O",
+    "C"
+  ],
+  "key": {
+    "O": {
+      "item": "pyrotechnicraft:firework_orb_core"
+    },
+    "C": {
+      "item": "minecraft:crafting_table"
+    }
+  },
+  "result": {
+    "item": "pyrotechnicraft:firework_orb_crafting_table"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "pyrotechnicraft:sphere_explosion_pattern"
+    ]
+  },
+  "criteria": {
+    "has_firework_mixture": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pyrotechnicraft:firework_mixture"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "pyrotechnicraft:sphere_explosion_pattern"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_firework_mixture",
+      "has_the_recipe"
+    ]
+  ]
+}

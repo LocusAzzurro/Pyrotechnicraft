@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FSF",
+    " S ",
+    "FSF"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:string"
+    },
+    "F": {
+      "item": "pyrotechnicraft:firework_mixture"
+    }
+  },
+  "result": {
+    "item": "pyrotechnicraft:regular_fuse",
+    "count": 2
+  }
+}

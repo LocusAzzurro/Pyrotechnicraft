@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "pyrotechnicraft:firework_wrapping_paper"
+    ]
+  },
+  "criteria": {
+    "has_firework_mixture": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pyrotechnicraft:firework_mixture"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "pyrotechnicraft:firework_wrapping_paper"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_firework_mixture",
+      "has_the_recipe"
+    ]
+  ]
+}

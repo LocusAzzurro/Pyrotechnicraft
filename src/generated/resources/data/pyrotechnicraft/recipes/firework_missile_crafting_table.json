@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "M",
+    "C"
+  ],
+  "key": {
+    "M": {
+      "item": "minecraft:firework_rocket"
+    },
+    "C": {
+      "item": "minecraft:crafting_table"
+    }
+  },
+  "result": {
+    "item": "pyrotechnicraft:firework_missile_crafting_table"
+  }
+}

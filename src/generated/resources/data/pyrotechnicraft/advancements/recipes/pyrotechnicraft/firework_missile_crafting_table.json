@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "pyrotechnicraft:firework_missile_crafting_table"
+    ]
+  },
+  "criteria": {
+    "has_firework_orb": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pyrotechnicraft:firework_orb_core"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "pyrotechnicraft:firework_missile_crafting_table"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_firework_orb",
+      "has_the_recipe"
+    ]
+  ]
+}
