@@ -24,5 +24,10 @@ public class PacketHandler {
                 .decoder(ServerboundFireworkMissileCraftingTablePacket::decode)
                 .consumer(ServerboundFireworkMissileCraftingTablePacket::handle)
                 .add();
+        INSTANCE.messageBuilder(ServerboundFireworkLauncherStandTogglePacket.class, ID++, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(ServerboundFireworkLauncherStandTogglePacket::encode)
+                .decoder(ServerboundFireworkLauncherStandTogglePacket::decode)
+                .consumer(ServerboundFireworkLauncherStandTogglePacket::handle)
+                .add();
     }
 }

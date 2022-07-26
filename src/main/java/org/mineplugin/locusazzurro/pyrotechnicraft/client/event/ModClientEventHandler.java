@@ -40,6 +40,7 @@ public class ModClientEventHandler {
         event.enqueueWork(() -> {
             MenuScreens.register(ContainerTypeRegistry.FIREWORK_ORB_CRAFTING_TABLE.get(), FireworkOrbCraftingTableScreen::new);
             MenuScreens.register(ContainerTypeRegistry.FIREWORK_MISSILE_CRAFTING_TABLE.get(), FireworkMissileCraftingTableScreen::new);
+            MenuScreens.register(ContainerTypeRegistry.FIREWORK_LAUNCHER_STAND.get(), FireworkLauncherStandScreen::new);
         });
     }
 
