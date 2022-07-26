@@ -17,7 +17,6 @@ import java.util.Optional;
 public class FireworkOrb extends Item {
 
     public static final String TOOLTIP_PREFIX = "item." + Pyrotechnicraft.MOD_ID + ".firework_orb.";
-    public static final TranslatableComponent TEXT_SHAPE_TITLE = new TranslatableComponent(TOOLTIP_PREFIX + "shape.title");
     public static final String TEXT_SHAPE_HANDLE = TOOLTIP_PREFIX + "shape.";
     public static final TranslatableComponent TEXT_COLOR_TITLE = new TranslatableComponent(TOOLTIP_PREFIX + "color.title");
     public static final TranslatableComponent TEXT_FADE_COLOR_TITLE = new TranslatableComponent(TOOLTIP_PREFIX + "fade_color.title");
@@ -45,7 +44,7 @@ public class FireworkOrb extends Item {
         int sparks = tag.getInt("Sparks");
         double damage = tag.getDouble("Damage");
 
-        pTooltipComponents.add(TEXT_SHAPE_TITLE.copy().append(shapeKey(shape)).withStyle(ChatFormatting.GRAY));
+        pTooltipComponents.add(shapeKey(shape).withStyle(ChatFormatting.GRAY));
         colorSymbolChain(colors).ifPresent(component -> pTooltipComponents.add(TEXT_COLOR_TITLE.copy().withStyle(ChatFormatting.GRAY).append(component)));
         colorSymbolChain(fadeColors).ifPresent(component -> pTooltipComponents.add(TEXT_FADE_COLOR_TITLE.copy().withStyle(ChatFormatting.GRAY).append(component)));
         pTooltipComponents.add(TEXT_FORCE.copy().append(new TextComponent(String.format("%.1f", force))).withStyle(ChatFormatting.GRAY));
