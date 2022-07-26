@@ -4,30 +4,24 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.BlockRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ContainerTypeRegistry;
-import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.entity.FireworkOrbCraftingTableBlockEntity;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.shape.ExplosionShape;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.item.ExplosionShapePattern;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class FireworkOrbCraftingTableContainer extends AbstractFireworkCraftingTableContainer {
+public class FireworkOrbCraftingTableContainer extends AbstractFireworkContainer {
     private CoreSlot coreSlot;
     private PatternSlot patternSlot;
     private List<AmplifierSlot> amplifierSlotList = new ArrayList<AmplifierSlot>();

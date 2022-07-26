@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class FireworkMissileCraftingTableContainer extends AbstractFireworkCraftingTableContainer {
+public class FireworkMissileCraftingTableContainer extends AbstractFireworkContainer implements IFireworkCraftingTableContainer {
 
     private ModuleSlot moduleSlot;
     private FuseSlot fuseSlot;
@@ -40,7 +40,7 @@ public class FireworkMissileCraftingTableContainer extends AbstractFireworkCraft
     }
 
     @Override
-    protected void addCraftingSlots(IItemHandler handler) {
+    public void addCraftingSlots(IItemHandler handler) {
         this.moduleSlot = new ModuleSlot(handler, FireworkMissileCraftingTableBlockEntity.HOMING_MODULE_SLOT_ID, 8, 36);
         addSlot(moduleSlot);
         this.fuseSlot = new FuseSlot(handler, FireworkMissileCraftingTableBlockEntity.FUSE_SLOT_ID, 71, 36);

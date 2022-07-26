@@ -15,21 +15,18 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 
-public abstract class AbstractFireworkCraftingTableContainer extends AbstractContainerMenu {
+public abstract class AbstractFireworkContainer extends AbstractContainerMenu {
 
     protected final BlockEntity blockEntity;
     protected Player playerEntity;
     protected IItemHandler playerInventory;
 
-    protected AbstractFireworkCraftingTableContainer(@Nullable MenuType<?> pMenuType, int pContainerId, BlockPos pos, Inventory playerInventory, Player player) {
+    protected AbstractFireworkContainer(@Nullable MenuType<?> pMenuType, int pContainerId, BlockPos pos, Inventory playerInventory, Player player) {
         super(pMenuType, pContainerId);
         blockEntity = player.getCommandSenderWorld().getBlockEntity(pos);
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
     }
-
-    protected abstract void addCraftingSlots(IItemHandler handler);
-    public abstract boolean hasValidItemsForCrafting();
 
     @Override
     @NotNull
