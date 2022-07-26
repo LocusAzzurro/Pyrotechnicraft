@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.BlockEntityTypeRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
+import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.container.FireworkLauncherStandContainerData;
 
 import javax.annotation.Nonnull;
 import java.util.function.Predicate;
@@ -32,35 +33,10 @@ public class FireworkLauncherStandBlockEntity extends BlockEntity {
     public static final int SLOT_ID_END = 8;
     public static final int ROTATION_DATA_SLOT_ID = 0;
     public static final int ANGLE_DATA_SLOT_ID = 1;
-    private int rotation;
-    private int angle;
     public static Predicate<ItemStack> isFireworkMissile = i -> i.is(ItemRegistry.FIREWORK_MISSILE.get());
     public static Predicate<ItemStack> isFireworkRocket = i -> i.is(Items.FIREWORK_ROCKET);
     public static Predicate<ItemStack> isMissileOrRocket = isFireworkMissile.or(isFireworkRocket);
-
-    public final ContainerData containerData = new ContainerData() {
-        @Override
-        public int get(int pIndex) {
-            return switch (pIndex) {
-                case ROTATION_DATA_SLOT_ID -> FireworkLauncherStandBlockEntity.this.rotation;
-                case ANGLE_DATA_SLOT_ID -> FireworkLauncherStandBlockEntity.this.angle;
-                default -> 0;
-            };
-        }
-
-        @Override
-        public void set(int pIndex, int pValue) {
-            switch (pIndex){
-                case ROTATION_DATA_SLOT_ID -> FireworkLauncherStandBlockEntity.this.rotation = pValue;
-                case ANGLE_DATA_SLOT_ID -> FireworkLauncherStandBlockEntity.this.angle = pValue;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-    };
+    public final FireworkLauncherStandContainerData containerData = new FireworkLauncherStandContainerData();
 
     public FireworkLauncherStandBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityTypeRegistry.FIREWORK_LAUNCHER_STAND_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
@@ -88,6 +64,8 @@ public class FireworkLauncherStandBlockEntity extends BlockEntity {
 
     public void setData(byte slot, short value){
         this.containerData.set(slot, value);
+        this.setChanged();
+        //level.markAndNotifyBlock(this.getBlockPos(), this.level.getChunkAt(getBlockPos()), this.getBlockState(), this.getBlockState(), 3, 0);
     }
 
     @Override
@@ -101,16 +79,16 @@ public class FireworkLauncherStandBlockEntity extends BlockEntity {
         if (pTag.contains("Inventory")) {
             itemHandler.deserializeNBT(pTag.getCompound("Inventory"));
         }
-        pTag.putInt("Rotation", this.rotation);
-        pTag.putInt("Angle", this.angle);
+        pTag.putInt("Rotation", this.containerData.get(0));
+        pTag.putInt("Angle", this.containerData.get(1));
         super.load(pTag);
     }
 
     @Override
     public void saveAdditional(CompoundTag pTag) {
         pTag.put("Inventory", itemHandler.serializeNBT());
-        this.rotation = pTag.getInt("Rotation");
-        this.angle = pTag.getInt("Angle");
+        this.containerData.set(0, pTag.getInt("Rotation"));
+        this.containerData.set(1, pTag.getInt("Angle"));
         super.saveAdditional(pTag);
     }
 }

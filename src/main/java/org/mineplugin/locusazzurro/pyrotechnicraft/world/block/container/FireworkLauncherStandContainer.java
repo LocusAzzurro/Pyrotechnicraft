@@ -5,6 +5,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.BlockRegistry;
@@ -14,6 +15,8 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.entity.FireworkLa
 public class FireworkLauncherStandContainer extends AbstractFireworkContainer{
 
     private final ContainerData data;
+    private DataSlot rotationData;
+    private DataSlot angleData;
     public FireworkLauncherStandContainer(int pContainerId, BlockPos pos, Inventory playerInventory, Player player) {
         this(pContainerId, pos, playerInventory, player, new SimpleContainerData(2));
     }
@@ -21,14 +24,13 @@ public class FireworkLauncherStandContainer extends AbstractFireworkContainer{
         super(ContainerTypeRegistry.FIREWORK_LAUNCHER_STAND.get(), pContainerId, pos, playerInventory, player);
         this.data = containerData;
         //if (blockEntity != null) blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(this::addCraftingSlots);
+        this.rotationData = DataSlot.forContainer(data, 0);
+        this.addDataSlot(rotationData);
         layoutPlayerInventorySlots(8, 140);
     }
 
     public int getRotation(){
-        if (this.blockEntity instanceof FireworkLauncherStandBlockEntity launcher){
-            return launcher.containerData.get(FireworkLauncherStandBlockEntity.ROTATION_DATA_SLOT_ID);
-        }
-        return 0;
+        return this.rotationData.get();
     }
 
     public int getAngle(){
