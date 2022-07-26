@@ -8,8 +8,8 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.network.ServerboundFireworkMi
 
 public class LauncherToggleButton extends Button {
 
-    public LauncherToggleButton(int x, int y, Button.OnPress pressAction) {
-        super(x, y, 32, 20, new TextComponent("+5"), pressAction);
+    public LauncherToggleButton(int x, int y, boolean positive, Button.OnPress pressAction) {
+        super(x, y, 32, 20, new TextComponent(positive ? "+" : "-"), pressAction);
     }
 
 }

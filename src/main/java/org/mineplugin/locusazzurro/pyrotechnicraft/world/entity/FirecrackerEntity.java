@@ -23,6 +23,10 @@ public class FirecrackerEntity extends ThrowableItemProjectile {
         super(EntityTypeRegistry.FIRECRACKER.get(), owner, level);
     }
 
+    public FirecrackerEntity(Level level){
+        this(EntityTypeRegistry.FIRECRACKER.get(), level);
+    }
+
     @Override
     protected Item getDefaultItem() {
         return ItemRegistry.FIRECRACKER.get();

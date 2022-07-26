@@ -1,27 +1,26 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.world.block.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.Container;
-import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.BlockEntityTypeRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.container.FireworkLauncherStandContainerData;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Predicate;
 
 public class FireworkLauncherStandBlockEntity extends BlockEntity {
@@ -40,6 +39,7 @@ public class FireworkLauncherStandBlockEntity extends BlockEntity {
 
     public FireworkLauncherStandBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityTypeRegistry.FIREWORK_LAUNCHER_STAND_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
+        containerData.set(1, -90);
     }
 
     private ItemStackHandler createHandler() {
@@ -63,9 +63,37 @@ public class FireworkLauncherStandBlockEntity extends BlockEntity {
     }
 
     public void setData(byte slot, short value){
-        this.containerData.set(slot, value);
+        if (slot == ROTATION_DATA_SLOT_ID){
+            this.containerData.set(ROTATION_DATA_SLOT_ID, Mth.clamp(this.containerData.get(ROTATION_DATA_SLOT_ID) + value, -180, 180));
+        }
+        if (slot == ANGLE_DATA_SLOT_ID){
+            this.containerData.set(ANGLE_DATA_SLOT_ID, Mth.clamp(this.containerData.get(ANGLE_DATA_SLOT_ID) + value, -90, 0));
+        }
         this.setChanged();
-        //level.markAndNotifyBlock(this.getBlockPos(), this.level.getChunkAt(getBlockPos()), this.getBlockState(), this.getBlockState(), 3, 0);
+    }
+
+    public ItemStack getFirework(){
+        AtomicReference<ItemStack> firework = new AtomicReference<>(ItemStack.EMPTY);
+        handler.ifPresent(handler -> {
+            for (int i = 0; i < handler.getSlots(); i++){
+                ItemStack item = handler.getStackInSlot(i);
+                if (isMissileOrRocket.test(item)){
+                    handler.extractItem(i, 1, false);
+                    firework.set(item);
+                    break;
+                }
+            }
+        });
+        return firework.get();
+    }
+
+    @NotNull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return handler.cast();
+        }
+        return super.getCapability(cap, side);
     }
 
     @Override
@@ -79,16 +107,17 @@ public class FireworkLauncherStandBlockEntity extends BlockEntity {
         if (pTag.contains("Inventory")) {
             itemHandler.deserializeNBT(pTag.getCompound("Inventory"));
         }
-        pTag.putInt("Rotation", this.containerData.get(0));
-        pTag.putInt("Angle", this.containerData.get(1));
+        this.containerData.set(0, pTag.getInt("Rotation"));
+        this.containerData.set(1, pTag.getInt("Angle"));
         super.load(pTag);
     }
 
     @Override
     public void saveAdditional(CompoundTag pTag) {
         pTag.put("Inventory", itemHandler.serializeNBT());
-        this.containerData.set(0, pTag.getInt("Rotation"));
-        this.containerData.set(1, pTag.getInt("Angle"));
+        pTag.putInt("Rotation", this.containerData.get(0));
+        pTag.putInt("Angle", this.containerData.get(1));
         super.saveAdditional(pTag);
     }
+
 }

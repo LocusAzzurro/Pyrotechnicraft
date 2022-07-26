@@ -3,10 +3,12 @@ package org.mineplugin.locusazzurro.pyrotechnicraft.client.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
@@ -17,28 +19,42 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.container.Firewor
 
 public class FireworkLauncherStandScreen extends AbstractContainerScreen<FireworkLauncherStandContainer> {
 
+    public static final Font FONT = Minecraft.getInstance().font;
     private final ResourceLocation GUI = new ResourceLocation(Pyrotechnicraft.MOD_ID, "textures/gui/firework_launcher_stand.png");
 
-    private Button toggleButton;
+    private Button rotationDecreaseButton;
+    private Button rotationIncreaseButton;
+    private Button angleDecreaseButton;
+    private Button angleIncreaseButton;
     private static final int BG_X = 176;
     private static final int BG_Y = 222;
 
+    private static final TranslatableComponent TEXT_ROTATION = new TranslatableComponent("screen.pyrotechnicraft.firework_launcher_stand.label.rotation");
+    private static final TranslatableComponent TEXT_ANGLE = new TranslatableComponent("screen.pyrotechnicraft.firework_launcher_stand.label.angle");
     public FireworkLauncherStandScreen(FireworkLauncherStandContainer pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
         this.imageWidth = BG_X;
         this.imageHeight = BG_Y;
     }
 
-    private Button.OnPress pressAction = button -> {
-        BlockPos pos = FireworkLauncherStandScreen.this.menu.getBlockEntity().getBlockPos();
-        PacketHandler.INSTANCE.sendToServer(new ServerboundFireworkLauncherStandTogglePacket(pos, (byte) 0, (short) 5));
-    };
+    private Button.OnPress createTogglePacket(byte data, short value){
+        return pButton -> {
+            BlockPos pos = FireworkLauncherStandScreen.this.menu.getBlockEntity().getBlockPos();
+            PacketHandler.INSTANCE.sendToServer(new ServerboundFireworkLauncherStandTogglePacket(pos, data, value));
+        };
+    }
 
     @Override
     protected void init() {
         super.init();
-        this.toggleButton = new LauncherToggleButton(getGuiLeft() + 36, getGuiTop() + 77, pressAction);
-        this.addRenderableWidget(toggleButton);
+        this.rotationDecreaseButton = new LauncherToggleButton(getGuiLeft() + 25, getGuiTop() + 60, false, createTogglePacket((byte) 0, (short) -5));
+        this.rotationIncreaseButton = new LauncherToggleButton(getGuiLeft() + 119, getGuiTop() + 60, true, createTogglePacket((byte) 0, (short) 5));
+        this.angleDecreaseButton = new LauncherToggleButton(getGuiLeft() + 25, getGuiTop() + 104, false, createTogglePacket((byte) 1, (short) 5));
+        this.angleIncreaseButton = new LauncherToggleButton(getGuiLeft() + 119, getGuiTop() + 104, true, createTogglePacket((byte) 1, (short) -5));
+        this.addRenderableWidget(rotationDecreaseButton);
+        this.addRenderableWidget(rotationIncreaseButton);
+        this.addRenderableWidget(angleDecreaseButton);
+        this.addRenderableWidget(angleIncreaseButton);
     }
 
     @Override
@@ -50,8 +66,11 @@ public class FireworkLauncherStandScreen extends AbstractContainerScreen<Firewor
 
     @Override
     protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY) {
-        drawString(matrixStack, Minecraft.getInstance().font, this.title, titleLabelX, titleLabelY, 0xffffff);
-        drawString(matrixStack, Minecraft.getInstance().font, String.valueOf(menu.getRotation()), titleLabelX, titleLabelY + 40, 0xffffff);
+        drawString(matrixStack, FONT, this.title, titleLabelX, titleLabelY, 0xffffff);
+        drawCenteredString(matrixStack, FONT, String.valueOf(menu.getRotation()), 88, 66, 0xffffff);
+        drawCenteredString(matrixStack, FONT, String.valueOf(-menu.getAngle()), 88, 110, 0xffffff);
+        drawCenteredString(matrixStack, FONT, TEXT_ROTATION, 88, 46, 0xffffff);
+        drawCenteredString(matrixStack, FONT, TEXT_ANGLE, 88, 90, 0xffffff);
     }
 
     @Override

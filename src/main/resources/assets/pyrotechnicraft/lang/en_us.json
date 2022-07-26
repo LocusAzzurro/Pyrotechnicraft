@@ -36,9 +36,12 @@
 
   "screen.pyrotechnicraft.firework_orb_crafting_table": "Firework Orb Crafting",
   "screen.pyrotechnicraft.firework_missile_crafting_table": "Firework Missile Crafting",
+  "screen.pyrotechnicraft.firework_launcher_stand": "Firework Launcher Stand",
   "screen.pyrotechnicraft.firework_orb_crafting_table.label.colors": "Colors",
   "screen.pyrotechnicraft.firework_orb_crafting_table.label.fade_colors": "Fade Colors",
   "screen.pyrotechnicraft.firework_crafting_table.button.craft": "Craft",
+  "screen.pyrotechnicraft.firework_launcher_stand.label.rotation": "Rotation",
+  "screen.pyrotechnicraft.firework_launcher_stand.label.angle": "Angle",
 
   "item.pyrotechnicraft.explosion_pattern.points": "Points: ",
   "item.pyrotechnicraft.explosion_pattern.cost": "Cost: ",
