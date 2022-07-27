@@ -96,6 +96,9 @@
   "data.pyrotechnicraft.homing_system.extent.xlarge": "Very Large",
   "data.pyrotechnicraft.homing_system.no_info": "N/A",
 
+  "death.attack.fireworkMissile": "%1$s went out with a bang from %2$s",
+  "death.attack.fireworkMissile.item": "%1$ went out with a bang from %2$s using %3$s",
+
   "subtitles.item.firework_launcher.launch": "Firework missile launched",
   "subtitles.entity.firework_missile.explode": "Firework explodes",
   "subtitles.block.firework_launcher_stand.launch": "Firework missile launched",
