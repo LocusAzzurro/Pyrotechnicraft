@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "pyrotechnicraft:item/firework_orb_shooter"
+  }
+}

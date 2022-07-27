@@ -36,7 +36,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         generatedItem(ItemRegistry.CUSTOM_FUSE.get());
         generatedItem(ItemRegistry.FIREWORK_HOMING_MODULE.get());
         generatedItem(ItemRegistry.FIREWORK_WRAPPING_PAPER.get());
-
+        generatedItem(ItemRegistry.COMPOSITE_FIREWORK_ORB.get());
         generatedItem(ItemRegistry.HOMING_ARRAY.get());
         generatedItem(ItemRegistry.HOMING_ARRAY_SCRIPT.get());
         generatedItem(ItemRegistry.TACTICAL_SCRIPT.get());
