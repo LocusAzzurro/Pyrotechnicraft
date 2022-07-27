@@ -146,7 +146,7 @@ public class FireworkSparkParticle extends TextureSheetParticle {
 
 
         public FireworkSparkParticleType() {
-            super(false, FireworkSparkParticleOption.DESERIALIZER);
+            super(true, FireworkSparkParticleOption.DESERIALIZER);
         }
 
         @Override
