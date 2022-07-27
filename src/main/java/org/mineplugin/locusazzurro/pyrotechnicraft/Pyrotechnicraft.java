@@ -23,6 +23,7 @@ public class Pyrotechnicraft {
         EntityTypeRegistry.ENTITIES.register(bus);
         ContainerTypeRegistry.CONTAINERS.register(bus);
         ParticleTypeRegistry.PARTICLES.register(bus);
+        SoundEventRegistry.SOUNDS.register(bus);
 
     }
 

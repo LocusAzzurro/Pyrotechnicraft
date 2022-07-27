@@ -1,6 +1,7 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.world.item;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -11,6 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
+import org.mineplugin.locusazzurro.pyrotechnicraft.data.SoundEventRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FireworkWrapper;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.HomingSystem;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.entity.FireworkMissileEntity;
@@ -57,7 +59,9 @@ public class FireworkLauncher extends ProjectileWeaponItem {
 
             fireworkEntity.shootFromRotation(playerIn, playerIn.getXRot(), playerIn.getYRot(), 0.0f, 1.0f, 0.1f);
             pLevel.addFreshEntity(fireworkEntity);
-            //todo sound
+            pLevel.playSound(null, playerIn.getX(), playerIn.getEyeY(), playerIn.getZ(),
+                    SoundEventRegistry.FIREWORK_MISSILE_LAUNCH.get(), SoundSource.PLAYERS,
+                    3.0f,1.0f  + pLevel.random.nextFloat(0.1f) - 0.05f);
 
             if (!pLevel.isClientSide()) {
                 item.hurtAndBreak(1, playerIn, (player) -> {

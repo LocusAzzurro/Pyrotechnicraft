@@ -1,6 +1,7 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.world.item;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -15,6 +16,7 @@ import net.minecraft.world.level.Level;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 import org.mineplugin.locusazzurro.pyrotechnicraft.client.particle.TrailSparkParticleOption;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
+import org.mineplugin.locusazzurro.pyrotechnicraft.data.SoundEventRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FireworkEngine;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FireworkWrapper;
 
@@ -32,7 +34,7 @@ public class FlickerStick extends Item{
 
         item.getOrCreateTag().putBoolean("Ignited", true);
 
-        //todo sound
+        pLevel.playSound(null, pPlayer, SoundEventRegistry.FLICKER_STICK_USE.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
         pPlayer.awardStat(Stats.ITEM_USED.get(this));
         return super.use(pLevel, pPlayer, pUsedHand);
     }

@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
+import org.mineplugin.locusazzurro.pyrotechnicraft.data.SoundEventRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.entity.FirecrackerEntity;
 
 public class Firecracker extends Item{
@@ -22,11 +23,13 @@ public class Firecracker extends Item{
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack item = pPlayer.getItemInHand(pUsedHand);
-        //todo sound
+
         if (!pLevel.isClientSide) {
             FirecrackerEntity firecracker = new FirecrackerEntity(pLevel, pPlayer);
             firecracker.shootFromRotation(pPlayer, pPlayer.getXRot(), pPlayer.getYRot(), 0.0F, 1.5F, 1.0F);
             pLevel.addFreshEntity(firecracker);
+            pLevel.playSound(null, pPlayer.getX(), pPlayer.getEyeY(), pPlayer.getZ(), SoundEventRegistry.FIRECRACKER_THROW.get(),
+                    SoundSource.PLAYERS, 1.0f, 1.0f);
         }
 
         pPlayer.awardStat(Stats.ITEM_USED.get(this));

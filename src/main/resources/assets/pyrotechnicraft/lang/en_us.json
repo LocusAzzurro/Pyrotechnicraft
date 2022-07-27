@@ -95,6 +95,14 @@
   "data.pyrotechnicraft.homing_system.extent.large": "Large",
   "data.pyrotechnicraft.homing_system.extent.xlarge": "Very Large",
   "data.pyrotechnicraft.homing_system.no_info": "N/A",
+
+  "subtitles.item.firework_launcher.launch": "Firework missile launched",
+  "subtitles.entity.firework_missile.explode": "Firework explodes",
+  "subtitles.block.firework_launcher_stand.launch": "Firework missile launched",
+  "subtitles.item.flicker_stick.use": "Flicker stick ignites",
+  "subtitles.item.homing_array.lock": "Homing array locks target",
+  "subtitles.item.homing_array.load_script": "Homing array loads script",
+  "subtitles.item.firecracker.throw": "Firecracker thrown",
   "": ""
 
 }

@@ -126,7 +126,7 @@ public class FireworkMissileCraftingTableBlockEntity extends BlockEntity {
 
             ItemStack speedItem = handler.getStackInSlot(SPEED_SLOT_ID);
             if (isFireworkMixture.test(speedItem)){
-                itemTag.putDouble("Speed", speedItem.getCount() * 0.2d); //todo speed test needed
+                itemTag.putDouble("Speed", speedItem.getCount() * 0.2d);
                 handler.extractItem(SPEED_SLOT_ID, speedItem.getCount(), false);
             }
 

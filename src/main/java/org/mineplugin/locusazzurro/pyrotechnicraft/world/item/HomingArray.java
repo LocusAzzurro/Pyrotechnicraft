@@ -4,6 +4,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
+import org.mineplugin.locusazzurro.pyrotechnicraft.data.SoundEventRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.HomingSystem;
 
 import java.util.List;
@@ -40,13 +42,17 @@ public class HomingArray extends Item implements IHomingSystemEnabled{
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack item = pPlayer.getItemInHand(pUsedHand);
 
-        if (pUsedHand == InteractionHand.MAIN_HAND && !pLevel.isClientSide()) {
+        if (pUsedHand == InteractionHand.MAIN_HAND) {
             ItemStack offHand = pPlayer.getOffhandItem();
             if (offHand.is(ItemRegistry.HOMING_ARRAY_SCRIPT.get())) {
-                CompoundTag scriptTag = offHand.getOrCreateTag().copy();
-                scriptTag.remove(CURRENT_OPTION);
-                item.getOrCreateTag().merge(scriptTag);
-                pPlayer.displayClientMessage(TEXT_LOAD_FROM_HOMING_SCRIPT, true);
+                if (!pLevel.isClientSide()) {
+                    CompoundTag scriptTag = offHand.getOrCreateTag().copy();
+                    scriptTag.remove(CURRENT_OPTION);
+                    item.getOrCreateTag().merge(scriptTag);
+                    pPlayer.displayClientMessage(TEXT_LOAD_FROM_HOMING_SCRIPT, true);
+                }
+                else pLevel.playLocalSound(pPlayer.getX(), pPlayer.getEyeY(), pPlayer.getZ(), SoundEventRegistry.HOMING_ARRAY_SCRIPT_LOADED.get(),
+                        SoundSource.PLAYERS, 1.0f, 1.0f, false);
                 return InteractionResultHolder.sidedSuccess(item, pLevel.isClientSide());
             }
         }
@@ -63,9 +69,10 @@ public class HomingArray extends Item implements IHomingSystemEnabled{
             tag.putInt("TargetNetworkID", entity.getId());
             tag.putBoolean("TargetValid", true);
             pPlayer.displayClientMessage(TEXT_TARGET_LOCKED.copy().append(entity.getName()), true);
+            pLevel.playLocalSound(pPlayer.getX(), pPlayer.getEyeY(), pPlayer.getZ(), SoundEventRegistry.HOMING_ARRAY_TARGET_LOCKED.get(),
+                    SoundSource.PLAYERS, 1.0f, 1.0f, false);
         });
 
-        //todo sound effects
         if (!pLevel.isClientSide()) {
             item.hurtAndBreak(1, pPlayer, (player) -> player.broadcastBreakEvent(pPlayer.getUsedItemHand()));
         }

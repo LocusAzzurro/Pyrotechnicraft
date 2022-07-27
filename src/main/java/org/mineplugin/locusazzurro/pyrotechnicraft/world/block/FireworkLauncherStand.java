@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -37,6 +38,7 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
+import org.mineplugin.locusazzurro.pyrotechnicraft.data.SoundEventRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.container.FireworkLauncherStandContainer;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.container.FireworkMissileCraftingTableContainer;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.entity.FireworkLauncherStandBlockEntity;
@@ -105,6 +107,8 @@ public class FireworkLauncherStand extends BaseEntityBlock {
                     int angle = launcher.containerData.get(1);
                     fireworkEntity.shootFromRotation(fireworkEntity, angle, rotation, 0, 1, 0f);
                     pLevel.addFreshEntity(fireworkEntity);
+                    pLevel.playSound(null, pPos, SoundEventRegistry.FIREWORK_STAND_LAUNCH.get(), SoundSource.BLOCKS,
+                            5.0F, 1.0F + pLevel.random.nextFloat(0.1f) - 0.05f);
                 }
             }
             pLevel.setBlock(pPos, pState.setValue(POWERED, flag), 3);

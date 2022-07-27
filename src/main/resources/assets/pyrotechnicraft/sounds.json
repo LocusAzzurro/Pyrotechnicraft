@@ -1,0 +1,51 @@
+{
+  "item.firework_launcher.launch": {
+    "subtitle": "subtitles.item.firework_launcher.launch",
+    "replace": true,
+    "sounds": [
+      "pyrotechnicraft:firework_launcher_launch"
+    ]
+  },
+  "entity.firework_missile.explode": {
+    "subtitle": "subtitles.entity.firework_missile.explode",
+    "replace": true,
+    "sounds": [
+      "pyrotechnicraft:firework_explode"
+    ]
+  },
+  "block.firework_launcher_stand.launch": {
+    "subtitle": "subtitles.block.firework_launcher_stand.launch",
+    "replace": true,
+    "sounds": [
+      "pyrotechnicraft:firework_launcher_stand_launch"
+    ]
+  },
+  "item.flicker_stick.use": {
+    "subtitle": "subtitles.item.flicker_stick.use",
+    "replace": true,
+    "sounds": [
+      "minecraft:fire/ignite"
+    ]
+  },
+  "item.homing_array.lock": {
+    "subtitle": "subtitles.item.homing_array.lock",
+    "replace": true,
+    "sounds": [
+      "minecraft:random/successful_hit"
+    ]
+  },
+  "item.homing_array.load_script": {
+    "subtitle": "subtitles.item.homing_array.load_script",
+    "replace": true,
+    "sounds": [
+      "minecraft:note/bit"
+    ]
+  },
+  "item.firecracker.throw": {
+    "subtitle": "subtitles.item.firecracker.throw",
+    "replace": true,
+    "sounds": [
+      "random/bow"
+    ]
+  }
+}

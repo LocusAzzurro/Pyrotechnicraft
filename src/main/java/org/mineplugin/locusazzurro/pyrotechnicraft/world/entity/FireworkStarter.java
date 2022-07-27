@@ -6,6 +6,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -14,6 +15,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.EntityTypeRegistry;
+import org.mineplugin.locusazzurro.pyrotechnicraft.data.SoundEventRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FireworkEngine;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.damage.DamageSources;
 
@@ -60,6 +62,8 @@ public class FireworkStarter extends Projectile {
                     if (level.isClientSide()){
                         FireworkEngine.createFirework(level, position(), explosionVec, explosion);
                     }
+                    level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEventRegistry.FIREWORK_EXPLODE.get(), SoundSource.NEUTRAL,
+                            20.0F, 1.0F + level.random.nextFloat(0.1f) - 0.05f);
                     double damage = calculateDamage(explosion);
                     List<LivingEntity> targets = this.level.getEntitiesOfClass(LivingEntity.class,
                             new AABB(position().add(-2, -2, -2), position().add(2, 2, 2)));
@@ -76,6 +80,8 @@ public class FireworkStarter extends Projectile {
                     }
                     totalDamage += calculateDamage(explosion);
                 }
+                level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEventRegistry.FIREWORK_EXPLODE.get(), SoundSource.NEUTRAL,
+                        20.0F, 1.0F + level.random.nextFloat(0.1f) - 0.05f);
                 List<LivingEntity> targets = this.level.getEntitiesOfClass(LivingEntity.class,
                         new AABB(position().add(-2, -2, -2), position().add(2, 2, 2)));
                 double finalTotalDamage = totalDamage;
