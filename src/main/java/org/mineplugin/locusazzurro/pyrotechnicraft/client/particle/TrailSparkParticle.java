@@ -18,7 +18,7 @@ public class TrailSparkParticle extends TextureSheetParticle {
         this.xd = (level.random.nextDouble() - 0.5) * 0.3;
         this.yd = (level.random.nextDouble() - 0.5) * 0.3;
         this.zd = (level.random.nextDouble() - 0.5) * 0.3;
-        this.scale(level.random.nextFloat() * 0.8f);
+        this.scale(level.random.nextFloat() / 0.5f);
         this.setColor(ColorUtil.redF(color), ColorUtil.greenF(color), ColorUtil.blueF(color));
         this.lifetime = 10 + level.random.nextInt(5);
     }
