@@ -5,5 +5,8 @@
     "pyrotechnicraft:firework_spark_3",
     "pyrotechnicraft:firework_spark_4",
     "pyrotechnicraft:firework_spark_5"
-  ]
+  ],
+  "shimmer": {
+    "effect": "bloom_unreal"
+  }
 }
