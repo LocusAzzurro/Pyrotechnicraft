@@ -34,6 +34,10 @@
   "block.pyrotechnicraft.firework_launcher_stand": "烟花导弹发射台",
   "block.pyrotechnicraft.composite_firework_orb_launcher_stand": "复合烟花珠发射台",
 
+  "entity.pyrotechnicraft.firework_missile": "烟花导弹",
+  "entity.pyrotechnicraft.firework_starter": "烟花源",
+  "entity.pyrotechnicraft.firecracker": "鞭炮",
+
   "screen.pyrotechnicraft.firework_orb_crafting_table": "烟花珠合成",
   "screen.pyrotechnicraft.firework_missile_crafting_table": "烟花导弹合成",
   "screen.pyrotechnicraft.firework_launcher_stand": "烟花导弹发射台",

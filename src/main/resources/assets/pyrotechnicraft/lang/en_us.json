@@ -34,6 +34,10 @@
   "block.pyrotechnicraft.firework_launcher_stand": "Firework Launcher Stand",
   "block.pyrotechnicraft.composite_firework_orb_launcher_stand": "Composite Firework Orb Launcher Stand",
 
+  "entity.pyrotechnicraft.firework_missile": "Firework Missile",
+  "entity.pyrotechnicraft.firework_starter": "Firework Starter",
+  "entity.pyrotechnicraft.firecracker": "Firecracker",
+
   "screen.pyrotechnicraft.firework_orb_crafting_table": "Firework Orb Crafting",
   "screen.pyrotechnicraft.firework_missile_crafting_table": "Firework Missile Crafting",
   "screen.pyrotechnicraft.firework_launcher_stand": "Firework Launcher Stand",
