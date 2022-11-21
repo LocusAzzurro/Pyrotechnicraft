@@ -44,11 +44,20 @@ public class FlickerStick extends Item{
         super.inventoryTick(pStack, pLevel, pEntity, pSlotId, pIsSelected);
         CompoundTag tag = pStack.getOrCreateTag();
         if (tag.getBoolean("Ignited")) {
+            /*
             if (!pLevel.isClientSide() && pEntity instanceof LivingEntity livingEntity) {
                 pStack.hurtAndBreak(1, livingEntity, entity -> {});
             }
             else {
                 int color = tag.contains("SparkColor") ? tag.getInt("SparkColor") : 0xffffff;
+                pLevel.addParticle(new TrailSparkParticleOption(color),
+                        pEntity.getX(), pEntity.getY() + 1, pEntity.getZ(), 0, 0, 0);
+            }
+
+             */
+            if (pEntity instanceof LivingEntity livingEntity) {
+                int color = tag.contains("SparkColor") ? tag.getInt("SparkColor") : 0xffffff;
+                pStack.hurtAndBreak(1, livingEntity, entity -> {});
                 pLevel.addParticle(new TrailSparkParticleOption(color),
                         pEntity.getX(), pEntity.getY() + 1, pEntity.getZ(), 0, 0, 0);
             }
