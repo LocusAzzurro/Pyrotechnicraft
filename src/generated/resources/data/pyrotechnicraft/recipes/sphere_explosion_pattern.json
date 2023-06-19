@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "F": {
+      "item": "pyrotechnicraft:firework_mixture"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    }
+  },
   "pattern": [
     "F F",
     " P ",
     "F F"
   ],
-  "key": {
-    "P": {
-      "item": "minecraft:paper"
-    },
-    "F": {
-      "item": "pyrotechnicraft:firework_mixture"
-    }
-  },
   "result": {
     "item": "pyrotechnicraft:sphere_explosion_pattern"
   }

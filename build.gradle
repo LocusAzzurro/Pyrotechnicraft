@@ -141,8 +141,9 @@ dependencies {
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    compileOnly fg.deobf("mezz.jei:jei-${jei_version}:api")
-    implementation fg.deobf("mezz.jei:jei-${jei_version}")
+    //TODO JEI disabled for porting
+    //compileOnly fg.deobf("mezz.jei:jei-${jei_version}:api")
+    //implementation fg.deobf("mezz.jei:jei-${jei_version}")
 
     // Mixin annotation processor - generates the refmap
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"

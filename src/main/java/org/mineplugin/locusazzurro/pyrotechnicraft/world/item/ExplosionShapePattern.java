@@ -4,7 +4,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -17,8 +16,8 @@ import java.util.List;
 
 public class ExplosionShapePattern extends Item {
 
-    public static final TranslatableComponent TEXT_PATTERN_POINTS = new TranslatableComponent("item." + Pyrotechnicraft.MOD_ID + ".explosion_pattern.points");
-    public static final TranslatableComponent TEXT_PATTERN_COST = new TranslatableComponent("item." + Pyrotechnicraft.MOD_ID + ".explosion_pattern.cost");
+    public static final Component TEXT_PATTERN_POINTS = Component.translatable("item." + Pyrotechnicraft.MOD_ID + ".explosion_pattern.points");
+    public static final Component TEXT_PATTERN_COST = Component.translatable("item." + Pyrotechnicraft.MOD_ID + ".explosion_pattern.cost");
     private final ExplosionShape shape;
 
     public ExplosionShapePattern(ExplosionShape shape) {

@@ -3,7 +3,7 @@ package org.mineplugin.locusazzurro.pyrotechnicraft.world.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -31,9 +31,9 @@ public class HomingArray extends Item implements IHomingSystemEnabled{
 
     public static final String MESSAGE_PREFIX = "item." + Pyrotechnicraft.MOD_ID + ".homing_array.";
 
-    public static final TranslatableComponent TEXT_LOAD_FROM_HOMING_SCRIPT = new TranslatableComponent(MESSAGE_PREFIX + "homing_script_loaded");
-    public static final TranslatableComponent TEXT_TARGET_LOCKED = new TranslatableComponent(MESSAGE_PREFIX + "target_locked");
-    public static final TranslatableComponent TEXT_CURRENT_TARGET = new TranslatableComponent(MESSAGE_PREFIX + "current_target");
+    public static final Component TEXT_LOAD_FROM_HOMING_SCRIPT = Component.translatable(MESSAGE_PREFIX + "homing_script_loaded");
+    public static final Component TEXT_TARGET_LOCKED = Component.translatable(MESSAGE_PREFIX + "target_locked");
+    public static final Component TEXT_CURRENT_TARGET = Component.translatable(MESSAGE_PREFIX + "current_target");
     public HomingArray(){
         super(new Item.Properties().tab(Pyrotechnicraft.CREATIVE_TAB).durability(100));
     }

@@ -7,8 +7,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
@@ -22,8 +20,8 @@ public class FireworkOrbCraftingTableScreen extends AbstractContainerScreen<Fire
     private Button craftButton;
     private static final int BG_X = 176;
     private static final int BG_Y = 222;
-    private static final TranslatableComponent TEXT_COLORS = new TranslatableComponent("screen.pyrotechnicraft.firework_orb_crafting_table.label.colors");
-    private static final TranslatableComponent TEXT_FADE_COLORS = new TranslatableComponent("screen.pyrotechnicraft.firework_orb_crafting_table.label.fade_colors");
+    private static final Component TEXT_COLORS = Component.translatable("screen.pyrotechnicraft.firework_orb_crafting_table.label.colors");
+    private static final Component TEXT_FADE_COLORS = Component.translatable("screen.pyrotechnicraft.firework_orb_crafting_table.label.fade_colors");
 
     public FireworkOrbCraftingTableScreen(FireworkOrbCraftingTableContainer pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);

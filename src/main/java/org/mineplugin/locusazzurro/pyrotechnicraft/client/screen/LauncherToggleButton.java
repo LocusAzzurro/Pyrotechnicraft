@@ -1,15 +1,12 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.client.screen;
 
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TextComponent;
-import org.mineplugin.locusazzurro.pyrotechnicraft.network.PacketHandler;
-import org.mineplugin.locusazzurro.pyrotechnicraft.network.ServerboundFireworkMissileCraftingTablePacket;
+import net.minecraft.network.chat.Component;
 
 public class LauncherToggleButton extends Button {
 
     public LauncherToggleButton(int x, int y, boolean positive, Button.OnPress pressAction) {
-        super(x, y, 32, 20, new TextComponent(positive ? "+" : "-"), pressAction);
+        super(x, y, 32, 20, Component.literal(positive ? "+" : "-"), pressAction);
     }
 
 }

@@ -12,7 +12,7 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.entity.FireworkOr
 
 public class BlockEntityTypeRegistry {
 
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Pyrotechnicraft.MOD_ID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Pyrotechnicraft.MOD_ID);
     public static final RegistryObject<BlockEntityType<FireworkOrbCraftingTableBlockEntity>> FIREWORK_ORB_CRAFTING_TABLE_BLOCK_ENTITY =
             BLOCK_ENTITIES.register("firework_orb_crafting_table_block_entity", () -> BlockEntityType.Builder
                     .of(FireworkOrbCraftingTableBlockEntity::new, BlockRegistry.FIREWORK_ORB_CRAFTING_TABLE.get()).build(null));

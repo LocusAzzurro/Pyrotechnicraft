@@ -8,6 +8,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import org.jetbrains.annotations.NotNull;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ParticleTypeRegistry;
 
+import net.minecraft.core.particles.ParticleOptions.Deserializer;
+
 public record FireworkSparkParticleOption(int color, int fadeColor, boolean trail, boolean sparkle) implements ParticleOptions {
 
     @SuppressWarnings("deprecation")

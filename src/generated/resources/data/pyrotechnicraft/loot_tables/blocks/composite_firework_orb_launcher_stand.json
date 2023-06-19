@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "name": "composite_firework_orb_launcher_stand",
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "pyrotechnicraft:composite_firework_orb_launcher_stand"
         }
-      ]
+      ],
+      "name": "composite_firework_orb_launcher_stand",
+      "rolls": 1.0
     }
   ]
 }

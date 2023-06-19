@@ -1,24 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " IG",
-    "ICI",
-    "HI "
-  ],
   "key": {
     "C": {
       "item": "minecraft:comparator"
-    },
-    "I": {
-      "item": "minecraft:iron_ingot"
     },
     "G": {
       "item": "minecraft:glass"
     },
     "H": {
       "item": "pyrotechnicraft:firework_homing_module"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
     }
   },
+  "pattern": [
+    " IG",
+    "ICI",
+    "HI "
+  ],
   "result": {
     "item": "pyrotechnicraft:homing_array"
   }

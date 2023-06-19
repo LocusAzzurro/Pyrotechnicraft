@@ -1,24 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " I ",
-    "RQR",
-    "IFI"
-  ],
   "key": {
+    "F": {
+      "item": "pyrotechnicraft:firework_mixture"
+    },
+    "I": {
+      "item": "minecraft:iron_nugget"
+    },
     "Q": {
       "item": "minecraft:quartz"
     },
     "R": {
       "item": "minecraft:redstone"
-    },
-    "I": {
-      "item": "minecraft:iron_nugget"
-    },
-    "F": {
-      "item": "pyrotechnicraft:firework_mixture"
     }
   },
+  "pattern": [
+    " I ",
+    "RQR",
+    "IFI"
+  ],
   "result": {
     "item": "pyrotechnicraft:firework_homing_module"
   }

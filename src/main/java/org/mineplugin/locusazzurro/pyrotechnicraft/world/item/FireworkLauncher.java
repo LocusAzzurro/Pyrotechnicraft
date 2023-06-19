@@ -20,6 +20,8 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.world.entity.FireworkMissileE
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Predicate;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class FireworkLauncher extends ProjectileWeaponItem {
 
     public static final Predicate<ItemStack> isFireworkRocket = i -> i.is(Items.FIREWORK_ROCKET);
@@ -61,7 +63,7 @@ public class FireworkLauncher extends ProjectileWeaponItem {
             pLevel.addFreshEntity(fireworkEntity);
             pLevel.playSound(null, playerIn.getX(), playerIn.getEyeY(), playerIn.getZ(),
                     SoundEventRegistry.FIREWORK_MISSILE_LAUNCH.get(), SoundSource.PLAYERS,
-                    3.0f,1.0f  + pLevel.random.nextFloat(0.1f) - 0.05f);
+                    3.0f,1.0f  + pLevel.random.nextFloat() * (0.1f) - 0.05f);
 
             if (!pLevel.isClientSide()) {
                 item.hurtAndBreak(1, playerIn, (player) -> {

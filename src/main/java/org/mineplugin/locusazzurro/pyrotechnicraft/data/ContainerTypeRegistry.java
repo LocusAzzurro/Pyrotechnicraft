@@ -12,7 +12,7 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.container.Firewor
 
 public class ContainerTypeRegistry {
 
-    public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, Pyrotechnicraft.MOD_ID);
+    public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Pyrotechnicraft.MOD_ID);
 
     public static final RegistryObject<MenuType<FireworkOrbCraftingTableContainer>> FIREWORK_ORB_CRAFTING_TABLE = CONTAINERS.register("firework_orb_crafting_table",
             () -> IForgeMenuType.create((windowId, inv, data) -> new FireworkOrbCraftingTableContainer(windowId, data.readBlockPos(), inv, inv.player)));

@@ -2,6 +2,7 @@ package org.mineplugin.locusazzurro.pyrotechnicraft.world.data.shape;
 
 import com.mojang.math.Vector3f;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
@@ -13,9 +14,9 @@ public class SparkPointsVisitor implements IExplosionShapeVisitor {
 
     private static final float PHI = Mth.PI * (3.0f - Mth.sqrt(5.0f));
     private static final float INFINITESIMAL = 1.175494e-38f;
-    private final Random random;
+    private final RandomSource random;
 
-    public SparkPointsVisitor(Random random){
+    public SparkPointsVisitor(RandomSource random){
         this.random = random;
     }
     @Override
@@ -28,7 +29,7 @@ public class SparkPointsVisitor implements IExplosionShapeVisitor {
             Vec3 point;
             if (!uniform) {
                 point = new Vec3(random.nextGaussian(), random.nextGaussian(), random.nextGaussian())
-                        .normalize().scale(size).scale(1 + (random.nextFloat(jitter * 2) - jitter));
+                        .normalize().scale(size).scale(1 + (random.nextFloat() * (jitter * 2) - jitter));
             } else {
                 float theta, x, y, z, r;
                 y = 1 - (i / (float) (exp.points() - 1)) * 2;
@@ -36,7 +37,7 @@ public class SparkPointsVisitor implements IExplosionShapeVisitor {
                 theta = PHI * i;
                 x = Mth.cos(theta) * r;
                 z = Mth.sin(theta) * r;
-                point = new Vec3(x, y, z).scale(size).scale(1 + (random.nextFloat(jitter * 2) - jitter));
+                point = new Vec3(x, y, z).scale(size).scale(1 + (random.nextFloat() * (jitter * 2) - jitter));
             }
             points.add(point);
         }
@@ -74,8 +75,8 @@ public class SparkPointsVisitor implements IExplosionShapeVisitor {
 
         float pitch = (float) Math.asin(-exp.mov().y());
         float yaw = (float) Mth.atan2(exp.mov().x(), exp.mov().z());
-        float randRotX = random.nextFloat(rotationJitter * 2) - rotationJitter;
-        float randRotY = random.nextFloat(rotationJitter * 2) - rotationJitter;
+        float randRotX = random.nextFloat() * (rotationJitter * 2) - rotationJitter;
+        float randRotY = random.nextFloat() * (rotationJitter * 2) - rotationJitter;
         float finalRotX = rotX;
         float finalRotY = rotY;
 
@@ -83,7 +84,7 @@ public class SparkPointsVisitor implements IExplosionShapeVisitor {
             if (!absolute) point = point.xRot(-pitch + Mth.HALF_PI).yRot(yaw);
             point = point.xRot(finalRotX).yRot(finalRotY)
                     .xRot(randRotX).yRot(randRotY)
-                    .scale(size).scale(1 + random.nextFloat(jitter * 2) - jitter);
+                    .scale(size).scale(1 + random.nextFloat() * (jitter * 2) - jitter);
             return point;
         }).toList();
     }
@@ -108,18 +109,18 @@ public class SparkPointsVisitor implements IExplosionShapeVisitor {
         if (!absolute && exp.mov().length() > 1.0e-8f){
             startVec = exp.mov().normalize();
         }
-        float randRotX = random.nextFloat(rotationJitter * 2) - rotationJitter;
-        float randRotY = random.nextFloat(rotationJitter * 2) - rotationJitter;
-        float randRotZ = random.nextFloat(rotationJitter * 2) - rotationJitter;
+        float randRotX = random.nextFloat() * (rotationJitter * 2) - rotationJitter;
+        float randRotY = random.nextFloat() * (rotationJitter * 2) - rotationJitter;
+        float randRotZ = random.nextFloat() * (rotationJitter * 2) - rotationJitter;
 
         startVec = startVec.xRot(rotX).yRot(rotY).zRot(rotZ)
                 .xRot(randRotX).yRot(randRotY).zRot(randRotZ);
 
         for (int i = 0; i < exp.points(); i++) {
-            Vec3 point = startVec.xRot(random.nextFloat(wideness * 2) - wideness)
-                    .yRot(random.nextFloat(wideness * 2) - wideness)
-                    .zRot(random.nextFloat(wideness * 2) - wideness)
-                    .scale(size).scale(1 + (random.nextFloat(jitter * 2) - jitter));
+            Vec3 point = startVec.xRot(random.nextFloat() * (wideness * 2) - wideness)
+                    .yRot(random.nextFloat() * (wideness * 2) - wideness)
+                    .zRot(random.nextFloat() * (wideness * 2) - wideness)
+                    .scale(size).scale(1 + (random.nextFloat() * (jitter * 2) - jitter));
             points.add(point);
         }
         return points;
@@ -132,7 +133,7 @@ public class SparkPointsVisitor implements IExplosionShapeVisitor {
         boolean absolute = exp.absoluteRotation();
         float rotation = exp.rotation();
         float rotationJitter = clampRotationJitterValue(exp.rotationJitter());
-        float randRot = random.nextFloat(rotationJitter * 2) - rotationJitter;
+        float randRot = random.nextFloat() * (rotationJitter * 2) - rotationJitter;
         coords.forEach(coord -> {
             Vec2 vec2 = clampVec2(coord);
             Vec3 vec3 = new Vec3(0, vec2.y, vec2.x);
@@ -163,9 +164,9 @@ public class SparkPointsVisitor implements IExplosionShapeVisitor {
             for (int i = 0; i < rotationJitters.length; i++) {
                 rotationJitters[i] = clampRotationJitterValue(rotationJitters[i]);
             }
-            randRotX = rotationJitters.length >= 1 ? random.nextFloat(rotationJitters[0] * 2) - rotationJitters[0] : 0f;
-            randRotY = rotationJitters.length >= 2 ? random.nextFloat(rotationJitters[1] * 2) - rotationJitters[1] : 0f;
-            randRotZ = rotationJitters.length >= 3 ? random.nextFloat(rotationJitters[2] * 2) - rotationJitters[2] : 0f;
+            randRotX = rotationJitters.length >= 1 ? random.nextFloat() * (rotationJitters[0] * 2) - rotationJitters[0] : 0f;
+            randRotY = rotationJitters.length >= 2 ? random.nextFloat() * (rotationJitters[1] * 2) - rotationJitters[1] : 0f;
+            randRotZ = rotationJitters.length >= 3 ? random.nextFloat() * (rotationJitters[2] * 2) - rotationJitters[2] : 0f;
         }
 
         float finalRotX = rotX; float finalRotY = rotY; float finalRotZ = rotZ;

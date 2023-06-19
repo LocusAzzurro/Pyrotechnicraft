@@ -7,14 +7,12 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.SimpleContainerData;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.BlockRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ContainerTypeRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.entity.FireworkLauncherStandBlockEntity;
-import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.entity.FireworkMissileCraftingTableBlockEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +30,7 @@ public class FireworkLauncherStandContainer extends AbstractFireworkContainer{
     public FireworkLauncherStandContainer(int pContainerId, BlockPos pos, Inventory playerInventory, Player player, ContainerData containerData) {
         super(ContainerTypeRegistry.FIREWORK_LAUNCHER_STAND.get(), pContainerId, pos, playerInventory, player);
         this.data = containerData;
-        if (blockEntity != null) blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> addFireworkSlots(handler, 8, 18));
+        if (blockEntity != null) blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> addFireworkSlots(handler, 8, 18));
         this.rotationData = DataSlot.forContainer(data, 0);
         this.addDataSlot(rotationData);
         this.angleData = DataSlot.forContainer(data, 1);

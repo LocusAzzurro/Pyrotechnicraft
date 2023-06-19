@@ -16,7 +16,7 @@
     }
   ],
   "result": {
-    "item": "pyrotechnicraft:firework_orb_core",
-    "count": 2
+    "count": 2,
+    "item": "pyrotechnicraft:firework_orb_core"
   }
 }

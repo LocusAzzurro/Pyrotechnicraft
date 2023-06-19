@@ -17,17 +17,17 @@ public class PacketHandler {
         INSTANCE.messageBuilder(ServerboundFireworkOrbCraftingTablePacket.class, ID++, NetworkDirection.PLAY_TO_SERVER)
                 .encoder(ServerboundFireworkOrbCraftingTablePacket::encode)
                 .decoder(ServerboundFireworkOrbCraftingTablePacket::decode)
-                .consumer(ServerboundFireworkOrbCraftingTablePacket::handle)
+                .consumerMainThread(ServerboundFireworkOrbCraftingTablePacket::handle)
                 .add();
         INSTANCE.messageBuilder(ServerboundFireworkMissileCraftingTablePacket.class, ID++, NetworkDirection.PLAY_TO_SERVER)
                 .encoder(ServerboundFireworkMissileCraftingTablePacket::encode)
                 .decoder(ServerboundFireworkMissileCraftingTablePacket::decode)
-                .consumer(ServerboundFireworkMissileCraftingTablePacket::handle)
+                .consumerMainThread(ServerboundFireworkMissileCraftingTablePacket::handle)
                 .add();
         INSTANCE.messageBuilder(ServerboundFireworkLauncherStandTogglePacket.class, ID++, NetworkDirection.PLAY_TO_SERVER)
                 .encoder(ServerboundFireworkLauncherStandTogglePacket::encode)
                 .decoder(ServerboundFireworkLauncherStandTogglePacket::decode)
-                .consumer(ServerboundFireworkLauncherStandTogglePacket::handle)
+                .consumerMainThread(ServerboundFireworkLauncherStandTogglePacket::handle)
                 .add();
     }
 }

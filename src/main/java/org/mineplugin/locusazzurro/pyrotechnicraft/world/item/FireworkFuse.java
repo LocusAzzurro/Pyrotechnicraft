@@ -2,7 +2,6 @@ package org.mineplugin.locusazzurro.pyrotechnicraft.world.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -13,7 +12,7 @@ import java.util.List;
 
 public class FireworkFuse extends BasicMaterialItem{
 
-    public static final TranslatableComponent TEXT_FUSE_TITLE = new TranslatableComponent("item." + Pyrotechnicraft.MOD_ID + ".firework_fuse.delay");
+    public static final Component TEXT_FUSE_TITLE = Component.translatable("item." + Pyrotechnicraft.MOD_ID + ".firework_fuse.delay");
 
     private final FuseType type;
 

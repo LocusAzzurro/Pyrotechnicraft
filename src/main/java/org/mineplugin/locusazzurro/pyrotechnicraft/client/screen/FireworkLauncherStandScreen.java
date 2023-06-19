@@ -8,13 +8,11 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 import org.mineplugin.locusazzurro.pyrotechnicraft.network.PacketHandler;
 import org.mineplugin.locusazzurro.pyrotechnicraft.network.ServerboundFireworkLauncherStandTogglePacket;
-import org.mineplugin.locusazzurro.pyrotechnicraft.network.ServerboundFireworkMissileCraftingTablePacket;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.container.FireworkLauncherStandContainer;
 
 public class FireworkLauncherStandScreen extends AbstractContainerScreen<FireworkLauncherStandContainer> {
@@ -29,8 +27,8 @@ public class FireworkLauncherStandScreen extends AbstractContainerScreen<Firewor
     private static final int BG_X = 176;
     private static final int BG_Y = 222;
 
-    private static final TranslatableComponent TEXT_ROTATION = new TranslatableComponent("screen.pyrotechnicraft.firework_launcher_stand.label.rotation");
-    private static final TranslatableComponent TEXT_ANGLE = new TranslatableComponent("screen.pyrotechnicraft.firework_launcher_stand.label.angle");
+    private static final Component TEXT_ROTATION = Component.translatable("screen.pyrotechnicraft.firework_launcher_stand.label.rotation");
+    private static final Component TEXT_ANGLE = Component.translatable("screen.pyrotechnicraft.firework_launcher_stand.label.angle");
     public FireworkLauncherStandScreen(FireworkLauncherStandContainer pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
         this.imageWidth = BG_X;

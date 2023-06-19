@@ -21,12 +21,12 @@ import java.util.Map;
 public class HomingArrayScript extends Item implements IHomingSystemEnabled{
 
     public static final String MESSAGE_PREFIX = "item." + Pyrotechnicraft.MOD_ID + ".homing_array_script.state_change_message.";
-    public static final TranslatableComponent TEXT_SELECTED_OPTION_CHANGED = new TranslatableComponent(MESSAGE_PREFIX + "selected_option");
-    public static final TranslatableComponent TEXT_TARGET_TYPE_CHANGED = new TranslatableComponent(MESSAGE_PREFIX + "target_type");
-    public static final TranslatableComponent TEXT_MODE_CHANGED = new TranslatableComponent(MESSAGE_PREFIX + "mode");
-    public static final TranslatableComponent TEXT_RANGE_CHANGED = new TranslatableComponent(MESSAGE_PREFIX + "range");
-    public static final TranslatableComponent TEXT_APERTURE_CHANGED = new TranslatableComponent(MESSAGE_PREFIX + "aperture");
-    public static Map<Byte, TranslatableComponent> CHANGED_OPTION_TEXT = new HashMap<>();
+    public static final Component TEXT_SELECTED_OPTION_CHANGED = Component.translatable(MESSAGE_PREFIX + "selected_option");
+    public static final Component TEXT_TARGET_TYPE_CHANGED = Component.translatable(MESSAGE_PREFIX + "target_type");
+    public static final Component TEXT_MODE_CHANGED = Component.translatable(MESSAGE_PREFIX + "mode");
+    public static final Component TEXT_RANGE_CHANGED = Component.translatable(MESSAGE_PREFIX + "range");
+    public static final Component TEXT_APERTURE_CHANGED = Component.translatable(MESSAGE_PREFIX + "aperture");
+    public static Map<Byte, Component> CHANGED_OPTION_TEXT = new HashMap<>();
     public HomingArrayScript(){
         super(new Item.Properties().tab(Pyrotechnicraft.CREATIVE_TAB).stacksTo(1));
     }
@@ -60,7 +60,7 @@ public class HomingArrayScript extends Item implements IHomingSystemEnabled{
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         IHomingSystemEnabled.super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced, true);
     }
-    public TranslatableComponent getOptionValueComponent(byte option, byte value){
+    public Component getOptionValueComponent(byte option, byte value){
         return switch (option) {
             case HomingSystem.OPTION_TARGET_TYPE -> HomingSystem.TARGET_TYPE_TEXT.getOrDefault(value, HomingSystem.TEXT_NO_INFO);
             case HomingSystem.OPTION_MODE -> HomingSystem.MODE_TEXT.getOrDefault(value, HomingSystem.TEXT_NO_INFO);

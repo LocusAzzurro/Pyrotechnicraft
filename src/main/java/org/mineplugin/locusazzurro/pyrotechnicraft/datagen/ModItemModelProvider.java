@@ -8,6 +8,7 @@ import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.BlockRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
@@ -50,11 +51,11 @@ public class ModItemModelProvider extends ItemModelProvider {
     }
 
     private ItemModelBuilder generatedItem(Item item){
-        return singleTexture(item.getRegistryName().getPath(), mcLoc("item/generated"), "layer0", modLoc("item/" + item.getRegistryName().getPath()));
+        return singleTexture(ForgeRegistries.ITEMS.getKey(item).getPath(), mcLoc("item/generated"), "layer0", modLoc("item/" + ForgeRegistries.ITEMS.getKey(item).getPath()));
     }
 
     private ItemModelBuilder blockItem(Block block){
-        return withExistingParent(block.getRegistryName().getPath(), modLoc("block/" + block.getRegistryName().getPath()));
+        return withExistingParent(ForgeRegistries.BLOCKS.getKey(block).getPath(), modLoc("block/" + ForgeRegistries.BLOCKS.getKey(block).getPath()));
     }
 
     @NotNull

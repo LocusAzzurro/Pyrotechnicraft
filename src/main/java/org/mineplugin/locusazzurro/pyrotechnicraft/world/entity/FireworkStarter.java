@@ -63,7 +63,7 @@ public class FireworkStarter extends Projectile {
                         FireworkEngine.createFirework(level, position(), explosionVec, explosion);
                     }
                     level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEventRegistry.FIREWORK_EXPLODE.get(), SoundSource.NEUTRAL,
-                            20.0F, 1.0F + level.random.nextFloat(0.1f) - 0.05f);
+                            20.0F, 1.0F + level.random.nextFloat() * 0.1f - 0.05f);
                     double damage = calculateDamage(explosion);
                     List<LivingEntity> targets = this.level.getEntitiesOfClass(LivingEntity.class,
                             new AABB(position().add(-2, -2, -2), position().add(2, 2, 2)));
@@ -81,7 +81,7 @@ public class FireworkStarter extends Projectile {
                     totalDamage += calculateDamage(explosion);
                 }
                 level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEventRegistry.FIREWORK_EXPLODE.get(), SoundSource.NEUTRAL,
-                        20.0F, 1.0F + level.random.nextFloat(0.1f) - 0.05f);
+                        20.0F, 1.0F + level.random.nextFloat() * (0.1f) - 0.05f);
                 List<LivingEntity> targets = this.level.getEntitiesOfClass(LivingEntity.class,
                         new AABB(position().add(-2, -2, -2), position().add(2, 2, 2)));
                 double finalTotalDamage = totalDamage;

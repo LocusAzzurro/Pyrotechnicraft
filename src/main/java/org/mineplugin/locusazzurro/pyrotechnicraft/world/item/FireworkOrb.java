@@ -14,18 +14,20 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.shape.ExplosionSha
 import java.util.List;
 import java.util.Optional;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class FireworkOrb extends Item {
 
     public static final String TOOLTIP_PREFIX = "item." + Pyrotechnicraft.MOD_ID + ".firework_orb.";
     public static final String TEXT_SHAPE_HANDLE = TOOLTIP_PREFIX + "shape.";
-    public static final TranslatableComponent TEXT_COLOR_TITLE = new TranslatableComponent(TOOLTIP_PREFIX + "color.title");
-    public static final TranslatableComponent TEXT_FADE_COLOR_TITLE = new TranslatableComponent(TOOLTIP_PREFIX + "fade_color.title");
-    public static final TranslatableComponent TEXT_COLOR_SYMBOL = new TranslatableComponent(TOOLTIP_PREFIX + "color.symbol");
-    public static final TranslatableComponent TEXT_FORCE = new TranslatableComponent(TOOLTIP_PREFIX + "property.force");
-    public static final TranslatableComponent TEXT_SPARKS = new TranslatableComponent(TOOLTIP_PREFIX + "property.sparks");
-    public static final TranslatableComponent TEXT_DAMAGE = new TranslatableComponent(TOOLTIP_PREFIX + "property.damage");
-    public static final TranslatableComponent TEXT_TRAIL = new TranslatableComponent(TOOLTIP_PREFIX + "property.trail");
-    public static final TranslatableComponent TEXT_SPARKLE = new TranslatableComponent(TOOLTIP_PREFIX + "property.sparkle");
+    public static final Component TEXT_COLOR_TITLE = Component.translatable(TOOLTIP_PREFIX + "color.title");
+    public static final Component TEXT_FADE_COLOR_TITLE = Component.translatable(TOOLTIP_PREFIX + "fade_color.title");
+    public static final Component TEXT_COLOR_SYMBOL = Component.translatable(TOOLTIP_PREFIX + "color.symbol");
+    public static final Component TEXT_FORCE = Component.translatable(TOOLTIP_PREFIX + "property.force");
+    public static final Component TEXT_SPARKS = Component.translatable(TOOLTIP_PREFIX + "property.sparks");
+    public static final Component TEXT_DAMAGE = Component.translatable(TOOLTIP_PREFIX + "property.damage");
+    public static final Component TEXT_TRAIL = Component.translatable(TOOLTIP_PREFIX + "property.trail");
+    public static final Component TEXT_SPARKLE = Component.translatable(TOOLTIP_PREFIX + "property.sparkle");
     public FireworkOrb()  {
         super(new Properties().tab(Pyrotechnicraft.CREATIVE_TAB));
     }
@@ -44,12 +46,12 @@ public class FireworkOrb extends Item {
         int sparks = tag.getInt("Sparks");
         double damage = tag.getDouble("Damage");
 
-        pTooltipComponents.add(shapeKey(shape).withStyle(ChatFormatting.GRAY));
+        pTooltipComponents.add(shapeKey(shape));
         colorSymbolChain(colors).ifPresent(component -> pTooltipComponents.add(TEXT_COLOR_TITLE.copy().withStyle(ChatFormatting.GRAY).append(component)));
         colorSymbolChain(fadeColors).ifPresent(component -> pTooltipComponents.add(TEXT_FADE_COLOR_TITLE.copy().withStyle(ChatFormatting.GRAY).append(component)));
-        pTooltipComponents.add(TEXT_FORCE.copy().append(new TextComponent(String.format("%.1f", force))).withStyle(ChatFormatting.GRAY));
-        if (!shape.hasCostByDefault()) pTooltipComponents.add(TEXT_SPARKS.copy().append(new TextComponent(String.valueOf(sparks))).withStyle(ChatFormatting.GRAY));
-        pTooltipComponents.add(TEXT_DAMAGE.copy().append(new TextComponent(String.format("%.1f", damage))).withStyle(ChatFormatting.GRAY));
+        pTooltipComponents.add(TEXT_FORCE.copy().append(Component.literal(String.format("%.1f", force))).withStyle(ChatFormatting.GRAY));
+        if (!shape.hasCostByDefault()) pTooltipComponents.add(TEXT_SPARKS.copy().append(Component.literal(String.valueOf(sparks))).withStyle(ChatFormatting.GRAY));
+        pTooltipComponents.add(TEXT_DAMAGE.copy().append(Component.literal(String.format("%.1f", damage))).withStyle(ChatFormatting.GRAY));
         if (tag.getBoolean("Trail")) pTooltipComponents.add(TEXT_TRAIL.copy().withStyle(ChatFormatting.GRAY));
         if (tag.getBoolean("Sparkle")) pTooltipComponents.add(TEXT_SPARKLE.copy().withStyle(ChatFormatting.GRAY));
     }
@@ -65,7 +67,7 @@ public class FireworkOrb extends Item {
         return Optional.empty();
     }
 
-    private static TranslatableComponent shapeKey(ExplosionShape shape){
-        return new TranslatableComponent(TEXT_SHAPE_HANDLE + shape.getName());
+    private static Component shapeKey(ExplosionShape shape){
+        return Component.translatable(TEXT_SHAPE_HANDLE + shape.getName()).withStyle(ChatFormatting.GRAY);
     }
 }

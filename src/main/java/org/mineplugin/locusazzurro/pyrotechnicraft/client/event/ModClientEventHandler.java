@@ -13,9 +13,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -58,13 +58,13 @@ public class ModClientEventHandler {
     }
 
     @SubscribeEvent
-    public static void registerParticleFactory(ParticleFactoryRegisterEvent event){
+    public static void registerParticleFactory(RegisterParticleProvidersEvent event){
         ParticleEngine particleEngine = Minecraft.getInstance().particleEngine;
         particleEngine.register(ParticleTypeRegistry.FIREWORK_SPARK.get(), FireworkSparkParticle.FireworkSparkProvider::new);
         particleEngine.register(ParticleTypeRegistry.TRAIL_SPARK.get(), TrailSparkParticle.TrailSparkProvider::new);
     }
     @SubscribeEvent
-    public static void registerItemColors(ColorHandlerEvent.Item event){
+    public static void registerItemColors(RegisterColorHandlersEvent.Item event){
         ItemColors itemColors = event.getItemColors();
         itemColors.register(new FireworkOrbColorer(), ItemRegistry.FIREWORK_ORB.get());
         itemColors.register(new FireworkMissileColorer(), ItemRegistry.FIREWORK_MISSILE.get());

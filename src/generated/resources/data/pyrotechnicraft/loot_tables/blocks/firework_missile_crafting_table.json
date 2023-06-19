@@ -2,15 +2,15 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "name": "firework_missile_crafting_table",
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "pyrotechnicraft:firework_missile_crafting_table"
         }
-      ]
+      ],
+      "name": "firework_missile_crafting_table",
+      "rolls": 1.0
     }
   ]
 }

@@ -7,7 +7,7 @@
     }
   ],
   "result": {
-    "item": "pyrotechnicraft:firework_mixture",
-    "count": 4
+    "count": 4,
+    "item": "pyrotechnicraft:firework_mixture"
   }
 }

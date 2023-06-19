@@ -8,7 +8,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.BlockRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ContainerTypeRegistry;
@@ -36,7 +36,7 @@ public class FireworkOrbCraftingTableContainer extends AbstractFireworkContainer
 
     public FireworkOrbCraftingTableContainer(int pContainerId, BlockPos pos, Inventory playerInventory, Player player) {
         super(ContainerTypeRegistry.FIREWORK_ORB_CRAFTING_TABLE.get(), pContainerId, pos, playerInventory, player);
-        if (blockEntity != null) blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(this::addCraftingSlots);
+        if (blockEntity != null) blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(this::addCraftingSlots);
         layoutPlayerInventorySlots(8, 140);
     }
 

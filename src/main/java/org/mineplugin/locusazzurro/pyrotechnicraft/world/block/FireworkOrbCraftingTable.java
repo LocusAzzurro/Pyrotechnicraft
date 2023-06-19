@@ -2,7 +2,7 @@ package org.mineplugin.locusazzurro.pyrotechnicraft.world.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -43,7 +43,7 @@ public class FireworkOrbCraftingTable extends AbstractFireworkCraftingTable{
                     @Override
                     @NotNull
                     public Component getDisplayName() {
-                        return new TranslatableComponent("screen." + Pyrotechnicraft.MOD_ID + ".firework_orb_crafting_table");
+                        return Component.translatable("screen." + Pyrotechnicraft.MOD_ID + ".firework_orb_crafting_table");
                     }
 
                     @Override
@@ -51,7 +51,7 @@ public class FireworkOrbCraftingTable extends AbstractFireworkCraftingTable{
                         return new FireworkOrbCraftingTableContainer(windowId, pPos, playerInventory, playerEntity);
                     }
                 };
-                NetworkHooks.openGui((ServerPlayer) pPlayer, containerProvider, be.getBlockPos());
+                NetworkHooks.openScreen((ServerPlayer) pPlayer, containerProvider, be.getBlockPos());
             } else {
                 throw new IllegalStateException("Container provider is missing!");
             }

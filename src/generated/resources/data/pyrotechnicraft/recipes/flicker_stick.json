@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "F": {
+      "item": "pyrotechnicraft:firework_mixture"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
   "pattern": [
     " F",
     "S "
   ],
-  "key": {
-    "S": {
-      "item": "minecraft:stick"
-    },
-    "F": {
-      "item": "pyrotechnicraft:firework_mixture"
-    }
-  },
   "result": {
     "item": "pyrotechnicraft:flicker_stick"
   }

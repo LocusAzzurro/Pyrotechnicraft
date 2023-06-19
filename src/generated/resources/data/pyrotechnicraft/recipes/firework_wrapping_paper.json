@@ -1,11 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "FRF",
-    "RPW",
-    "FWF"
-  ],
   "key": {
+    "F": {
+      "item": "pyrotechnicraft:firework_mixture"
+    },
     "P": {
       "item": "minecraft:paper"
     },
@@ -14,13 +12,15 @@
     },
     "W": {
       "item": "minecraft:white_dye"
-    },
-    "F": {
-      "item": "pyrotechnicraft:firework_mixture"
     }
   },
+  "pattern": [
+    "FRF",
+    "RPW",
+    "FWF"
+  ],
   "result": {
-    "item": "pyrotechnicraft:firework_wrapping_paper",
-    "count": 4
+    "count": 4,
+    "item": "pyrotechnicraft:firework_wrapping_paper"
   }
 }
