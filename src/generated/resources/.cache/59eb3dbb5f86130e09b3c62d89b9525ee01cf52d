@@ -1,0 +1,5 @@
+// 1.19.3	2023-06-21T00:29:39.0746577	Loot Tables
+0252994caec71ff7612f432051aaac2cc156847b data/pyrotechnicraft/loot_tables/blocks/composite_firework_orb_launcher_stand.json
+12d520c81b5c58ad6e4e6daf6459ab5292c8700c data/pyrotechnicraft/loot_tables/blocks/firework_launcher_stand.json
+c8996ce9edfaa445382a2a0a96bc585e663a32a1 data/pyrotechnicraft/loot_tables/blocks/firework_missile_crafting_table.json
+79592ffef5813c7798c357a29839cf5ccb0099e6 data/pyrotechnicraft/loot_tables/blocks/firework_orb_crafting_table.json

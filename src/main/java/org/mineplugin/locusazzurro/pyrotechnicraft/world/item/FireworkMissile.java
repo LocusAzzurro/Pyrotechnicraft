@@ -30,7 +30,7 @@ public class FireworkMissile extends Item{
     public static final Component SYMBOL_SPARK = Component.translatable(TOOLTIP_PREFIX + "display.spark_color.symbol");
     public static final Component TEXT_PAYLOAD_LIST = Component.translatable(TOOLTIP_PREFIX + "payload_list");
     public FireworkMissile(){
-        super(new Item.Properties().tab(Pyrotechnicraft.CREATIVE_TAB));
+        super(new Item.Properties());
     }
 
     @Override

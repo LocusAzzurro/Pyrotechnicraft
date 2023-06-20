@@ -8,6 +8,6 @@ import net.minecraft.world.item.Item.Properties;
 public class BasicMaterialItem extends Item {
 
     public BasicMaterialItem() {
-        super(new Properties().tab(Pyrotechnicraft.CREATIVE_TAB));
+        super(new Properties());
     }
 }

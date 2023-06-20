@@ -21,7 +21,7 @@ public class ExplosionShapePattern extends Item {
     private final ExplosionShape shape;
 
     public ExplosionShapePattern(ExplosionShape shape) {
-        super(new Properties().tab(Pyrotechnicraft.CREATIVE_TAB).stacksTo(1));
+        super(new Properties().stacksTo(1));
         this.shape = shape;
     }
 

@@ -17,7 +17,7 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.world.entity.FirecrackerEntit
 public class Firecracker extends Item{
 
     public Firecracker()  {
-        super(new Item.Properties().tab(Pyrotechnicraft.CREATIVE_TAB).stacksTo(16));
+        super(new Item.Properties().stacksTo(16));
     }
 
     @Override

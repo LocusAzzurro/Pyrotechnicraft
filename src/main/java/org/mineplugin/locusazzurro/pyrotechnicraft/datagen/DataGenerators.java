@@ -1,12 +1,15 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.datagen;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.data.event.GatherDataEvent;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
+
+import java.util.concurrent.CompletableFuture;
 
 @Mod.EventBusSubscriber(modid = Pyrotechnicraft.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
@@ -16,14 +19,15 @@ public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
+        PackOutput output = generator.getPackOutput();
         ExistingFileHelper fh = event.getExistingFileHelper();
-            BlockTagsProvider blockTags = new ModBlockTagsProvider(generator, fh);
-            generator.addProvider(event.includeServer(), blockTags);
-            generator.addProvider(event.includeServer(), new ModItemTagsProvider(generator, blockTags, fh));
-            generator.addProvider(event.includeServer(), new ModRecipeProvider(generator));
-            generator.addProvider(event.includeServer(), new ModLootTableProvider(generator));
-            generator.addProvider(event.includeClient(), new ModBlockModelProvider(generator, fh));
-            generator.addProvider(event.includeClient(), new ModItemModelProvider(generator, fh));
-
+        CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+        generator.addProvider(event.includeClient(), new ModBlockModelProvider(output, fh));
+        generator.addProvider(event.includeClient(), new ModItemModelProvider(output, fh));
+        generator.addProvider(event.includeServer(), new ModRecipeProvider(output));
+        generator.addProvider(event.includeServer(), ModLootTableProvider.create(output));
+        ModBlockTagsProvider blockTags = new ModBlockTagsProvider(output, lookupProvider, fh);
+        generator.addProvider(event.includeServer(), blockTags);
+        generator.addProvider(event.includeServer(), new ModItemTagsProvider(output, lookupProvider, blockTags, fh));
     }
 }

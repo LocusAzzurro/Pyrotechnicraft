@@ -27,7 +27,7 @@ public class FireworkLauncher extends ProjectileWeaponItem {
     public static final Predicate<ItemStack> isFireworkRocket = i -> i.is(Items.FIREWORK_ROCKET);
     public static final Predicate<ItemStack> isFireworkMissile = i -> i.is(ItemRegistry.FIREWORK_MISSILE.get());
     public FireworkLauncher() {
-        super(new Properties().tab(Pyrotechnicraft.CREATIVE_TAB).durability(160));
+        super(new Properties().durability(160));
     }
 
     @Override

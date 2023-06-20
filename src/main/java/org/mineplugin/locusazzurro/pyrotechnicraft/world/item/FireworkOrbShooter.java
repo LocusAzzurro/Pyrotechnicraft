@@ -6,6 +6,6 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 public class FireworkOrbShooter extends Item{
 
     public FireworkOrbShooter() {
-        super(new Item.Properties().tab(Pyrotechnicraft.CREATIVE_TAB).durability(40));
+        super(new Item.Properties().durability(40));
     }
 }

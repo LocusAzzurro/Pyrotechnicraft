@@ -12,7 +12,6 @@ import static org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft.MOD_ID
 public class Pyrotechnicraft {
 
     public static final String MOD_ID = "pyrotechnicraft";
-    public static final CreativeTabs.CreativeTab CREATIVE_TAB = new CreativeTabs.CreativeTab();
 
     public Pyrotechnicraft() {
 

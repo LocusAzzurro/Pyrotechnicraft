@@ -3,7 +3,8 @@ package org.mineplugin.locusazzurro.pyrotechnicraft.client.render.renderer;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
+import org.joml.Vector3f;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -42,8 +43,8 @@ public abstract class AbstractFireworkMissileRenderer<T extends FireworkMissileE
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.pushPose();
         matrixStackIn.scale(0.5f,0.5f, 0.5f);
-        matrixStackIn.mulPose(Vector3f.YN.rotationDegrees(entityIn.getYRot()));
-        matrixStackIn.mulPose(Vector3f.XN.rotationDegrees(entityIn.getXRot() - 90f));
+        matrixStackIn.mulPose(Axis.YN.rotationDegrees(entityIn.getYRot()));
+        matrixStackIn.mulPose(Axis.XN.rotationDegrees(entityIn.getXRot() - 90f));
         VertexConsumer vertexBuilder = bufferIn.getBuffer(model.renderType(getTextureLocation(entityIn)));
         this.model.renderFireworkMissile(entityIn, matrixStackIn, vertexBuilder, packedLightIn, OverlayTexture.NO_OVERLAY);
         for(RenderLayer<T, M> renderLayer : this.layers) {

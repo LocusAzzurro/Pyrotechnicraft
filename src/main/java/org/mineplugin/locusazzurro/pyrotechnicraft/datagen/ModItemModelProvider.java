@@ -1,6 +1,7 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.datagen;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -15,8 +16,8 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
 
 public class ModItemModelProvider extends ItemModelProvider {
 
-    public ModItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-        super(generator, DataGenerators.MOD_ID, existingFileHelper);
+    public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+        super(output, DataGenerators.MOD_ID, existingFileHelper);
     }
 
     @Override

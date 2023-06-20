@@ -35,7 +35,7 @@ public class HomingArray extends Item implements IHomingSystemEnabled{
     public static final Component TEXT_TARGET_LOCKED = Component.translatable(MESSAGE_PREFIX + "target_locked");
     public static final Component TEXT_CURRENT_TARGET = Component.translatable(MESSAGE_PREFIX + "current_target");
     public HomingArray(){
-        super(new Item.Properties().tab(Pyrotechnicraft.CREATIVE_TAB).durability(100));
+        super(new Item.Properties().durability(100));
     }
 
     @Override

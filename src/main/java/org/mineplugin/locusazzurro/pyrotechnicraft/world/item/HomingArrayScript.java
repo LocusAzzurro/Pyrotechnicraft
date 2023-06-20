@@ -28,7 +28,7 @@ public class HomingArrayScript extends Item implements IHomingSystemEnabled{
     public static final Component TEXT_APERTURE_CHANGED = Component.translatable(MESSAGE_PREFIX + "aperture");
     public static Map<Byte, Component> CHANGED_OPTION_TEXT = new HashMap<>();
     public HomingArrayScript(){
-        super(new Item.Properties().tab(Pyrotechnicraft.CREATIVE_TAB).stacksTo(1));
+        super(new Item.Properties().stacksTo(1));
     }
 
     @Override

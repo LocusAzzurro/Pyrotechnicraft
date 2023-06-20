@@ -15,7 +15,7 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
 public class FireworkReplicationKit extends Item{
 
     public FireworkReplicationKit() {
-        super(new Item.Properties().tab(Pyrotechnicraft.CREATIVE_TAB).stacksTo(16).rarity(Rarity.UNCOMMON));
+        super(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON));
     }
 
     @Override

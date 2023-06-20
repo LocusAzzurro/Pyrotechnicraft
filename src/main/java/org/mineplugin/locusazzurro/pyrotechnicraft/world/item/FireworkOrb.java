@@ -29,7 +29,7 @@ public class FireworkOrb extends Item {
     public static final Component TEXT_TRAIL = Component.translatable(TOOLTIP_PREFIX + "property.trail");
     public static final Component TEXT_SPARKLE = Component.translatable(TOOLTIP_PREFIX + "property.sparkle");
     public FireworkOrb()  {
-        super(new Properties().tab(Pyrotechnicraft.CREATIVE_TAB));
+        super(new Properties());
     }
 
     @Override

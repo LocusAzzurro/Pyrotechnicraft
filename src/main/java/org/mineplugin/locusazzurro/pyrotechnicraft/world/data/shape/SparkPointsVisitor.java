@@ -1,6 +1,5 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.world.data.shape;
 
-import com.mojang.math.Vector3f;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec2;
@@ -8,7 +7,6 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class SparkPointsVisitor implements IExplosionShapeVisitor {
 

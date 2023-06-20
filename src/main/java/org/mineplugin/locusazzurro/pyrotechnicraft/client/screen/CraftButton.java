@@ -7,7 +7,7 @@ class CraftButton extends Button {
 
     private static final Component TEXT_CRAFT = Component.translatable("screen.pyrotechnicraft.firework_crafting_table.button.craft");
     public CraftButton(int x, int y, Button.OnPress pressAction) {
-        super(x, y, 32, 20, TEXT_CRAFT, pressAction);
+        super(x, y, 32, 20, TEXT_CRAFT, pressAction, c -> Component.empty());
     }
 }
 

@@ -58,7 +58,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> COMPOSITE_FIREWORK_ORB_LAUNCHER_STAND = fromBlock(BlockRegistry.COMPOSITE_FIREWORK_ORB_LAUNCHER_STAND);
 
     private static <B extends Block> RegistryObject<Item> fromBlock(RegistryObject<B> block) {
-        return ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties().tab(Pyrotechnicraft.CREATIVE_TAB)));
+        return ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
 }

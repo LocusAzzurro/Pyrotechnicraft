@@ -6,6 +6,6 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 public class CompositeFireworkOrb extends Item{
 
     public CompositeFireworkOrb()  {
-        super(new Item.Properties().tab(Pyrotechnicraft.CREATIVE_TAB));
+        super(new Item.Properties());
     }
 }

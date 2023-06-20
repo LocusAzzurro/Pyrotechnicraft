@@ -1,6 +1,7 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.datagen;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -8,8 +9,8 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.data.BlockRegistry;
 
 public class ModBlockModelProvider extends BlockStateProvider {
 
-    public ModBlockModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-        super(generator, DataGenerators.MOD_ID, existingFileHelper);
+    public ModBlockModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+        super(output, DataGenerators.MOD_ID, existingFileHelper);
     }
 
     @Override

@@ -24,7 +24,7 @@ public class FlickerStick extends Item{
 
     public FlickerStick()
     {
-        super(new Item.Properties().tab(Pyrotechnicraft.CREATIVE_TAB).durability(200));
+        super(new Item.Properties().durability(200));
     }
 
     @Override

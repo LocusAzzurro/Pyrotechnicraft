@@ -19,7 +19,7 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.world.entity.FireworkStarter;
 public class CreativeFireworkTestKit extends Item{
 
     public CreativeFireworkTestKit() {
-        super(new Item.Properties().tab(Pyrotechnicraft.CREATIVE_TAB).stacksTo(1).rarity(Rarity.EPIC));
+        super(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC));
     }
 
     @Override

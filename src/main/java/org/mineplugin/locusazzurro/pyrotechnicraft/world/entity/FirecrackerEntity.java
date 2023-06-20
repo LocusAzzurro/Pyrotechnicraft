@@ -2,6 +2,7 @@ package org.mineplugin.locusazzurro.pyrotechnicraft.world.entity;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
@@ -37,7 +38,7 @@ public class FirecrackerEntity extends ThrowableItemProjectile {
         super.onHit(pResult);
         if(!this.level.isClientSide){
             boolean flag = ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
-            this.level.explode(null, this.getX(), this.getY(), this.getZ(), 2, flag, Explosion.BlockInteraction.NONE);
+            this.level.explode(null, this.getX(), this.getY(), this.getZ(), 2f, flag, Level.ExplosionInteraction.NONE);
         }
         this.discard();
     }
@@ -56,7 +57,7 @@ public class FirecrackerEntity extends ThrowableItemProjectile {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

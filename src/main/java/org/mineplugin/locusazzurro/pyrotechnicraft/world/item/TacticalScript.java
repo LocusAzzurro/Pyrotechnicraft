@@ -6,6 +6,6 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 public class TacticalScript extends Item{
 
     public TacticalScript(){
-        super(new Item.Properties().tab(Pyrotechnicraft.CREATIVE_TAB).stacksTo(1));
+        super(new Item.Properties().stacksTo(1));
     }
 }
