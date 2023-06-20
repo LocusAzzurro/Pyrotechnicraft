@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "pyrotechnicraft:homing_array"
-  }
+  },
+  "show_notification": true
 }

@@ -15,5 +15,6 @@
   ],
   "result": {
     "item": "pyrotechnicraft:firework_missile_crafting_table"
-  }
+  },
+  "show_notification": true
 }

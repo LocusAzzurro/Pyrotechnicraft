@@ -26,9 +26,7 @@ public class ModCommonEventHandler {
         event.registerCreativeModeTab(new ResourceLocation(Pyrotechnicraft.MOD_ID, "firework"), builder -> builder
                 .icon(() -> new ItemStack(ItemRegistry.FIREWORK_MISSILE.get()))
                 .title(Component.translatable("itemGroup.pyrotechnicraft"))
-                .displayItems((featureFlags, output, hasOp) -> {
-                    ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(output::accept);
-                })
+                .displayItems((displayParameters, output) -> ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(output::accept))
         );
     }
 

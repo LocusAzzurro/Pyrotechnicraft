@@ -23,5 +23,6 @@
   "result": {
     "count": 4,
     "item": "pyrotechnicraft:firework_wrapping_paper"
-  }
+  },
+  "show_notification": true
 }

@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "pyrotechnicraft:firework_launcher"
-  }
+  },
+  "show_notification": true
 }

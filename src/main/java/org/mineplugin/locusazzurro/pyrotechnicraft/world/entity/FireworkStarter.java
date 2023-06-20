@@ -1,5 +1,6 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.world.entity;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.protocol.Packet;
@@ -8,6 +9,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -15,10 +17,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
+import org.mineplugin.locusazzurro.pyrotechnicraft.data.DamageTypeRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.EntityTypeRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.SoundEventRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FireworkEngine;
-import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.damage.DamageSources;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -55,6 +57,9 @@ public class FireworkStarter extends Projectile {
         CompoundTag payloadListWrap = entityData.get(PAYLOAD_LIST);
         ListTag payloadList = payloadListWrap.getList("PayloadList", ListTag.TAG_COMPOUND);
         int fuseDelay = entityData.get(FUSE_DELAY);
+        var owner = this.getOwner();
+        DamageSource damagesource = new DamageSource(this.level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypeRegistry.FIREWORK),
+                this, owner == null ? this : owner);
         if (!payloadList.isEmpty()){
             this.explosionVec = deserializeVec(entityData.get(VEC));
             if (fuseDelay > 0){
@@ -68,7 +73,8 @@ public class FireworkStarter extends Projectile {
                     double damage = calculateDamage(explosion);
                     List<LivingEntity> targets = this.level.getEntitiesOfClass(LivingEntity.class,
                             new AABB(position().add(-2, -2, -2), position().add(2, 2, 2)));
-                    targets.forEach(target -> target.hurt(DamageSources.fireworkMissile(this.getOwner()), (float) damage));
+                    targets.forEach(target -> target.hurt(damagesource, (float) damage));
+                    //targets.forEach(target -> target.hurt(DamageSources.fireworkMissile(this.getOwner()), (float) damage));
                 }
                 if (this.life > fuseDelay * payloadList.size() + 10) this.discard();
             }
@@ -86,7 +92,8 @@ public class FireworkStarter extends Projectile {
                 List<LivingEntity> targets = this.level.getEntitiesOfClass(LivingEntity.class,
                         new AABB(position().add(-2, -2, -2), position().add(2, 2, 2)));
                 double finalTotalDamage = totalDamage;
-                targets.forEach(target -> target.hurt(DamageSources.fireworkMissile(this.getOwner()), (float) finalTotalDamage));
+                targets.forEach(target -> target.hurt(damagesource, (float) finalTotalDamage));
+                //targets.forEach(target -> target.hurt(DamageSources.fireworkMissile(this.getOwner()), (float) finalTotalDamage));
                 this.discard();
             }
         }

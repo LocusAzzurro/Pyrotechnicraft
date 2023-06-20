@@ -1,14 +1,18 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.datagen;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.data.event.GatherDataEvent;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 @Mod.EventBusSubscriber(modid = Pyrotechnicraft.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -16,6 +20,8 @@ public class DataGenerators {
 
     final static String MOD_ID = Pyrotechnicraft.MOD_ID;
 
+    private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
+            .add(Registries.DAMAGE_TYPE, ModDamageTypes::bootstrap);
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
@@ -29,5 +35,6 @@ public class DataGenerators {
         ModBlockTagsProvider blockTags = new ModBlockTagsProvider(output, lookupProvider, fh);
         generator.addProvider(event.includeServer(), blockTags);
         generator.addProvider(event.includeServer(), new ModItemTagsProvider(output, lookupProvider, blockTags, fh));
+        generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(output, event.getLookupProvider(), BUILDER, Set.of(Pyrotechnicraft.MOD_ID)));
     }
 }

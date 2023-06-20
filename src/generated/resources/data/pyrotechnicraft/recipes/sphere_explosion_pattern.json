@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "pyrotechnicraft:sphere_explosion_pattern"
-  }
+  },
+  "show_notification": true
 }

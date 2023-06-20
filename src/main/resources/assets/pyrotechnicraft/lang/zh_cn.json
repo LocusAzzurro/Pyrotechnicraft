@@ -100,8 +100,8 @@
   "data.pyrotechnicraft.homing_system.extent.xlarge": "极大",
   "data.pyrotechnicraft.homing_system.no_info": "无信息",
 
-  "death.attack.fireworkMissile": "%1$s 被 %2$s 击中，随着一声巨响灰飞烟灭",
-  "death.attack.fireworkMissile.item": "%1$s 被 %2$s 用 %3$s 击中，随着一声巨响灰飞烟灭",
+  "death.attack.firework": "%1$s 被 %2$s 击中，随着一声巨响灰飞烟灭",
+  "death.attack.firework.item": "%1$s 被 %2$s 用 %3$s 击中，随着一声巨响灰飞烟灭",
 
   "subtitles.item.firework_launcher.launch": "烟花导弹：发射",
   "subtitles.entity.firework_missile.explode": "烟花：爆裂",

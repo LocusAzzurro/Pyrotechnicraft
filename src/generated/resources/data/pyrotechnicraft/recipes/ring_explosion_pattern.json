@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "pyrotechnicraft:ring_explosion_pattern"
-  }
+  },
+  "show_notification": true
 }

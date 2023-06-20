@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "pyrotechnicraft:firework_orb_shooter"
-  }
+  },
+  "show_notification": true
 }
