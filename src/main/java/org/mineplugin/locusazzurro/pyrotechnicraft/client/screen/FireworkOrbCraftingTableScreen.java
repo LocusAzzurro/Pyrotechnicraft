@@ -3,6 +3,7 @@ package org.mineplugin.locusazzurro.pyrotechnicraft.client.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.BlockPos;
@@ -48,23 +49,23 @@ public class FireworkOrbCraftingTableScreen extends AbstractContainerScreen<Fire
     }
 
     @Override
-    public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(matrixStack);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderTooltip(matrixStack, mouseX, mouseY);
+    public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(gui);
+        super.render(gui, mouseX, mouseY, partialTicks);
+        this.renderTooltip(gui, mouseX, mouseY);
     }
 
     @Override
-    protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY) {
-        drawString(matrixStack, Minecraft.getInstance().font, this.title, titleLabelX, titleLabelY, 0xffffff);
-        drawString(matrixStack, Minecraft.getInstance().font, TEXT_COLORS, 98, 22, 0xffffff);
-        drawString(matrixStack, Minecraft.getInstance().font, TEXT_FADE_COLORS, 98, 76, 0xffffff);
+    protected void renderLabels(GuiGraphics gui, int mouseX, int mouseY) {
+        gui.drawString(Minecraft.getInstance().font, this.title, titleLabelX, titleLabelY, 0xffffff);
+        gui.drawString(Minecraft.getInstance().font, TEXT_COLORS, 98, 22, 0xffffff);
+        gui.drawString(Minecraft.getInstance().font, TEXT_FADE_COLORS, 98, 76, 0xffffff);
     }
 
     @Override
-    public void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
+    public void renderBg(GuiGraphics gui, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShaderTexture(0, GUI);
-        this.blit(pPoseStack, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.imageWidth, this.imageHeight);
+        gui.blit(GUI, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.imageWidth, this.imageHeight);
     }
 
 

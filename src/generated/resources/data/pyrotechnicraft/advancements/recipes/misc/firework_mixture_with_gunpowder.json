@@ -30,5 +30,6 @@
     "recipes": [
       "pyrotechnicraft:firework_mixture_with_gunpowder"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

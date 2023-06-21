@@ -25,7 +25,7 @@ public record ServerboundFireworkOrbCraftingTablePacket(BlockPos craftingTablePo
         final var success = new AtomicBoolean(false);
         ctx.get().enqueueWork(() -> {
             if (ctx.get().getSender() != null
-            && ctx.get().getSender().getLevel().getBlockEntity(craftingTablePos)
+            && ctx.get().getSender().level().getBlockEntity(craftingTablePos)
                     instanceof FireworkOrbCraftingTableBlockEntity craftingTable){
                 craftingTable.craftFireworkOrb();
                 success.set(true);

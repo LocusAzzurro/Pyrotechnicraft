@@ -30,5 +30,6 @@
     "recipes": [
       "pyrotechnicraft:sphere_explosion_pattern"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

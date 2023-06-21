@@ -30,5 +30,6 @@
     "recipes": [
       "pyrotechnicraft:homing_array_script"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

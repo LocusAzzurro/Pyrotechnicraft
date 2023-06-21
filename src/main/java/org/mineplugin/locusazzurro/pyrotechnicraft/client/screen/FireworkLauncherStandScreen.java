@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.BlockPos;
@@ -56,24 +57,24 @@ public class FireworkLauncherStandScreen extends AbstractContainerScreen<Firewor
     }
 
     @Override
-    public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(matrixStack);
-        super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderTooltip(matrixStack, mouseX, mouseY);
+    public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(gui);
+        super.render(gui, mouseX, mouseY, partialTicks);
+        this.renderTooltip(gui, mouseX, mouseY);
     }
 
     @Override
-    protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY) {
-        drawString(matrixStack, FONT, this.title, titleLabelX, titleLabelY, 0xffffff);
-        drawCenteredString(matrixStack, FONT, String.valueOf(menu.getRotation()), 88, 66, 0xffffff);
-        drawCenteredString(matrixStack, FONT, String.valueOf(-menu.getAngle()), 88, 110, 0xffffff);
-        drawCenteredString(matrixStack, FONT, TEXT_ROTATION, 88, 46, 0xffffff);
-        drawCenteredString(matrixStack, FONT, TEXT_ANGLE, 88, 90, 0xffffff);
+    protected void renderLabels(GuiGraphics gui, int mouseX, int mouseY) {
+        gui.drawString(FONT, this.title, titleLabelX, titleLabelY, 0xffffff);
+        gui.drawCenteredString(FONT, String.valueOf(menu.getRotation()), 88, 66, 0xffffff);
+        gui.drawCenteredString(FONT, String.valueOf(-menu.getAngle()), 88, 110, 0xffffff);
+        gui.drawCenteredString(FONT, TEXT_ROTATION, 88, 46, 0xffffff);
+        gui. drawCenteredString(FONT, TEXT_ANGLE, 88, 90, 0xffffff);
     }
 
     @Override
-    protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
+    protected void renderBg(GuiGraphics gui, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShaderTexture(0, GUI);
-        this.blit(pPoseStack, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.imageWidth, this.imageHeight);
+        gui.blit(GUI, this.getGuiLeft(), this.getGuiTop(), 0, 0, this.imageWidth, this.imageHeight);
     }
 }

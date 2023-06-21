@@ -16,5 +16,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "pyrotechnicraft:blocks/firework_missile_crafting_table"
 }

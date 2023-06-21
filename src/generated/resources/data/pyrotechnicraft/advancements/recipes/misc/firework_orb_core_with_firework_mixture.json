@@ -30,5 +30,6 @@
     "recipes": [
       "pyrotechnicraft:firework_orb_core_with_firework_mixture"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

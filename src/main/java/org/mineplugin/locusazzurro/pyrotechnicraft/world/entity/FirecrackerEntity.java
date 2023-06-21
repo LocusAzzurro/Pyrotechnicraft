@@ -36,9 +36,9 @@ public class FirecrackerEntity extends ThrowableItemProjectile {
     @Override
     protected void onHit(HitResult pResult) {
         super.onHit(pResult);
-        if(!this.level.isClientSide){
-            boolean flag = ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
-            this.level.explode(null, this.getX(), this.getY(), this.getZ(), 2f, flag, Level.ExplosionInteraction.NONE);
+        if(!this.level().isClientSide){
+            boolean flag = ForgeEventFactory.getMobGriefingEvent(this.level(), this.getOwner());
+            this.level().explode(null, this.getX(), this.getY(), this.getZ(), 2f, flag, Level.ExplosionInteraction.NONE);
         }
         this.discard();
     }
@@ -46,8 +46,8 @@ public class FirecrackerEntity extends ThrowableItemProjectile {
     @Override
     public void tick() {
         super.tick();
-        if(this.level.isClientSide()){
-            this.level.addParticle(ParticleTypes.SMALL_FLAME, getX(), getY(), getZ(), 0, 0.05, 0);
+        if(this.level().isClientSide()){
+            this.level().addParticle(ParticleTypes.SMALL_FLAME, getX(), getY(), getZ(), 0, 0.05, 0);
         }
     }
 

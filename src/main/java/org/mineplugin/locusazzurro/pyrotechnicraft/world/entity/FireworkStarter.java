@@ -58,20 +58,20 @@ public class FireworkStarter extends Projectile {
         ListTag payloadList = payloadListWrap.getList("PayloadList", ListTag.TAG_COMPOUND);
         int fuseDelay = entityData.get(FUSE_DELAY);
         var owner = this.getOwner();
-        DamageSource damagesource = new DamageSource(this.level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypeRegistry.FIREWORK),
+        DamageSource damagesource = new DamageSource(this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypeRegistry.FIREWORK),
                 this, owner == null ? this : owner);
         if (!payloadList.isEmpty()){
             this.explosionVec = deserializeVec(entityData.get(VEC));
             if (fuseDelay > 0){
                 if (this.life % fuseDelay == 0 && this.life < fuseDelay * payloadList.size()) {
                     CompoundTag explosion = payloadList.getCompound(this.life / fuseDelay);
-                    if (level.isClientSide()){
-                        FireworkEngine.createFirework(level, position(), explosionVec, explosion);
+                    if (level().isClientSide()){
+                        FireworkEngine.createFirework(level(), position(), explosionVec, explosion);
                     }
-                    level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEventRegistry.FIREWORK_EXPLODE.get(), SoundSource.NEUTRAL,
-                            20.0F, 1.0F + level.random.nextFloat() * 0.1f - 0.05f);
+                    level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEventRegistry.FIREWORK_EXPLODE.get(), SoundSource.NEUTRAL,
+                            20.0F, 1.0F + level().random.nextFloat() * 0.1f - 0.05f);
                     double damage = calculateDamage(explosion);
-                    List<LivingEntity> targets = this.level.getEntitiesOfClass(LivingEntity.class,
+                    List<LivingEntity> targets = this.level().getEntitiesOfClass(LivingEntity.class,
                             new AABB(position().add(-2, -2, -2), position().add(2, 2, 2)));
                     targets.forEach(target -> target.hurt(damagesource, (float) damage));
                     //targets.forEach(target -> target.hurt(DamageSources.fireworkMissile(this.getOwner()), (float) damage));
@@ -82,14 +82,14 @@ public class FireworkStarter extends Projectile {
                 double totalDamage = 0;
                 for (int i = 0; i < payloadList.size(); i++){
                     CompoundTag explosion = payloadList.getCompound(i);
-                    if (level.isClientSide()){
-                        FireworkEngine.createFirework(level, position(), explosionVec, explosion);
+                    if (level().isClientSide()){
+                        FireworkEngine.createFirework(level(), position(), explosionVec, explosion);
                     }
                     totalDamage += calculateDamage(explosion);
                 }
-                level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEventRegistry.FIREWORK_EXPLODE.get(), SoundSource.NEUTRAL,
-                        20.0F, 1.0F + level.random.nextFloat() * (0.1f) - 0.05f);
-                List<LivingEntity> targets = this.level.getEntitiesOfClass(LivingEntity.class,
+                level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEventRegistry.FIREWORK_EXPLODE.get(), SoundSource.NEUTRAL,
+                        20.0F, 1.0F + level().random.nextFloat() * (0.1f) - 0.05f);
+                List<LivingEntity> targets = this.level().getEntitiesOfClass(LivingEntity.class,
                         new AABB(position().add(-2, -2, -2), position().add(2, 2, 2)));
                 double finalTotalDamage = totalDamage;
                 targets.forEach(target -> target.hurt(damagesource, (float) finalTotalDamage));

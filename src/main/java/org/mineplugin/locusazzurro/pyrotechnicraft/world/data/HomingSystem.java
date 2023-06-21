@@ -79,7 +79,7 @@ public final class HomingSystem {
         int steps = (int) (distance / stepDist);
         AABB aabb = new AABB(eyePos.add(hS, hS, hS), eyePos.add(-hS, -hS, -hS));
         for (int i = 0; i < steps; i++){
-            target = origin.level.getEntitiesOfClass(LivingEntity.class, aabb).stream()
+            target = origin.level().getEntitiesOfClass(LivingEntity.class, aabb).stream()
                     .filter(targetCandidate -> targetCandidate != origin && origin.hasLineOfSight(targetCandidate)
                             && predicate.test(targetCandidate)).findFirst();
             if (target.isPresent()) return target;
@@ -95,7 +95,7 @@ public final class HomingSystem {
         int steps = (int) (radius / step);
         AABB aabb = new AABB(step, step, step, -step, -step, -step).move(pos);
         for (int i = 0; i < steps; i++){
-            target = origin.level.getEntitiesOfClass(LivingEntity.class, aabb).stream()
+            target = origin.level().getEntitiesOfClass(LivingEntity.class, aabb).stream()
                     .filter(targetCandidate -> targetCandidate != origin
                             && predicate.test(targetCandidate)).findFirst();
             if (target.isPresent()) return target;
@@ -113,7 +113,7 @@ public final class HomingSystem {
         double hS = size / 2;
         for (int i = 0 ; i < depth; i++){
             AABB aabb = new AABB(hS,hS,hS,-hS,-hS,-hS).move(checkPos);
-            List<LivingEntity> entities = origin.level.getEntitiesOfClass(LivingEntity.class, aabb);
+            List<LivingEntity> entities = origin.level().getEntitiesOfClass(LivingEntity.class, aabb);
             for (LivingEntity entity : entities){
                 if (entity != origin && origin.hasLineOfSight(entity)) return entity;
             }

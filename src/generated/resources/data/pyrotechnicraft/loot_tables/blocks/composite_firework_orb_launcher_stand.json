@@ -16,5 +16,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "pyrotechnicraft:blocks/composite_firework_orb_launcher_stand"
 }

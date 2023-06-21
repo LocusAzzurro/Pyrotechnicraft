@@ -25,7 +25,7 @@ public record ServerboundFireworkLauncherStandTogglePacket(BlockPos launcherPos,
         final var success = new AtomicBoolean(false);
         ctx.get().enqueueWork(() -> {
             if (ctx.get().getSender() != null
-                    && ctx.get().getSender().getLevel().getBlockEntity(launcherPos)
+                    && ctx.get().getSender().level().getBlockEntity(launcherPos)
                     instanceof FireworkLauncherStandBlockEntity launcher){
                 launcher.setData(data, value);
                 success.set(true);

@@ -30,5 +30,6 @@
     "recipes": [
       "pyrotechnicraft:burst_explosion_pattern"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

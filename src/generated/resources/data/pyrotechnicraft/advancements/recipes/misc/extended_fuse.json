@@ -30,5 +30,6 @@
     "recipes": [
       "pyrotechnicraft:extended_fuse"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

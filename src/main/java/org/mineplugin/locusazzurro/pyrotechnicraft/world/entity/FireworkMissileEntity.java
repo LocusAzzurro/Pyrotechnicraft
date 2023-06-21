@@ -73,8 +73,8 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
     public void tick() {
         super.tick();
 
-        if (level.isClientSide()) {
-            level.addParticle(new TrailSparkParticleOption(entityData.get(SPARK_COLOR)), getX(), getY(), getZ(), 0, 0, 0);
+        if (level().isClientSide()) {
+            level().addParticle(new TrailSparkParticleOption(entityData.get(SPARK_COLOR)), getX(), getY(), getZ(), 0, 0, 0);
         }
 
         Vec3 mov = this.getDeltaMovement().normalize();
@@ -82,7 +82,7 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
 
         if (entityData.get(HOMING) && tickCount % 4 == 0 && life > HOMING_DELAY) {
             double[] movVec = new double[]{mov.x, mov.y, mov.z};
-            HomingSystem.getTargetById(level, targetUUID, targetNetworkId).ifPresentOrElse(target -> {
+            HomingSystem.getTargetById(level(), targetUUID, targetNetworkId).ifPresentOrElse(target -> {
                 if (target instanceof LivingEntity targetLiving && this.distanceTo(targetLiving) < 256) {
                     movVec[0] = target.getX() - this.getX();
                     movVec[1] = target.getY() - this.getY();
@@ -115,9 +115,9 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
         starterTag.putInt("FuseDelay", entityData.get(FUSE_DELAY));
         ListTag expList = entityData.get(PAYLOAD_LIST).getList("PayloadList", ListTag.TAG_COMPOUND);
         starterTag.put("PayloadList", expList);
-        FireworkStarter starter = new FireworkStarter(level, this.position(), starterTag, this.getDeltaMovement());
+        FireworkStarter starter = new FireworkStarter(level(), this.position(), starterTag, this.getDeltaMovement());
         starter.setOwner(this.getOwner());
-        level.addFreshEntity(starter);
+        level().addFreshEntity(starter);
         this.discard();
     }
 

@@ -30,5 +30,6 @@
     "recipes": [
       "pyrotechnicraft:firework_orb_core_with_gunpowder"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

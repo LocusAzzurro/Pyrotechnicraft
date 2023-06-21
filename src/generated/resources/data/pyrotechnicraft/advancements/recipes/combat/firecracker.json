@@ -30,5 +30,6 @@
     "recipes": [
       "pyrotechnicraft:firecracker"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
@@ -39,7 +38,7 @@ public class FireworkLauncherStand extends BaseEntityBlock {
 
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public FireworkLauncherStand() {
-        super(BlockBehaviour.Properties.of(Material.STONE));
+        super(BlockBehaviour.Properties.of());
         this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, Boolean.FALSE));
     }
 

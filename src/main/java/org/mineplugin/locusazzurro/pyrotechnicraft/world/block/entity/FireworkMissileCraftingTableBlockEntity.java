@@ -148,13 +148,13 @@ public class FireworkMissileCraftingTableBlockEntity extends BlockEntity {
 
                 ItemStack baseColorItem = handler.getStackInSlot(BASE_COLOR_SLOT_ID);
                 if (baseColorItem.getItem() instanceof DyeItem dye) {
-                    itemTag.putInt("BaseColor", dye.getDyeColor().getMaterialColor().col);
+                    itemTag.putInt("BaseColor", dye.getDyeColor().getFireworkColor()); //TODO float texture diffuse color processor
                     handler.extractItem(BASE_COLOR_SLOT_ID, 1, false);
                 }
 
                 ItemStack patternColorItem = handler.getStackInSlot(PATTERN_COLOR_SLOT_ID);
                 if (patternColorItem.getItem() instanceof DyeItem dye) {
-                    itemTag.putInt("PatternColor", dye.getDyeColor().getMaterialColor().col);
+                    itemTag.putInt("PatternColor", dye.getDyeColor().getFireworkColor());
                     handler.extractItem(PATTERN_COLOR_SLOT_ID, 1, false);
                 }
             }

@@ -22,7 +22,7 @@ public record ServerboundFireworkMissileCraftingTablePacket(BlockPos craftingTab
         final var success = new AtomicBoolean(false);
         ctx.get().enqueueWork(() -> {
             if (ctx.get().getSender() != null
-                    && ctx.get().getSender().getLevel().getBlockEntity(craftingTablePos)
+                    && ctx.get().getSender().level().getBlockEntity(craftingTablePos)
                     instanceof FireworkMissileCraftingTableBlockEntity craftingTable){
                 craftingTable.craftFireworkMissile();
                 success.set(true);

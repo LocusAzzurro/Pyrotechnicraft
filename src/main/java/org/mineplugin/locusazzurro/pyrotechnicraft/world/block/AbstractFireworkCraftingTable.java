@@ -10,17 +10,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.CapabilityItemHandler;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public abstract class AbstractFireworkCraftingTable extends Block implements EntityBlock {
 
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public AbstractFireworkCraftingTable() {
-        super(Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(1.5f));
+        super(Properties.of().sound(SoundType.WOOD).mapColor(MapColor.WOOD).strength(1.5f));
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
