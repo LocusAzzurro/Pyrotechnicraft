@@ -1,34 +1,24 @@
 {
-  "credit": "Made with Blockbench",
-  "loader": "forge:obj",
-  "model": "pyrotechnicraft:models/item/firework_launcher.obj",
-  "flip-v": true,
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "pyrotechnicraft:item/firework_launcher"
+  },
   "display": {
-    "thirdperson_righthand": {
-      "translation": [7.2,3.5,16.5]
-    },
-    "thirdperson_lefthand": {
-      "translation": [-7.2,3.5,16.5]
-    },
-    "firstperson_righthand": {
-      "translation": [10,4,9]
-    },
-    "firstperson_lefthand": {
-      "translation": [-1,4,9]
-    },
-    "gui": {
-      "rotation": [105,-45,105],
-      "translation": [-8,-8,0],
-      "scale": [0.7,0.7,0.7]
-    },
-    "ground": {
-      "translation": [4.5,1,6.5],
-      "scale": [0.4,0.4,0.4]
-    },
-    "fixed": {
-      "rotation": [0,90,0],
-      "translation": [9,0,-7],
-      "scale": [0.6,0.6,0.6]
-    }
+  "thirdperson_righthand": {
+    "rotation": [0, 90, -45],
+    "translation": [0,2,0]
+  },
+  "thirdperson_lefthand": {
+    "rotation": [0, -90, 45],
+    "translation": [0,2,0]
+  },
+  "firstperson_righthand": {
+    "rotation": [0, 90, -45],
+    "translation": [4,3,0]
+  },
+  "firstperson_lefthand": {
+    "rotation": [0, -90, 45],
+    "translation": [4,3,0]
   }
+}
 }
