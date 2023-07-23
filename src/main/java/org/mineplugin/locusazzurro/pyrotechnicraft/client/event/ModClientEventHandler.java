@@ -49,6 +49,7 @@ public class ModClientEventHandler {
         registerEntityRenderer(EntityTypeRegistry.FIREWORK_MISSILE.get(), PatternedFireworkMissileRenderer::new);
         registerEntityRenderer(EntityTypeRegistry.FIREWORK_STARTER.get(), FireworkStarterRenderer::new);
         registerEntityRenderer(EntityTypeRegistry.FIRECRACKER.get(), ThrownItemRenderer::new);
+        registerEntityRenderer(EntityTypeRegistry.FIREWORK_ORB.get(), ThrownItemRenderer::new);
     }
 
     @SubscribeEvent
