@@ -1,6 +1,8 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.world.item;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -19,6 +21,8 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.SoundEventRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FireworkEngine;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.data.FireworkWrapper;
+
+import java.util.List;
 
 public class FlickerStick extends Item{
 
@@ -44,24 +48,25 @@ public class FlickerStick extends Item{
         super.inventoryTick(pStack, pLevel, pEntity, pSlotId, pIsSelected);
         CompoundTag tag = pStack.getOrCreateTag();
         if (tag.getBoolean("Ignited")) {
-            /*
-            if (!pLevel.isClientSide() && pEntity instanceof LivingEntity livingEntity) {
-                pStack.hurtAndBreak(1, livingEntity, entity -> {});
-            }
-            else {
-                int color = tag.contains("SparkColor") ? tag.getInt("SparkColor") : 0xffffff;
-                pLevel.addParticle(new TrailSparkParticleOption(color),
-                        pEntity.getX(), pEntity.getY() + 1, pEntity.getZ(), 0, 0, 0);
-            }
-
-             */
             if (pEntity instanceof LivingEntity livingEntity) {
                 int color = tag.contains("SparkColor") ? tag.getInt("SparkColor") : 0xffffff;
                 pStack.hurtAndBreak(1, livingEntity, entity -> {});
+                if (!pLevel.isClientSide()){
+                    ServerLevel serverLevel = (ServerLevel) pLevel;
+                    List<ServerPlayer> players = serverLevel.players();
+                    for (ServerPlayer player : players) {
+                        serverLevel.sendParticles(player, new TrailSparkParticleOption(color), false, pEntity.getX(), pEntity.getY() + 1, pEntity.getZ(), 1, 0.0 ,0.0 ,0.0, 0.0);
+                    }
+
+                }
+
+                /*
                 if (pLevel.isClientSide()) {
                     pLevel.addParticle(new TrailSparkParticleOption(color),
                             pEntity.getX(), pEntity.getY() + 1, pEntity.getZ(), 0, 0, 0);
                 }
+
+                 */
             }
         }
     }
