@@ -58,8 +58,10 @@ public class FlickerStick extends Item{
             if (pEntity instanceof LivingEntity livingEntity) {
                 int color = tag.contains("SparkColor") ? tag.getInt("SparkColor") : 0xffffff;
                 pStack.hurtAndBreak(1, livingEntity, entity -> {});
-                pLevel.addParticle(new TrailSparkParticleOption(color),
-                        pEntity.getX(), pEntity.getY() + 1, pEntity.getZ(), 0, 0, 0);
+                if (pLevel.isClientSide()) {
+                    pLevel.addParticle(new TrailSparkParticleOption(color),
+                            pEntity.getX(), pEntity.getY() + 1, pEntity.getZ(), 0, 0, 0);
+                }
             }
         }
     }

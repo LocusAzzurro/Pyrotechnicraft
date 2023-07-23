@@ -62,7 +62,7 @@ public class FireworkStarter extends Projectile {
                 this, owner == null ? this : owner);
         if (!payloadList.isEmpty()){
             this.explosionVec = deserializeVec(entityData.get(VEC));
-            if (fuseDelay > 0){
+            if (fuseDelay > 0){ // NON-INSTANT
                 if (this.life % fuseDelay == 0 && this.life < fuseDelay * payloadList.size()) {
                     CompoundTag explosion = payloadList.getCompound(this.life / fuseDelay);
                     if (level().isClientSide()){
@@ -78,7 +78,7 @@ public class FireworkStarter extends Projectile {
                 }
                 if (this.life > fuseDelay * payloadList.size() + 10) this.discard();
             }
-            else {
+            else { // INSTANT
                 double totalDamage = 0;
                 for (int i = 0; i < payloadList.size(); i++){
                     CompoundTag explosion = payloadList.getCompound(i);

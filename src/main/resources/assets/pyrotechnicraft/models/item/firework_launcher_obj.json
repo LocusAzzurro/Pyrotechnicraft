@@ -2,7 +2,7 @@
   "credit": "Made with Blockbench",
   "loader": "forge:obj",
   "model": "pyrotechnicraft:models/item/firework_launcher.obj",
-  "flip-v": true,
+  "flip_v": true,
   "display": {
     "thirdperson_righthand": {
       "translation": [7.2,3.5,16.5]
