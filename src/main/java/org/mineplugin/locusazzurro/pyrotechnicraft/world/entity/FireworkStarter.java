@@ -30,6 +30,7 @@ public class FireworkStarter extends Projectile {
     private static final EntityDataAccessor<CompoundTag> PAYLOAD_LIST = SynchedEntityData.defineId(FireworkStarter.class, EntityDataSerializers.COMPOUND_TAG);
     private static final EntityDataAccessor<Integer> FUSE_DELAY = SynchedEntityData.defineId(FireworkStarter.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<CompoundTag> VEC = SynchedEntityData.defineId(FireworkStarter.class, EntityDataSerializers.COMPOUND_TAG);
+    private static float VOLUME = 8.0f;
     private int life;
     private Vec3 explosionVec;
 
@@ -69,7 +70,7 @@ public class FireworkStarter extends Projectile {
                         FireworkEngine.createFirework(level(), position(), explosionVec, explosion);
                     }
                     level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEventRegistry.FIREWORK_EXPLODE.get(), SoundSource.NEUTRAL,
-                            20.0F, 1.0F + level().random.nextFloat() * 0.1f - 0.05f);
+                            VOLUME, 1.0F + level().random.nextFloat() * 0.1f - 0.05f);
                     double damage = calculateDamage(explosion);
                     List<LivingEntity> targets = this.level().getEntitiesOfClass(LivingEntity.class,
                             new AABB(position().add(-2, -2, -2), position().add(2, 2, 2)));
@@ -88,7 +89,7 @@ public class FireworkStarter extends Projectile {
                     totalDamage += calculateDamage(explosion);
                 }
                 level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEventRegistry.FIREWORK_EXPLODE.get(), SoundSource.NEUTRAL,
-                        20.0F, 1.0F + level().random.nextFloat() * (0.1f) - 0.05f);
+                        VOLUME, 1.0F + level().random.nextFloat() * (0.1f) - 0.05f);
                 List<LivingEntity> targets = this.level().getEntitiesOfClass(LivingEntity.class,
                         new AABB(position().add(-2, -2, -2), position().add(2, 2, 2)));
                 double finalTotalDamage = totalDamage;

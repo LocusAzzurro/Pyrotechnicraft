@@ -55,7 +55,9 @@ public class FlickerStick extends Item{
                     ServerLevel serverLevel = (ServerLevel) pLevel;
                     List<ServerPlayer> players = serverLevel.players();
                     for (ServerPlayer player : players) {
-                        serverLevel.sendParticles(player, new TrailSparkParticleOption(color), false, pEntity.getX(), pEntity.getY() + 1, pEntity.getZ(), 1, 0.0 ,0.0 ,0.0, 0.0);
+                        serverLevel.sendParticles(player, new TrailSparkParticleOption(color), false,
+                                pEntity.getX(), pEntity.getY() + 1, pEntity.getZ(),
+                                1, 0.0 ,0.0 ,0.0, 0.0);
                     }
 
                 }
