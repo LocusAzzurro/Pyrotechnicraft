@@ -3,6 +3,7 @@ package org.mineplugin.locusazzurro.pyrotechnicraft.data;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -18,6 +19,9 @@ public class CreativeTabRegistry {
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.pyrotechnicraft"))
                     .icon(ItemRegistry.FIREWORK_MISSILE.get()::getDefaultInstance)
+                    .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
+                    .withLabelColor(0xa93254)
+                    .withSlotColor(0xbfbecf)
                     .displayItems((displayParameters, output) -> ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(output::accept))
                     .build());
 
