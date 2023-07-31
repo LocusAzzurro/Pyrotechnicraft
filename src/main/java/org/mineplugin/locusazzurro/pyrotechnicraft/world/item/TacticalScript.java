@@ -1,6 +1,8 @@
 package org.mineplugin.locusazzurro.pyrotechnicraft.world.item;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
@@ -11,8 +13,10 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import org.mineplugin.locusazzurro.pyrotechnicraft.Pyrotechnicraft;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ItemRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.SoundEventRegistry;
@@ -21,6 +25,7 @@ import org.mineplugin.locusazzurro.pyrotechnicraft.world.entity.FireworkMissileE
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TacticalScript extends Item{
@@ -140,14 +145,36 @@ public class TacticalScript extends Item{
         return item;
     }
 
+    @Override
+    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
+        CompoundTag tag = itemStack.getOrCreateTag();
+        TacticalScriptType type = TacticalScriptType.byName(tag.getString("Type"));
+        int requiredMissiles = tag.getInt("RequiredMissiles");
+        int multiplier = tag.getInt("Multiplier");
+        if (type == TacticalScriptType.NONE || requiredMissiles <= 0 || multiplier <= 0)
+            components.add(Component.literal("==[❌][1][x1]==").withStyle(ChatFormatting.OBFUSCATED).withStyle(ChatFormatting.GRAY));
+        else
+            components.add(Component.literal("==").withStyle(ChatFormatting.GRAY)
+                .append(Component.literal("[" + type.symbol + "]").withStyle(ChatFormatting.RED))
+                .append(Component.literal("[" + requiredMissiles + "]").withStyle(ChatFormatting.YELLOW))
+                .append(Component.literal("[x" + multiplier + "]").withStyle(ChatFormatting.GOLD))
+                .append(Component.literal("==").withStyle(ChatFormatting.GRAY)));
+    }
+
     public enum TacticalScriptType{
-        SCATTER("scatter"), SHOWER("shower"), RING("ring"), CLUSTER("cluster"), NONE("none");
+        SCATTER("scatter", '❋'),
+        SHOWER("shower", '▶'),
+        RING("ring", '○'),
+        CLUSTER("cluster", '✦'),
+        NONE("none", '❌');
 
         final String name;
+        final char symbol;
         private static final Map<String, TacticalScriptType> MAP;
 
-        TacticalScriptType(String name){
+        TacticalScriptType(String name, char symbol){
             this.name = name;
+            this.symbol = symbol;
         }
 
         public static TacticalScriptType byName(String name){
