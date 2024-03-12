@@ -39,6 +39,7 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
     private static final EntityDataAccessor<Integer> BASE_COLOR = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> PATTERN_COLOR = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SPARK_COLOR = SynchedEntityData.defineId(FireworkMissileEntity.class, EntityDataSerializers.INT);
+    public static final double DELTA_MOD = 0.9;
     private int life = 0;
     private static final int HOMING_DELAY = 5;
     private UUID targetUUID;
@@ -97,7 +98,7 @@ public class FireworkMissileEntity extends AbstractHurtingProjectile {
         }
 
         double speed = entityData.get(SPEED);
-        double delta = Mth.clamp(0.5 * (-Math.log10(speed) + 1), 0.05, 0.95);
+        double delta = Mth.clamp(DELTA_MOD * (-Math.log10(speed) + 1), 0.05, 0.95);
         Vec3 resultMov = targetedMov.equals(mov) ? mov : mov.lerp(targetedMov, delta);
         this.setDeltaMovement(resultMov.scale(entityData.get(SPEED)));
 
