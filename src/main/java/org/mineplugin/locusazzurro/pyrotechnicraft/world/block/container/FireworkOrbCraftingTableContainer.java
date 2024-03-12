@@ -36,7 +36,7 @@ public class FireworkOrbCraftingTableContainer extends AbstractFireworkContainer
     public static final int FADE_COLOR_SLOT_ID_START = FireworkOrbCraftingTableBlockEntity.FADE_COLOR_SLOT_ID_START; //15
     public static final int FADE_COLOR_SLOT_ID_END = FireworkOrbCraftingTableBlockEntity.FADE_COLOR_SLOT_ID_END; //22
     public static final int OUTPUT_SLOT_ID = FireworkOrbCraftingTableBlockEntity.OUTPUT_SLOT_ID; //23
-    public static final int INV_SLOT_START = 24;
+    private static final int INV_SLOT_START = 24;
     private static final int INV_SLOT_END = 51;
     private static final int USE_ROW_SLOT_START = 51;
     private static final int USE_ROW_SLOT_END = 60;

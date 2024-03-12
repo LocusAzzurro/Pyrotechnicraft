@@ -5,17 +5,36 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
+import org.jetbrains.annotations.NotNull;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.BlockRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ContainerTypeRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.entity.FireworkMissileCraftingTableBlockEntity;
+import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.entity.FireworkOrbCraftingTableBlockEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class FireworkMissileCraftingTableContainer extends AbstractFireworkContainer implements IFireworkCraftingTableContainer {
+
+    public static final int HOMING_MODULE_SLOT_ID = FireworkMissileCraftingTableBlockEntity.HOMING_MODULE_SLOT_ID; //0
+    public static final int FUSE_SLOT_ID = FireworkMissileCraftingTableBlockEntity.FUSE_SLOT_ID; //1
+    public static final int STAR_SLOT_ID_START = FireworkMissileCraftingTableBlockEntity.STAR_SLOT_ID_START; //2
+    public static final int STAR_SLOT_ID_END = FireworkMissileCraftingTableBlockEntity.STAR_SLOT_ID_END; //9
+    public static final int SPEED_SLOT_ID = FireworkMissileCraftingTableBlockEntity.SPEED_SLOT_ID; //10
+    public static final int FLIGHT_TIME_SLOT_ID = FireworkMissileCraftingTableBlockEntity.FLIGHT_TIME_SLOT_ID; //11
+    public static final int SPARK_COLOR_SLOT_ID = FireworkMissileCraftingTableBlockEntity.SPARK_COLOR_SLOT_ID; //12
+    public static final int WRAPPING_PAPER_SLOT_ID = FireworkMissileCraftingTableBlockEntity.WRAPPING_PAPER_SLOT_ID ; //13
+    public static final int BASE_COLOR_SLOT_ID = FireworkMissileCraftingTableBlockEntity.BASE_COLOR_SLOT_ID; //14;
+    public static final int PATTERN_COLOR_SLOT_ID = FireworkMissileCraftingTableBlockEntity.PATTERN_COLOR_SLOT_ID; //15;
+    public static final int OUTPUT_SLOT_ID = FireworkMissileCraftingTableBlockEntity.OUTPUT_SLOT_ID; //16
+    private static final int INV_SLOT_START = 17;
+    private static final int INV_SLOT_END = 44;
+    private static final int USE_ROW_SLOT_START = 44;
+    private static final int USE_ROW_SLOT_END = 53;
 
     private ModuleSlot moduleSlot;
     private FuseSlot fuseSlot;
@@ -37,6 +56,72 @@ public class FireworkMissileCraftingTableContainer extends AbstractFireworkConta
     @Override
     public boolean stillValid(Player pPlayer) {
         return stillValid(ContainerLevelAccess.create(blockEntity.getLevel(), blockEntity.getBlockPos()), playerEntity, BlockRegistry.FIREWORK_MISSILE_CRAFTING_TABLE.get());
+    }
+
+    @Override
+    public @NotNull ItemStack quickMoveStack(Player pPlayer, int pIndex) {
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(pIndex);
+
+        if (slot.hasItem()){
+            ItemStack slotItem = slot.getItem();
+            itemstack = slotItem.copy();
+            if (pIndex == OUTPUT_SLOT_ID) {
+                if (!this.moveItemStackTo(slotItem, INV_SLOT_START, USE_ROW_SLOT_END, true)) {
+                    return ItemStack.EMPTY;
+                }
+                slot.onQuickCraft(slotItem, itemstack);
+            }
+            else if (pIndex > OUTPUT_SLOT_ID || pIndex < HOMING_MODULE_SLOT_ID){
+                if (FireworkMissileCraftingTableBlockEntity.isHomingModule.test(slotItem)){
+                    if (!this.moveItemStackTo(slotItem, HOMING_MODULE_SLOT_ID, HOMING_MODULE_SLOT_ID + 1, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+                if (FireworkMissileCraftingTableBlockEntity.isFuseItem.test(slotItem)){
+                    if (!this.moveItemStackTo(slotItem, FUSE_SLOT_ID, FUSE_SLOT_ID + 1, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+                if (FireworkMissileCraftingTableBlockEntity.isOrbOrStar.test(slotItem)){
+                    if (!this.moveItemStackTo(slotItem, STAR_SLOT_ID_START, STAR_SLOT_ID_END + 1, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+                if (FireworkMissileCraftingTableBlockEntity.isFireworkMixture.test(slotItem)){
+                    if (!this.moveItemStackTo(slotItem, SPEED_SLOT_ID, FLIGHT_TIME_SLOT_ID + 1, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+                if (FireworkMissileCraftingTableBlockEntity.isWrappingPaper.test(slotItem)){
+                    if (!this.moveItemStackTo(slotItem, WRAPPING_PAPER_SLOT_ID, WRAPPING_PAPER_SLOT_ID + 1, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+                if (FireworkMissileCraftingTableBlockEntity.isColorItem.test(slotItem)){
+                    if (!this.moveItemStackTo(slotItem, SPARK_COLOR_SLOT_ID, PATTERN_COLOR_SLOT_ID + 1, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+            }
+            else if (!this.moveItemStackTo(slotItem, INV_SLOT_START, USE_ROW_SLOT_END, false)) {
+                return ItemStack.EMPTY;
+            }
+
+            if (slotItem.isEmpty()) {
+                slot.set(ItemStack.EMPTY);
+            } else {
+                slot.setChanged();
+            }
+
+            if (slotItem.getCount() == itemstack.getCount()) {
+                return ItemStack.EMPTY;
+            }
+
+            slot.onTake(pPlayer, slotItem);
+        }
+
+        return itemstack;
     }
 
     @Override
