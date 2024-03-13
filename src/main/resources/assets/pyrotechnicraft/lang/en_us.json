@@ -61,7 +61,6 @@
   "screen.pyrotechnicraft.firework_missile_crafting_table.desc.wrapping_paper_slot": "Add Wrapping Paper",
   "screen.pyrotechnicraft.firework_missile_crafting_table.desc.base_color_slot": "Add Dye Item to control Missile Base Color",
   "screen.pyrotechnicraft.firework_missile_crafting_table.desc.pattern_color_slot": "Add Dye Item to control Missile Pattern Color",
-
   "screen.pyrotechnicraft.firework_crafting_table.button.craft": "Craft",
   "screen.pyrotechnicraft.firework_launcher_stand.label.rotation": "Rotation",
   "screen.pyrotechnicraft.firework_launcher_stand.label.angle": "Angle",
