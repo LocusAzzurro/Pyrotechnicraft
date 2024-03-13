@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "item": "minecraft:comparator"
+    },
+    "D": {
+      "item": "minecraft:dispenser"
+    },
+    "F": {
+      "item": "minecraft:flint_and_steel"
+    }
+  },
+  "pattern": [
+    "C",
+    "D",
+    "F"
+  ],
+  "result": {
+    "item": "pyrotechnicraft:firework_launcher_stand"
+  },
+  "show_notification": true
+}

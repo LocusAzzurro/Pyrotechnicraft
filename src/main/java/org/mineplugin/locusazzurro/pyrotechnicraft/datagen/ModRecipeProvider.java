@@ -192,6 +192,15 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("C")
                 .unlockedBy("has_firework_orb", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.FIREWORK_ORB_CORE.get()))
                 .save(pFinishedRecipeConsumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ItemRegistry.FIREWORK_LAUNCHER_STAND.get(), 1)
+                .define('C', Items.COMPARATOR)
+                .define('D', Items.DISPENSER)
+                .define('F', Items.FLINT_AND_STEEL)
+                .pattern("C")
+                .pattern("D")
+                .pattern("F")
+                .unlockedBy("has_firework_missile", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.FIREWORK_MISSILE.get()))
+                .save(pFinishedRecipeConsumer);
     }
 
     private static String getIngredientRecipeName(ItemLike pResult, ItemLike pIngredient) {

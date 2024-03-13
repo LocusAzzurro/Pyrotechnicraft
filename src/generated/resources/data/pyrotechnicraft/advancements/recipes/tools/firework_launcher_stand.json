@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_firework_missile": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pyrotechnicraft:firework_missile"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "pyrotechnicraft:firework_launcher_stand"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_firework_missile",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "pyrotechnicraft:firework_launcher_stand"
+    ]
+  },
+  "sends_telemetry_event": false
+}
