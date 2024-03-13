@@ -3,21 +3,28 @@ package org.mineplugin.locusazzurro.pyrotechnicraft.world.block.container;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.DataSlot;
-import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import org.jetbrains.annotations.NotNull;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.BlockRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.data.ContainerTypeRegistry;
 import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.entity.FireworkLauncherStandBlockEntity;
+import org.mineplugin.locusazzurro.pyrotechnicraft.world.block.entity.FireworkMissileCraftingTableBlockEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FireworkLauncherStandContainer extends AbstractFireworkContainer{
+
+    public static final int SLOT_ID_START = FireworkLauncherStandBlockEntity.SLOT_ID_START; //0
+    public static final int SLOT_ID_END = FireworkLauncherStandBlockEntity.SLOT_ID_END; //9
+    private static final int INV_SLOT_START = 9;
+    private static final int INV_SLOT_END = 36;
+    private static final int USE_ROW_SLOT_START = 36;
+    private static final int USE_ROW_SLOT_END = 45;
 
     private final ContainerData data;
     private DataSlot rotationData;
@@ -36,6 +43,41 @@ public class FireworkLauncherStandContainer extends AbstractFireworkContainer{
         this.angleData = DataSlot.forContainer(data, 1);
         this.addDataSlot(angleData);
         layoutPlayerInventorySlots(8, 140);
+    }
+
+    @Override
+    public @NotNull ItemStack quickMoveStack(Player pPlayer, int pIndex) {
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(pIndex);
+
+        if (slot.hasItem()){
+            ItemStack slotItem = slot.getItem();
+            itemstack = slotItem.copy();
+            if (pIndex > SLOT_ID_END || pIndex < SLOT_ID_START){
+                if (FireworkLauncherStandBlockEntity.isMissileOrRocket.test(slotItem)){
+                    if (!this.moveItemStackTo(slotItem, SLOT_ID_START, SLOT_ID_END + 1, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+            }
+            else if (!this.moveItemStackTo(slotItem, INV_SLOT_START, USE_ROW_SLOT_END, false)) {
+                return ItemStack.EMPTY;
+            }
+
+            if (slotItem.isEmpty()) {
+                slot.set(ItemStack.EMPTY);
+            } else {
+                slot.setChanged();
+            }
+
+            if (slotItem.getCount() == itemstack.getCount()) {
+                return ItemStack.EMPTY;
+            }
+
+            slot.onTake(pPlayer, slotItem);
+        }
+
+        return itemstack;
     }
 
     private void addFireworkSlots(IItemHandler handler, int xo, int yo) {
